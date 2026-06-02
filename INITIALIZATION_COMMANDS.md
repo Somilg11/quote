@@ -14,7 +14,7 @@ Configuration:
 
 ## Step 2: Install Core Dependencies
 ```bash
-pnpm add prisma @prisma/client next-auth @auth/prisma-adapter bcryptjs @liveblocks/client @liveblocks/react @liveblocks/react-ui @liveblocks/react-tiptap @tiptap/react @tiptap/pm @tiptap/starter-kit nodemailer resend
+pnpm add prisma @prisma/client next-auth @auth/prisma-adapter bcryptjs @liveblocks/client @liveblocks/react @liveblocks/react-ui @liveblocks/react-tiptap @tiptap/react @tiptap/pm @tiptap/starter-kit nodemailer
 ```
 
 ## Step 3: Install TipTap Extensions for Real-Time Editing
@@ -200,7 +200,8 @@ NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET=""
 NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY="pk_placeholder" (← Need to update)
 LIVEBLOCKS_SECRET_KEY="sk_placeholder" (← Need to update)
-RESEND_API_KEY="re_placeholder" (← Optional)
+GMAIL_EMAIL="your-email@gmail.com" (← Optional)
+GMAIL_APP_PASSWORD="your-app-password" (← Optional)
 ```
 
 ## Build Command

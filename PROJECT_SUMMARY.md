@@ -260,8 +260,8 @@ Before going to production, update these:
    - Update `metadata.title` and `metadata.description`
 
 2. **Email Invitations** (Optional)
-   - Uncomment email sending in `/api/invites/route.ts`
-   - Set up Resend or your email service
+   - Set up Gmail App Password for SMTP
+   - Add GMAIL_EMAIL and GMAIL_APP_PASSWORD to environment variables
 
 3. **Liveblocks Configuration**
    - Add proper user resolution in `components/providers/liveblocks-provider.tsx`

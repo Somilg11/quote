@@ -1,6 +1,12 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.GMAIL_EMAIL,
+    pass: process.env.GMAIL_APP_PASSWORD,
+  },
+});
 
 export async function sendInviteEmail(
   email: string,
@@ -8,8 +14,8 @@ export async function sendInviteEmail(
   inviteUrl: string
 ) {
   try {
-    const { data, error } = await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
+    const info = await transporter.sendMail({
+      from: process.env.GMAIL_EMAIL,
       to: email,
       subject: `You're invited to join ${workspaceName}`,
       html: `
@@ -24,13 +30,8 @@ export async function sendInviteEmail(
       `,
     });
 
-    if (error) {
-      console.error("[email] Failed to send email:", error);
-      throw error;
-    }
-
-    console.log("[email] Email sent successfully:", data);
-    return data;
+    console.log("[email] Email sent successfully:", info.messageId);
+    return info;
   } catch (error) {
     console.error("[email] Error sending email:", error);
     throw error;

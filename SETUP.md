@@ -191,7 +191,10 @@ NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY="pk_xxxx"
 LIVEBLOCKS_SECRET_KEY="sk_xxxx"
 
 # Email (optional, for invitations)
-RESEND_API_KEY="re_xxxx"
+# Generate App-Specific Password at: https://myaccount.google.com/apppasswords
+# Requires 2FA to be enabled on your Google account
+GMAIL_EMAIL="your-email@gmail.com"
+GMAIL_APP_PASSWORD="xxxx xxxx xxxx xxxx"
 ```
 
 The `NEXTAUTH_SECRET` has been generated and set to: `IjuiUD13Z9T3cumBBhqIuD+SeEkgar3XuKf2q1cdM2I=`

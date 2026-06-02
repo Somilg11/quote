@@ -78,8 +78,7 @@ Quote is a modern document collaboration platform that enables users to create, 
 | 🔐 NextAuth               | Authentication       |
 | 🗄️ Prisma ORM            | Database Access      |
 | 🐘 PostgreSQL             | Database             |
-| 📧 Nodemailer             | Email Services       |
-| ✉️ Resend                 | Transactional Emails |
+| 📧 Nodemailer             | Email Services (Gmail SMTP) |
 
 ---
 
@@ -207,10 +206,9 @@ NEXTAUTH_SECRET=
 
 LIVEBLOCKS_SECRET_KEY=
 
-RESEND_API_KEY=
-
-EMAIL_SERVER=
-EMAIL_FROM=
+# Generate App-Specific Password at: https://myaccount.google.com/apppasswords
+GMAIL_EMAIL=
+GMAIL_APP_PASSWORD=
 ```
 
 ---
