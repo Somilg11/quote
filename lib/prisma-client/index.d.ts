@@ -1615,6 +1615,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type PageCountOutputType
+   */
+
+  export type PageCountOutputType = {
+    children: number
+  }
+
+  export type PageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    children?: boolean | PageCountOutputTypeCountChildrenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PageCountOutputType without action
+   */
+  export type PageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageCountOutputType
+     */
+    select?: PageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PageCountOutputType without action
+   */
+  export type PageCountOutputTypeCountChildrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PageWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -9396,6 +9427,9 @@ export namespace Prisma {
     icon: string | null
     workspaceId: string | null
     createdById: string | null
+    parentId: string | null
+    shareType: string | null
+    shareToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9408,6 +9442,9 @@ export namespace Prisma {
     icon: string | null
     workspaceId: string | null
     createdById: string | null
+    parentId: string | null
+    shareType: string | null
+    shareToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9420,6 +9457,9 @@ export namespace Prisma {
     icon: number
     workspaceId: number
     createdById: number
+    parentId: number
+    shareType: number
+    shareToken: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9434,6 +9474,9 @@ export namespace Prisma {
     icon?: true
     workspaceId?: true
     createdById?: true
+    parentId?: true
+    shareType?: true
+    shareToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9446,6 +9489,9 @@ export namespace Prisma {
     icon?: true
     workspaceId?: true
     createdById?: true
+    parentId?: true
+    shareType?: true
+    shareToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9458,6 +9504,9 @@ export namespace Prisma {
     icon?: true
     workspaceId?: true
     createdById?: true
+    parentId?: true
+    shareType?: true
+    shareToken?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -9543,6 +9592,9 @@ export namespace Prisma {
     icon: string | null
     workspaceId: string
     createdById: string | null
+    parentId: string | null
+    shareType: string
+    shareToken: string | null
     createdAt: Date
     updatedAt: Date
     _count: PageCountAggregateOutputType | null
@@ -9572,10 +9624,16 @@ export namespace Prisma {
     icon?: boolean
     workspaceId?: boolean
     createdById?: boolean
+    parentId?: boolean
+    shareType?: boolean
+    shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     createdBy?: boolean | Page$createdByArgs<ExtArgs>
+    parent?: boolean | Page$parentArgs<ExtArgs>
+    children?: boolean | Page$childrenArgs<ExtArgs>
+    _count?: boolean | PageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["page"]>
 
   export type PageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9586,10 +9644,14 @@ export namespace Prisma {
     icon?: boolean
     workspaceId?: boolean
     createdById?: boolean
+    parentId?: boolean
+    shareType?: boolean
+    shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     createdBy?: boolean | Page$createdByArgs<ExtArgs>
+    parent?: boolean | Page$parentArgs<ExtArgs>
   }, ExtArgs["result"]["page"]>
 
   export type PageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9600,10 +9662,14 @@ export namespace Prisma {
     icon?: boolean
     workspaceId?: boolean
     createdById?: boolean
+    parentId?: boolean
+    shareType?: boolean
+    shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     createdBy?: boolean | Page$createdByArgs<ExtArgs>
+    parent?: boolean | Page$parentArgs<ExtArgs>
   }, ExtArgs["result"]["page"]>
 
   export type PageSelectScalar = {
@@ -9614,22 +9680,30 @@ export namespace Prisma {
     icon?: boolean
     workspaceId?: boolean
     createdById?: boolean
+    parentId?: boolean
+    shareType?: boolean
+    shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "content" | "icon" | "workspaceId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["page"]>
+  export type PageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "content" | "icon" | "workspaceId" | "createdById" | "parentId" | "shareType" | "shareToken" | "createdAt" | "updatedAt", ExtArgs["result"]["page"]>
   export type PageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     createdBy?: boolean | Page$createdByArgs<ExtArgs>
+    parent?: boolean | Page$parentArgs<ExtArgs>
+    children?: boolean | Page$childrenArgs<ExtArgs>
+    _count?: boolean | PageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     createdBy?: boolean | Page$createdByArgs<ExtArgs>
+    parent?: boolean | Page$parentArgs<ExtArgs>
   }
   export type PageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     createdBy?: boolean | Page$createdByArgs<ExtArgs>
+    parent?: boolean | Page$parentArgs<ExtArgs>
   }
 
   export type $PagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9637,6 +9711,8 @@ export namespace Prisma {
     objects: {
       workspace: Prisma.$WorkspacePayload<ExtArgs>
       createdBy: Prisma.$UserPayload<ExtArgs> | null
+      parent: Prisma.$PagePayload<ExtArgs> | null
+      children: Prisma.$PagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9646,6 +9722,9 @@ export namespace Prisma {
       icon: string | null
       workspaceId: string
       createdById: string | null
+      parentId: string | null
+      shareType: string
+      shareToken: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["page"]>
@@ -10044,6 +10123,8 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workspace<T extends WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceDefaultArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     createdBy<T extends Page$createdByArgs<ExtArgs> = {}>(args?: Subset<T, Page$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    parent<T extends Page$parentArgs<ExtArgs> = {}>(args?: Subset<T, Page$parentArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    children<T extends Page$childrenArgs<ExtArgs> = {}>(args?: Subset<T, Page$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10080,6 +10161,9 @@ export namespace Prisma {
     readonly icon: FieldRef<"Page", 'String'>
     readonly workspaceId: FieldRef<"Page", 'String'>
     readonly createdById: FieldRef<"Page", 'String'>
+    readonly parentId: FieldRef<"Page", 'String'>
+    readonly shareType: FieldRef<"Page", 'String'>
+    readonly shareToken: FieldRef<"Page", 'String'>
     readonly createdAt: FieldRef<"Page", 'DateTime'>
     readonly updatedAt: FieldRef<"Page", 'DateTime'>
   }
@@ -10502,6 +10586,49 @@ export namespace Prisma {
   }
 
   /**
+   * Page.parent
+   */
+  export type Page$parentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Page
+     */
+    select?: PageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Page
+     */
+    omit?: PageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageInclude<ExtArgs> | null
+    where?: PageWhereInput
+  }
+
+  /**
+   * Page.children
+   */
+  export type Page$childrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Page
+     */
+    select?: PageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Page
+     */
+    omit?: PageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageInclude<ExtArgs> | null
+    where?: PageWhereInput
+    orderBy?: PageOrderByWithRelationInput | PageOrderByWithRelationInput[]
+    cursor?: PageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PageScalarFieldEnum | PageScalarFieldEnum[]
+  }
+
+  /**
    * Page without action
    */
   export type PageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10629,6 +10756,9 @@ export namespace Prisma {
     icon: 'icon',
     workspaceId: 'workspaceId',
     createdById: 'createdById',
+    parentId: 'parentId',
+    shareType: 'shareType',
+    shareToken: 'shareToken',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11197,10 +11327,15 @@ export namespace Prisma {
     icon?: StringNullableFilter<"Page"> | string | null
     workspaceId?: StringFilter<"Page"> | string
     createdById?: StringNullableFilter<"Page"> | string | null
+    parentId?: StringNullableFilter<"Page"> | string | null
+    shareType?: StringFilter<"Page"> | string
+    shareToken?: StringNullableFilter<"Page"> | string | null
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    parent?: XOR<PageNullableScalarRelationFilter, PageWhereInput> | null
+    children?: PageListRelationFilter
   }
 
   export type PageOrderByWithRelationInput = {
@@ -11211,14 +11346,20 @@ export namespace Prisma {
     icon?: SortOrderInput | SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrderInput | SortOrder
+    parentId?: SortOrderInput | SortOrder
+    shareType?: SortOrder
+    shareToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     workspace?: WorkspaceOrderByWithRelationInput
     createdBy?: UserOrderByWithRelationInput
+    parent?: PageOrderByWithRelationInput
+    children?: PageOrderByRelationAggregateInput
   }
 
   export type PageWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    shareToken?: string
     workspaceId_slug?: PageWorkspaceIdSlugCompoundUniqueInput
     AND?: PageWhereInput | PageWhereInput[]
     OR?: PageWhereInput[]
@@ -11229,11 +11370,15 @@ export namespace Prisma {
     icon?: StringNullableFilter<"Page"> | string | null
     workspaceId?: StringFilter<"Page"> | string
     createdById?: StringNullableFilter<"Page"> | string | null
+    parentId?: StringNullableFilter<"Page"> | string | null
+    shareType?: StringFilter<"Page"> | string
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
-  }, "id" | "workspaceId_slug">
+    parent?: XOR<PageNullableScalarRelationFilter, PageWhereInput> | null
+    children?: PageListRelationFilter
+  }, "id" | "shareToken" | "workspaceId_slug">
 
   export type PageOrderByWithAggregationInput = {
     id?: SortOrder
@@ -11243,6 +11388,9 @@ export namespace Prisma {
     icon?: SortOrderInput | SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrderInput | SortOrder
+    parentId?: SortOrderInput | SortOrder
+    shareType?: SortOrder
+    shareToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PageCountOrderByAggregateInput
@@ -11261,6 +11409,9 @@ export namespace Prisma {
     icon?: StringNullableWithAggregatesFilter<"Page"> | string | null
     workspaceId?: StringWithAggregatesFilter<"Page"> | string
     createdById?: StringNullableWithAggregatesFilter<"Page"> | string | null
+    parentId?: StringNullableWithAggregatesFilter<"Page"> | string | null
+    shareType?: StringWithAggregatesFilter<"Page"> | string
+    shareToken?: StringNullableWithAggregatesFilter<"Page"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Page"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Page"> | Date | string
   }
@@ -11759,10 +11910,14 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutPagesInput
     createdBy?: UserCreateNestedOneWithoutPagesInput
+    parent?: PageCreateNestedOneWithoutChildrenInput
+    children?: PageCreateNestedManyWithoutParentInput
   }
 
   export type PageUncheckedCreateInput = {
@@ -11773,8 +11928,12 @@ export namespace Prisma {
     icon?: string | null
     workspaceId: string
     createdById?: string | null
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    children?: PageUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type PageUpdateInput = {
@@ -11783,10 +11942,14 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
     createdBy?: UserUpdateOneWithoutPagesNestedInput
+    parent?: PageUpdateOneWithoutChildrenNestedInput
+    children?: PageUpdateManyWithoutParentNestedInput
   }
 
   export type PageUncheckedUpdateInput = {
@@ -11797,8 +11960,12 @@ export namespace Prisma {
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: PageUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type PageCreateManyInput = {
@@ -11809,6 +11976,9 @@ export namespace Prisma {
     icon?: string | null
     workspaceId: string
     createdById?: string | null
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11819,6 +11989,8 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11831,6 +12003,9 @@ export namespace Prisma {
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12284,6 +12459,11 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
+  export type PageNullableScalarRelationFilter = {
+    is?: PageWhereInput | null
+    isNot?: PageWhereInput | null
+  }
+
   export type PageWorkspaceIdSlugCompoundUniqueInput = {
     workspaceId: string
     slug: string
@@ -12297,6 +12477,9 @@ export namespace Prisma {
     icon?: SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrder
+    parentId?: SortOrder
+    shareType?: SortOrder
+    shareToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12309,6 +12492,9 @@ export namespace Prisma {
     icon?: SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrder
+    parentId?: SortOrder
+    shareType?: SortOrder
+    shareToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12321,6 +12507,9 @@ export namespace Prisma {
     icon?: SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrder
+    parentId?: SortOrder
+    shareType?: SortOrder
+    shareToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12781,6 +12970,26 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type PageCreateNestedOneWithoutChildrenInput = {
+    create?: XOR<PageCreateWithoutChildrenInput, PageUncheckedCreateWithoutChildrenInput>
+    connectOrCreate?: PageCreateOrConnectWithoutChildrenInput
+    connect?: PageWhereUniqueInput
+  }
+
+  export type PageCreateNestedManyWithoutParentInput = {
+    create?: XOR<PageCreateWithoutParentInput, PageUncheckedCreateWithoutParentInput> | PageCreateWithoutParentInput[] | PageUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: PageCreateOrConnectWithoutParentInput | PageCreateOrConnectWithoutParentInput[]
+    createMany?: PageCreateManyParentInputEnvelope
+    connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+  }
+
+  export type PageUncheckedCreateNestedManyWithoutParentInput = {
+    create?: XOR<PageCreateWithoutParentInput, PageUncheckedCreateWithoutParentInput> | PageCreateWithoutParentInput[] | PageUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: PageCreateOrConnectWithoutParentInput | PageCreateOrConnectWithoutParentInput[]
+    createMany?: PageCreateManyParentInputEnvelope
+    connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+  }
+
   export type WorkspaceUpdateOneRequiredWithoutPagesNestedInput = {
     create?: XOR<WorkspaceCreateWithoutPagesInput, WorkspaceUncheckedCreateWithoutPagesInput>
     connectOrCreate?: WorkspaceCreateOrConnectWithoutPagesInput
@@ -12797,6 +13006,44 @@ export namespace Prisma {
     delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPagesInput, UserUpdateWithoutPagesInput>, UserUncheckedUpdateWithoutPagesInput>
+  }
+
+  export type PageUpdateOneWithoutChildrenNestedInput = {
+    create?: XOR<PageCreateWithoutChildrenInput, PageUncheckedCreateWithoutChildrenInput>
+    connectOrCreate?: PageCreateOrConnectWithoutChildrenInput
+    upsert?: PageUpsertWithoutChildrenInput
+    disconnect?: PageWhereInput | boolean
+    delete?: PageWhereInput | boolean
+    connect?: PageWhereUniqueInput
+    update?: XOR<XOR<PageUpdateToOneWithWhereWithoutChildrenInput, PageUpdateWithoutChildrenInput>, PageUncheckedUpdateWithoutChildrenInput>
+  }
+
+  export type PageUpdateManyWithoutParentNestedInput = {
+    create?: XOR<PageCreateWithoutParentInput, PageUncheckedCreateWithoutParentInput> | PageCreateWithoutParentInput[] | PageUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: PageCreateOrConnectWithoutParentInput | PageCreateOrConnectWithoutParentInput[]
+    upsert?: PageUpsertWithWhereUniqueWithoutParentInput | PageUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: PageCreateManyParentInputEnvelope
+    set?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    disconnect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    delete?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    update?: PageUpdateWithWhereUniqueWithoutParentInput | PageUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: PageUpdateManyWithWhereWithoutParentInput | PageUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: PageScalarWhereInput | PageScalarWhereInput[]
+  }
+
+  export type PageUncheckedUpdateManyWithoutParentNestedInput = {
+    create?: XOR<PageCreateWithoutParentInput, PageUncheckedCreateWithoutParentInput> | PageCreateWithoutParentInput[] | PageUncheckedCreateWithoutParentInput[]
+    connectOrCreate?: PageCreateOrConnectWithoutParentInput | PageCreateOrConnectWithoutParentInput[]
+    upsert?: PageUpsertWithWhereUniqueWithoutParentInput | PageUpsertWithWhereUniqueWithoutParentInput[]
+    createMany?: PageCreateManyParentInputEnvelope
+    set?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    disconnect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    delete?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+    update?: PageUpdateWithWhereUniqueWithoutParentInput | PageUpdateWithWhereUniqueWithoutParentInput[]
+    updateMany?: PageUpdateManyWithWhereWithoutParentInput | PageUpdateManyWithWhereWithoutParentInput[]
+    deleteMany?: PageScalarWhereInput | PageScalarWhereInput[]
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13236,9 +13483,13 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutPagesInput
+    parent?: PageCreateNestedOneWithoutChildrenInput
+    children?: PageCreateNestedManyWithoutParentInput
   }
 
   export type PageUncheckedCreateWithoutCreatedByInput = {
@@ -13248,8 +13499,12 @@ export namespace Prisma {
     content?: string | null
     icon?: string | null
     workspaceId: string
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    children?: PageUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type PageCreateOrConnectWithoutCreatedByInput = {
@@ -13405,6 +13660,9 @@ export namespace Prisma {
     icon?: StringNullableFilter<"Page"> | string | null
     workspaceId?: StringFilter<"Page"> | string
     createdById?: StringNullableFilter<"Page"> | string | null
+    parentId?: StringNullableFilter<"Page"> | string | null
+    shareType?: StringFilter<"Page"> | string
+    shareToken?: StringNullableFilter<"Page"> | string | null
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
   }
@@ -13474,9 +13732,13 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy?: UserCreateNestedOneWithoutPagesInput
+    parent?: PageCreateNestedOneWithoutChildrenInput
+    children?: PageCreateNestedManyWithoutParentInput
   }
 
   export type PageUncheckedCreateWithoutWorkspaceInput = {
@@ -13486,8 +13748,12 @@ export namespace Prisma {
     content?: string | null
     icon?: string | null
     createdById?: string | null
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    children?: PageUncheckedCreateNestedManyWithoutParentInput
   }
 
   export type PageCreateOrConnectWithoutWorkspaceInput = {
@@ -13895,6 +14161,81 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutPagesInput, UserUncheckedCreateWithoutPagesInput>
   }
 
+  export type PageCreateWithoutChildrenInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    shareType?: string
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutPagesInput
+    createdBy?: UserCreateNestedOneWithoutPagesInput
+    parent?: PageCreateNestedOneWithoutChildrenInput
+  }
+
+  export type PageUncheckedCreateWithoutChildrenInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    workspaceId: string
+    createdById?: string | null
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PageCreateOrConnectWithoutChildrenInput = {
+    where: PageWhereUniqueInput
+    create: XOR<PageCreateWithoutChildrenInput, PageUncheckedCreateWithoutChildrenInput>
+  }
+
+  export type PageCreateWithoutParentInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    shareType?: string
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutPagesInput
+    createdBy?: UserCreateNestedOneWithoutPagesInput
+    children?: PageCreateNestedManyWithoutParentInput
+  }
+
+  export type PageUncheckedCreateWithoutParentInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    workspaceId: string
+    createdById?: string | null
+    shareType?: string
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    children?: PageUncheckedCreateNestedManyWithoutParentInput
+  }
+
+  export type PageCreateOrConnectWithoutParentInput = {
+    where: PageWhereUniqueInput
+    create: XOR<PageCreateWithoutParentInput, PageUncheckedCreateWithoutParentInput>
+  }
+
+  export type PageCreateManyParentInputEnvelope = {
+    data: PageCreateManyParentInput | PageCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WorkspaceUpsertWithoutPagesInput = {
     update: XOR<WorkspaceUpdateWithoutPagesInput, WorkspaceUncheckedUpdateWithoutPagesInput>
     create: XOR<WorkspaceCreateWithoutPagesInput, WorkspaceUncheckedCreateWithoutPagesInput>
@@ -13971,6 +14312,63 @@ export namespace Prisma {
     workspaceMemberships?: WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type PageUpsertWithoutChildrenInput = {
+    update: XOR<PageUpdateWithoutChildrenInput, PageUncheckedUpdateWithoutChildrenInput>
+    create: XOR<PageCreateWithoutChildrenInput, PageUncheckedCreateWithoutChildrenInput>
+    where?: PageWhereInput
+  }
+
+  export type PageUpdateToOneWithWhereWithoutChildrenInput = {
+    where?: PageWhereInput
+    data: XOR<PageUpdateWithoutChildrenInput, PageUncheckedUpdateWithoutChildrenInput>
+  }
+
+  export type PageUpdateWithoutChildrenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
+    createdBy?: UserUpdateOneWithoutPagesNestedInput
+    parent?: PageUpdateOneWithoutChildrenNestedInput
+  }
+
+  export type PageUncheckedUpdateWithoutChildrenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PageUpsertWithWhereUniqueWithoutParentInput = {
+    where: PageWhereUniqueInput
+    update: XOR<PageUpdateWithoutParentInput, PageUncheckedUpdateWithoutParentInput>
+    create: XOR<PageCreateWithoutParentInput, PageUncheckedCreateWithoutParentInput>
+  }
+
+  export type PageUpdateWithWhereUniqueWithoutParentInput = {
+    where: PageWhereUniqueInput
+    data: XOR<PageUpdateWithoutParentInput, PageUncheckedUpdateWithoutParentInput>
+  }
+
+  export type PageUpdateManyWithWhereWithoutParentInput = {
+    where: PageScalarWhereInput
+    data: XOR<PageUpdateManyMutationInput, PageUncheckedUpdateManyWithoutParentInput>
+  }
+
   export type AccountCreateManyUserInput = {
     id?: string
     type: string
@@ -14014,6 +14412,9 @@ export namespace Prisma {
     content?: string | null
     icon?: string | null
     workspaceId: string
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14138,9 +14539,13 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
+    parent?: PageUpdateOneWithoutChildrenNestedInput
+    children?: PageUpdateManyWithoutParentNestedInput
   }
 
   export type PageUncheckedUpdateWithoutCreatedByInput = {
@@ -14150,8 +14555,12 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: PageUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type PageUncheckedUpdateManyWithoutCreatedByInput = {
@@ -14161,6 +14570,9 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14179,6 +14591,9 @@ export namespace Prisma {
     content?: string | null
     icon?: string | null
     createdById?: string | null
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14218,9 +14633,13 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneWithoutPagesNestedInput
+    parent?: PageUpdateOneWithoutChildrenNestedInput
+    children?: PageUpdateManyWithoutParentNestedInput
   }
 
   export type PageUncheckedUpdateWithoutWorkspaceInput = {
@@ -14230,8 +14649,12 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: PageUncheckedUpdateManyWithoutParentNestedInput
   }
 
   export type PageUncheckedUpdateManyWithoutWorkspaceInput = {
@@ -14241,6 +14664,9 @@ export namespace Prisma {
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14267,6 +14693,64 @@ export namespace Prisma {
     token?: StringFieldUpdateOperationsInput | string
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PageCreateManyParentInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    workspaceId: string
+    createdById?: string | null
+    shareType?: string
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PageUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
+    createdBy?: UserUpdateOneWithoutPagesNestedInput
+    children?: PageUpdateManyWithoutParentNestedInput
+  }
+
+  export type PageUncheckedUpdateWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: PageUncheckedUpdateManyWithoutParentNestedInput
+  }
+
+  export type PageUncheckedUpdateManyWithoutParentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

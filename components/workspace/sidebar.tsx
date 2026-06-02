@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Page, Workspace } from "@/lib/prisma-client";
 import { Button } from "@/components/ui/button";
 import { FileText, Home, MoreHorizontal, Plus, Search, Sparkles, Trash2 } from "lucide-react";
@@ -21,6 +21,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -29,13 +30,17 @@ interface SidebarProps {
   workspaces: Workspace[];
   pages: Page[];
   onNewPage?: () => void;
+  onNewSubPage?: (parentId: string) => void;
+  onPagesChange?: (pages: Page[]) => void;
 }
 
 export function Sidebar({
   workspaceId,
   workspaces,
-  pages,
+  pages: initialPages,
   onNewPage,
+  onNewSubPage,
+  onPagesChange,
 }: SidebarProps) {
   const params = useParams<{ pageId?: string }>();
   const router = useRouter();
@@ -43,6 +48,18 @@ export function Sidebar({
   const [query, setQuery] = useState("");
   const [deletingPageId, setDeletingPageId] = useState<string | null>(null);
   const [pageToDelete, setPageToDelete] = useState<Page | null>(null);
+  const [pages, setPages] = useState(initialPages);
+  
+  // Sync pages when initialPages changes (from server)
+  useEffect(() => {
+    setPages(initialPages);
+  }, [initialPages]);
+  
+  // Notify parent of pages change
+  useEffect(() => {
+    onPagesChange?.(pages);
+  }, [pages, onPagesChange]);
+  
   const filteredPages = useMemo(
     () =>
       pages.filter((page) =>
@@ -50,6 +67,93 @@ export function Sidebar({
       ),
     [pages, query]
   );
+
+  // Build page hierarchy
+  const pageHierarchy = useMemo(() => {
+    type PageWithChildren = Page & { children: PageWithChildren[] };
+    const map = new Map<string, PageWithChildren>();
+    const roots: PageWithChildren[] = [];
+
+    // Initialize all pages with empty children arrays
+    pages.forEach(page => {
+      map.set(page.id, { ...page, children: [] } as PageWithChildren);
+    });
+
+    // Build hierarchy
+    pages.forEach(page => {
+      const node = map.get(page.id)!;
+      if (page.parentId && map.has(page.parentId)) {
+        map.get(page.parentId)!.children.push(node);
+      } else {
+        roots.push(node);
+      }
+    });
+
+    return roots;
+  }, [pages]);
+
+  // Recursively render page items
+  const renderPageItem = (page: Page & { children: Page[] }, depth: number = 0) => {
+    const hasChildren = page.children.length > 0;
+    const paddingLeft = depth * 16;
+
+    return (
+      <div key={page.id}>
+        <Link
+          href={`/workspaces/${workspaceId}/pages/${page.id}`}
+          className={`group flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-all duration-200 ${
+            currentPageId === page.id
+              ? "bg-[#333333] text-[#f7f7f5]"
+              : "text-[#b8b8b8] hover:bg-[#2f2f2f] hover:text-[#f7f7f5] hover:scale-[1.02] active:scale-[0.98]"
+          }`}
+          style={{ paddingLeft: `${paddingLeft + 8}px` }}
+        >
+          {hasChildren && (
+            <span className="text-xs text-[#858585]">{currentPageId === page.id || page.children.some(c => c.id === currentPageId) ? '▼' : '▶'}</span>
+          )}
+          {!hasChildren && <span className="w-3" />}
+          <span className="grid h-5 w-5 place-items-center text-base">{page.icon || <FileText className="h-4 w-4" />}</span>
+          <span className="min-w-0 flex-1 truncate">{page.title || "Untitled"}</span>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild onClick={(event) => event.preventDefault()}>
+              <button className="grid h-6 w-6 place-items-center rounded opacity-0 transition-all duration-200 hover:bg-[#454545] group-hover:opacity-100 hover:scale-110 active:scale-95">
+                <MoreHorizontal className="h-4 w-4" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-48 rounded-lg border-[#3f3f3f] bg-[#252525] p-1 text-[#f1f1ef] shadow-xl" align="start">
+              <DropdownMenuItem
+                className="gap-2 rounded-md focus:bg-[#333333] focus:text-white"
+                onClick={(event) => {
+                  event.preventDefault();
+                  onNewSubPage?.(page.id);
+                }}
+              >
+                <Plus className="h-4 w-4" />
+                Add sub-page
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-[#3a3a3a]" />
+              <DropdownMenuItem
+                className="gap-2 rounded-md text-[#ff7369] focus:bg-[#3a2928] focus:text-[#ff8a82]"
+                disabled={deletingPageId === page.id}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setPageToDelete(page);
+                }}
+              >
+                <Trash2 className="h-4 w-4" />
+                {deletingPageId === page.id ? "Deleting..." : "Delete page"}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </Link>
+        {hasChildren && (
+          <div className={currentPageId === page.id || page.children.some((c: any) => c.id === currentPageId) ? "block" : "hidden"}>
+            {page.children.map((child: any) => renderPageItem(child as Page & { children: Page[] }, depth + 1))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const deletePage = async () => {
     if (!pageToDelete) return;
@@ -69,6 +173,7 @@ export function Sidebar({
       if (currentPageId === pageId) {
         router.push(`/workspaces/${workspaceId}`);
       }
+      setPages(pages.filter(p => p.id !== pageId));
       router.refresh();
     } catch (error) {
       alert(error instanceof Error ? error.message : "Failed to delete page");
@@ -96,7 +201,7 @@ export function Sidebar({
         </label>
         <Link 
           href={`/workspaces/${workspaceId}`}
-          className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left transition-all duration-200 hover:bg-[#2f2f2f] hover:text-[#f7f7f5]"
+          className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left transition-all duration-200 hover:bg-[#2f2f2f] hover:text-[#f7f7f5] hover:scale-[1.02] active:scale-[0.98]"
         >
           <Home className="h-4 w-4" />
           Home
@@ -107,7 +212,7 @@ export function Sidebar({
         <Button
           onClick={onNewPage}
           asChild={!onNewPage}
-          className="h-8 w-full justify-start gap-2 rounded-md bg-transparent px-2 text-sm font-medium text-[#b8b8b8] shadow-none transition-all duration-200 hover:bg-[#2f2f2f] hover:text-[#f7f7f5]"
+          className="h-8 w-full justify-start gap-2 rounded-md bg-transparent px-2 text-sm font-medium text-[#b8b8b8] shadow-none transition-all duration-200 hover:bg-[#2f2f2f] hover:text-[#f7f7f5] hover:scale-[1.02] active:scale-[0.98]"
           size="sm"
         >
           {onNewPage ? (
@@ -136,40 +241,24 @@ export function Sidebar({
           </div>
         ) : (
           <div className="space-y-0.5">
-            {filteredPages.map((page) => (
-              <Link
-                key={page.id}
-                href={`/workspaces/${workspaceId}/pages/${page.id}`}
-                className={`group flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-all duration-200 ${
-                  currentPageId === page.id
-                    ? "bg-[#333333] text-[#f7f7f5]"
-                    : "text-[#b8b8b8] hover:bg-[#2f2f2f] hover:text-[#f7f7f5]"
-                }`}
-              >
-                <span className="grid h-5 w-5 place-items-center text-base">{page.icon || <FileText className="h-4 w-4" />}</span>
-                <span className="min-w-0 flex-1 truncate">{page.title || "Untitled"}</span>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild onClick={(event) => event.preventDefault()}>
-                    <button className="grid h-6 w-6 place-items-center rounded opacity-0 transition-all hover:bg-[#454545] group-hover:opacity-100">
-                      <MoreHorizontal className="h-4 w-4" />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-44 rounded-lg border-[#3f3f3f] bg-[#252525] p-1 text-[#f1f1ef] shadow-xl" align="start">
-                    <DropdownMenuItem
-                      className="gap-2 rounded-md text-[#ff7369] focus:bg-[#3a2928] focus:text-[#ff8a82]"
-                      disabled={deletingPageId === page.id}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        setPageToDelete(page);
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                      {deletingPageId === page.id ? "Deleting..." : "Delete page"}
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </Link>
-            ))}
+            {query ? (
+              filteredPages.map((page) => (
+                <Link
+                  key={page.id}
+                  href={`/workspaces/${workspaceId}/pages/${page.id}`}
+                  className={`group flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-all duration-200 ${
+                    currentPageId === page.id
+                      ? "bg-[#333333] text-[#f7f7f5]"
+                      : "text-[#b8b8b8] hover:bg-[#2f2f2f] hover:text-[#f7f7f5] hover:scale-[1.02] active:scale-[0.98]"
+                  }`}
+                >
+                  <span className="grid h-5 w-5 place-items-center text-base">{page.icon || <FileText className="h-4 w-4" />}</span>
+                  <span className="min-w-0 flex-1 truncate">{page.title || "Untitled"}</span>
+                </Link>
+              ))
+            ) : (
+              pageHierarchy.map(page => renderPageItem(page))
+            )}
           </div>
         )}
       </nav>

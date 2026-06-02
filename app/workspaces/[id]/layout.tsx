@@ -53,9 +53,37 @@ export default async function WorkspaceLayout({
     },
   });
 
+  const handleNewSubPage = async (parentId: string) => {
+    "use server";
+    const parentPage = await prisma.page.findUnique({
+      where: { id: parentId },
+    });
+
+    if (!parentPage || parentPage.workspaceId !== workspaceId) {
+      return;
+    }
+
+    const newPage = await prisma.page.create({
+      data: {
+        title: "Untitled",
+        slug: `untitled-${Date.now()}`,
+        workspaceId,
+        createdById: userId,
+        parentId,
+      },
+    });
+
+    redirect(`/workspaces/${workspaceId}/pages/${newPage.id}`);
+  };
+
   return (
     <div className="flex min-h-screen flex-col bg-[#191919] text-[#f1f1ef] md:h-screen md:flex-row">
-      <Sidebar workspaceId={workspaceId} workspaces={workspaces} pages={pages} />
+      <Sidebar 
+        workspaceId={workspaceId} 
+        workspaces={workspaces} 
+        pages={pages} 
+        onNewSubPage={handleNewSubPage}
+      />
       <main className="min-w-0 flex-1 overflow-y-auto bg-[#191919]">
         {children}
       </main>

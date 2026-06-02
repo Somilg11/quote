@@ -7,6 +7,11 @@ import Placeholder from "@tiptap/extension-placeholder";
 import Link from "@tiptap/extension-link";
 import Underline from "@tiptap/extension-underline";
 import Collaboration from "@tiptap/extension-collaboration";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { Image } from "@tiptap/extension-image";
 import { useRoom, useUpdateMyPresence } from "@liveblocks/react";
 import { LiveblocksYjsProvider } from "@liveblocks/yjs";
 import { Button } from "@/components/ui/button";
@@ -22,6 +27,8 @@ import {
   Quote,
   UnderlineIcon,
   RefreshCw,
+  Table as TableIcon,
+  Image as ImageIcon,
 } from "lucide-react";
 import * as Y from "yjs";
 import { SlashCommandMenu } from "./slash-command-menu";
@@ -78,6 +85,16 @@ export function CollaborativeEditor({
         openOnClick: false,
       }),
       Underline,
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableHeader,
+      TableCell,
+      Image.configure({
+        inline: true,
+        allowBase64: true,
+      }),
     ],
     immediatelyRender: false,
     onCreate: ({ editor }) => {
@@ -238,6 +255,27 @@ export function CollaborativeEditor({
       onClick: () => editor?.chain().focus().toggleCodeBlock().run(),
     },
     {
+      label: "Table",
+      icon: TableIcon,
+      active: editor?.isActive("table"),
+      onClick: () => {
+        if (!editor?.isActive("table")) {
+          editor?.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+        }
+      },
+    },
+    {
+      label: "Image",
+      icon: ImageIcon,
+      active: false,
+      onClick: () => {
+        const url = window.prompt("Enter image URL:");
+        if (url) {
+          editor?.chain().focus().setImage({ src: url }).run();
+        }
+      },
+    },
+    {
       label: "Sync",
       icon: RefreshCw,
       active: false,
@@ -247,8 +285,8 @@ export function CollaborativeEditor({
   ];
 
   return (
-    <div className="min-h-96 rounded-md bg-[#191919] transition-colors duration-200">
-      <div className="sticky top-0 z-10 mb-5 flex flex-wrap gap-1 rounded-md border border-[#2f2f2f] bg-[#202020]/95 p-1 backdrop-blur">
+    <div className="min-h-96 rounded-md bg-[#191919] transition-colors duration-200 animate-fade-in">
+      <div className="sticky top-0 z-10 mb-5 flex flex-wrap gap-1 rounded-md border border-[#2f2f2f] bg-[#202020]/95 p-1 backdrop-blur transition-all duration-200">
         {toolbarItems.map((item) => {
           const Icon = item.icon;
 
@@ -262,8 +300,8 @@ export function CollaborativeEditor({
               aria-label={item.label}
               disabled={!editor}
               onClick={item.onClick}
-              className={`h-8 w-8 rounded text-[#d4d4d4] hover:bg-[#333333] hover:text-white ${
-                item.active ? "bg-[#3a3a3a] text-white" : ""
+              className={`h-8 w-8 rounded text-[#d4d4d4] hover:bg-[#333333] hover:text-white transition-all duration-200 hover:scale-110 active:scale-95 ${
+                item.active ? "bg-[#3a3a3a] text-white scale-105" : ""
               }`}
             >
               <Icon className="h-4 w-4" />

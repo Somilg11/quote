@@ -11,6 +11,8 @@ import {
   Quote,
   Code,
   SeparatorHorizontal,
+  Table as TableIcon,
+  Image as ImageIcon,
 } from "lucide-react";
 
 export interface CommandItem {
@@ -83,6 +85,25 @@ const getSuggestionItems = (): CommandItem[] => [
     icon: Code,
     command: ({ editor, range }) => {
       editor.chain().focus().deleteRange(range).toggleCodeBlock().run();
+    },
+  },
+  {
+    title: "Table",
+    description: "Insert a table.",
+    icon: TableIcon,
+    command: ({ editor, range }) => {
+      editor.chain().focus().deleteRange(range).insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run();
+    },
+  },
+  {
+    title: "Image",
+    description: "Insert an image from URL.",
+    icon: ImageIcon,
+    command: ({ editor, range }) => {
+      const url = window.prompt("Enter image URL:");
+      if (url) {
+        editor.chain().focus().deleteRange(range).setImage({ src: url }).run();
+      }
     },
   },
   {

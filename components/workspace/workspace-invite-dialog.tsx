@@ -48,7 +48,7 @@ export function WorkspaceInviteDialog({ workspaceId }: { workspaceId: string }) 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" className="gap-2 rounded-md text-[#d4d4d4] hover:bg-[#2f2f2f] hover:text-white">
+        <Button variant="ghost" className="gap-2 rounded-md text-[#d4d4d4] hover:bg-[#2f2f2f] hover:text-white transition-all duration-200 hover:scale-105 active:scale-95">
           <MailPlus className="h-4 w-4" />
           Invite
         </Button>
@@ -70,7 +70,7 @@ export function WorkspaceInviteDialog({ workspaceId }: { workspaceId: string }) 
             required
           />
           {message && <p className="text-sm text-[#b8b8b8]">{message}</p>}
-          <Button disabled={isSending} className="w-full bg-[#f1f1ef] text-[#202020] hover:bg-white">
+          <Button disabled={isSending} className="w-full bg-[#f1f1ef] text-[#202020] hover:bg-white transition-all duration-200 hover:scale-105 active:scale-95">
             {isSending ? "Sending..." : "Send invite"}
           </Button>
         </form>

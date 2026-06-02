@@ -125,13 +125,20 @@ model Page {
   icon        String?  @default("📄")
   workspaceId String
   createdById String?
+  parentId    String?  // For nested pages like Notion
+  shareType   String   @default("private") // "private", "workspace", "global"
+  shareToken  String?  @unique // Unique token for global sharing
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   createdBy User?     @relation(fields: [createdById], references: [id], onDelete: SetNull)
+  parent    Page?     @relation("PageHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children  Page[]    @relation("PageHierarchy")
 
   @@unique([workspaceId, slug])
   @@index([workspaceId])
   @@index([createdById])
+  @@index([shareToken])
+  @@index([parentId])
 }

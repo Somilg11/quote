@@ -14,7 +14,7 @@ export async function PATCH(
 
   try {
     const { id: pageId } = await params;
-    const { title, content } = await request.json();
+    const { title, content, shareType, icon } = await request.json();
 
     const page = await prisma.page.findUnique({
       where: { id: pageId },
@@ -40,12 +40,21 @@ export async function PATCH(
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 
+    // Generate share token if switching to global share
+    let shareToken = page.shareToken;
+    if (shareType === "global" && !shareToken) {
+      shareToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
+
     // Update page
     const updatedPage = await prisma.page.update({
       where: { id: pageId },
       data: {
         ...(title && { title }),
         ...(content !== undefined && { content }),
+        ...(shareType && { shareType }),
+        ...(shareToken && { shareToken }),
+        ...(icon && { icon }),
       },
     });
 
@@ -65,10 +74,6 @@ export async function GET(
 ) {
   const session = await auth();
 
-  if (!session || !session.user) {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-  }
-
   try {
     const { id: pageId } = await params;
 
@@ -87,6 +92,16 @@ export async function GET(
       return NextResponse.json({ message: "Page not found" }, { status: 404 });
     }
 
+    // If page is globally shared, allow access without authentication
+    if (page.shareType === "global") {
+      return NextResponse.json({ page, isReadOnly: true }, { status: 200 });
+    }
+
+    // For workspace or private sharing, require authentication
+    if (!session || !session.user) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
     // Verify user has access
     const member = page.workspace.members.find(
       (m) => m.userId === session.user?.id
@@ -96,7 +111,10 @@ export async function GET(
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 
-    return NextResponse.json({ page }, { status: 200 });
+    // Determine if user can edit (workspace members can edit)
+    const isReadOnly = page.shareType === "private" && member.role !== "owner";
+
+    return NextResponse.json({ page, isReadOnly }, { status: 200 });
   } catch (error) {
     console.error("[get-page]", error);
     return NextResponse.json(

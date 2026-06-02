@@ -40,7 +40,7 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
         <div className="flex flex-wrap items-center gap-2">
           <HoverCard openDelay={120}>
             <HoverCardTrigger asChild>
-              <button className="flex items-center rounded-md px-1.5 py-1 transition-all hover:bg-[#2f2f2f]" aria-label="Show collaborators">
+              <button className="flex items-center rounded-md px-1.5 py-1 transition-all duration-200 hover:bg-[#2f2f2f] hover:scale-105 active:scale-95" aria-label="Show collaborators">
                 <div className="flex -space-x-2">
                   {members.slice(0, 5).map((member) => (
                     <div
@@ -77,7 +77,7 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
           </HoverCard>
           <WorkspaceInviteDialog workspaceId={workspace.id} />
           <Link href={`/workspaces/${workspace.id}/pages/new`}>
-            <Button className="rounded-md bg-[#f1f1ef] text-[#202020] shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md">
+            <Button className="rounded-md bg-[#f1f1ef] text-[#202020] shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md hover:scale-105 active:scale-95">
               <Plus className="h-4 w-4 mr-2" />
               New page
             </Button>
@@ -104,7 +104,7 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
           </p>
           {!query && (
             <Link href={`/workspaces/${workspace.id}/pages/new`}>
-              <Button className="rounded-md bg-[#f1f1ef] text-[#202020] shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md">
+              <Button className="rounded-md bg-[#f1f1ef] text-[#202020] shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md hover:scale-105 active:scale-95">
                 <Plus className="h-4 w-4 mr-2" />
                 Create page
               </Button>
@@ -117,7 +117,7 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
             <Link
               key={page.id}
               href={`/workspaces/${workspace.id}/pages/${page.id}`}
-              className="group flex items-center justify-between gap-4 rounded-md px-3 py-2 transition-all duration-200 hover:bg-[#2f2f2f]"
+              className="group flex items-center justify-between gap-4 rounded-md px-3 py-2 transition-all duration-200 hover:bg-[#2f2f2f] hover:scale-[1.01] active:scale-[0.99]"
             >
               <div className="flex min-w-0 items-center gap-3">
                 <span className="grid h-7 w-7 shrink-0 place-items-center text-xl">{page.icon}</span>
