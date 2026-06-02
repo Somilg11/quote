@@ -36,14 +36,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if the email matches the current user
-    if (invite.email !== session.user.email) {
-      return NextResponse.json(
-        { message: "This invite is for a different email address" },
-        { status: 403 }
-      );
-    }
-
     // Check if user is already a member
     const existingMember = await prisma.workspaceMember.findUnique({
       where: {
