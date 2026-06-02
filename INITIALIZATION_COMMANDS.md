@@ -195,9 +195,9 @@ model Page {
 In `.env.local`:
 
 ```
-DATABASE_URL="postgresql://neondb_owner:npg_0FhSrw4sTMWY@ep-damp-shadow-aoiqiwve-pooler.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+DATABASE_URL=""
 NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="IjuiUD13Z9T3cumBBhqIuD+SeEkgar3XuKf2q1cdM2I="
+NEXTAUTH_SECRET=""
 NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY="pk_placeholder" (← Need to update)
 LIVEBLOCKS_SECRET_KEY="sk_placeholder" (← Need to update)
 RESEND_API_KEY="re_placeholder" (← Optional)
