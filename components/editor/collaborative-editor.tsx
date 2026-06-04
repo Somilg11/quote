@@ -47,7 +47,7 @@ export function CollaborativeEditor({
   const room = useRoom();
   const updateMyPresence = useUpdateMyPresence();
   const [slashMenuOpen, setSlashMenuOpen] = useState(false);
-  const [slashMenuPosition, setSlashMenuPosition] = useState({ x: 0, y: 0 });
+  const [slashMenuPosition, setSlashMenuPosition] = useState<{ x: number, top?: number, bottom?: number }>({ x: 0 });
   const [isSyncing, setIsSyncing] = useState(false);
   const [hasRemoteContent, setHasRemoteContent] = useState(false);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -100,18 +100,14 @@ export function CollaborativeEditor({
     onCreate: ({ editor }) => {
       const fragment = yDoc.getXmlFragment("prosemirror");
       
-      // Check if there's remote content
       const hasContent = fragment.length > 0;
       setHasRemoteContent(hasContent);
 
-      // COMPLETELY DISABLE automatic initial content loading to prevent duplication
-      // Content will ONLY be loaded via sync button
       console.log("[editor] onCreate - hasRemoteContent:", hasContent, "initialContent length:", initialContent?.length);
       console.log("[editor] Automatic initial content loading DISABLED to prevent duplication");
       console.log("[editor] Use the sync button to load content from database");
     },
     onUpdate: ({ editor }) => {
-      // Debounce the save to prevent excessive database writes
       if (saveTimeoutRef.current) {
         clearTimeout(saveTimeoutRef.current);
       }
@@ -119,7 +115,7 @@ export function CollaborativeEditor({
       saveTimeoutRef.current = setTimeout(() => {
         const content = editor.getHTML();
         onContentChange?.(content);
-      }, 3000); // Increased to 3 seconds to reduce save frequency
+      }, 3000); 
     },
   });
 
@@ -137,23 +133,23 @@ export function CollaborativeEditor({
       const { from } = state.selection;
       const $from = state.doc.resolve(from);
       
-      // Get the current line text
       const lineStart = $from.start($from.depth);
       const lineText = state.doc.textBetween(lineStart, from);
       
-      // Check if the line ends with "/" and it's at the start or after a space
-      const lastChar = lineText.slice(-1);
-      const secondLastChar = lineText.slice(-2, -1);
-      
-      if (lastChar === "/" && (lineText.length === 1 || secondLastChar === ' ')) {
-        if (!slashMenuOpen) {
-          const { view } = editor;
-          const coords = view.coordsAtPos(from);
-          setSlashMenuPosition({ x: coords.left, y: coords.bottom + 8 });
-          setSlashMenuOpen(true);
-        }
-      } else if (slashMenuOpen && !lineText.endsWith('/')) {
-        // Close menu if user continues typing after "/"
+      if (lineText.startsWith("/")) {
+        const { view } = editor;
+        const coords = view.coordsAtPos(from);
+        
+        const isNearBottom = window.innerHeight - coords.bottom < 320;
+        
+        setSlashMenuPosition({ 
+          x: coords.left, 
+          top: isNearBottom ? undefined : coords.bottom + 8,
+          bottom: isNearBottom ? window.innerHeight - coords.top + 8 : undefined
+        });
+        
+        if (!slashMenuOpen) setSlashMenuOpen(true);
+      } else {
         setSlashMenuOpen(false);
       }
     };
@@ -178,11 +174,9 @@ export function CollaborativeEditor({
       const data = await response.json();
       
       if (data.page?.content) {
-        // Clear the Yjs document first
         const fragment = yDoc.getXmlFragment("prosemirror");
         fragment.delete(0, fragment.length);
         
-        // Set the content from database
         editor.commands.setContent(data.page.content);
         initialContentLoadedRef.current = true;
       }
@@ -311,7 +305,12 @@ export function CollaborativeEditor({
       </div>
       <EditorContent 
         editor={editor} 
-        className="quote-editor max-w-none focus:outline-none text-[#f1f1ef]"
+        className="quote-editor max-w-none focus:outline-none text-[#f1f1ef]
+          [&_table]:border-collapse [&_table]:table-fixed [&_table]:w-full [&_table]:my-6 [&_table]:rounded-md [&_table]:overflow-hidden
+          [&_th]:border [&_th]:border-[#3f3f3f] [&_th]:bg-[#252525] [&_th]:p-3 [&_th]:font-semibold [&_th]:relative [&_th]:text-left
+          [&_td]:border [&_td]:border-[#3f3f3f] [&_td]:p-3 [&_td]:relative [&_td]:align-top
+          [&_table_p]:m-0
+          [&_.column-resize-handle]:absolute [&_.column-resize-handle]:-right-1 [&_.column-resize-handle]:top-0 [&_.column-resize-handle]:bottom-0 [&_.column-resize-handle]:w-2 [&_.column-resize-handle]:bg-[#555] [&_.column-resize-handle]:cursor-col-resize [&_.column-resize-handle]:z-20 hover:[&_.column-resize-handle]:bg-blue-500"
       />
       {editor && (
         <SlashCommandMenu

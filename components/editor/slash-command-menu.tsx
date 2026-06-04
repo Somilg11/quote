@@ -116,7 +116,17 @@ const getSuggestionItems = (): CommandItem[] => [
   },
 ];
 
-export const SlashCommandMenu = ({ editor, isOpen, onClose, position }: { editor: any; isOpen: boolean; onClose: () => void; position: { x: number; y: number } }) => {
+export const SlashCommandMenu = ({ 
+  editor, 
+  isOpen, 
+  onClose, 
+  position 
+}: { 
+  editor: any; 
+  isOpen: boolean; 
+  onClose: () => void; 
+  position: { x: number; y?: number; top?: number; bottom?: number } 
+}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [query, setQuery] = useState("");
   const menuRef = useRef<HTMLDivElement>(null);
@@ -128,7 +138,6 @@ export const SlashCommandMenu = ({ editor, isOpen, onClose, position }: { editor
     item.title.toLowerCase().includes(query.toLowerCase())
   );
 
-  // Update refs when values change
   useEffect(() => {
     selectedIndexRef.current = selectedIndex;
   }, [selectedIndex]);
@@ -137,31 +146,59 @@ export const SlashCommandMenu = ({ editor, isOpen, onClose, position }: { editor
     filteredItemsRef.current = filteredItems;
   }, [filteredItems]);
 
+  useEffect(() => {
+    if (!isOpen || !editor) return;
+
+    const extractQuery = () => {
+      const { state } = editor;
+      const { from } = state.selection;
+      const $from = state.doc.resolve(from);
+      const lineStart = $from.start($from.depth);
+      const lineText = state.doc.textBetween(lineStart, from);
+
+      if (lineText.startsWith("/")) {
+        setQuery(lineText.slice(1));
+        setSelectedIndex(0);
+      } else {
+        onClose();
+      }
+    };
+
+    editor.on("update", extractQuery);
+    editor.on("selectionUpdate", extractQuery);
+    
+    extractQuery();
+
+    return () => {
+      editor.off("update", extractQuery);
+      editor.off("selectionUpdate", extractQuery);
+    };
+  }, [editor, isOpen, onClose]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const selectedElement = menuRef.current?.querySelector('[data-selected="true"]');
+    if (selectedElement) {
+      selectedElement.scrollIntoView({ block: "nearest" });
+    }
+  }, [selectedIndex, isOpen]);
+
   const executeCommand = useCallback((item: CommandItem) => {
     const { state } = editor;
     const { from } = state.selection;
     const $from = state.doc.resolve(from);
-    
-    // Find the start of the "/" command
     const lineStart = $from.start($from.depth);
-    const lineText = state.doc.textBetween(lineStart, from);
     
-    // Find the position of "/" in the line
-    const slashIndex = lineText.lastIndexOf('/');
-    if (slashIndex !== -1) {
-      const slashPos = lineStart + slashIndex;
-      // Delete from "/" to cursor
-      editor.chain().focus().deleteRange({ from: slashPos, to: from }).run();
-    }
-    
-    // Execute the command
-    item.command({ editor, range: { from, to: from } });
+    // Pass the full range to the command so it executes in a single chain
+    item.command({ editor, range: { from: lineStart, to: from } });
     onClose();
   }, [editor, onClose]);
 
   useEffect(() => {
-    setSelectedIndex(0);
-    setQuery("");
+    if (!isOpen) {
+      setSelectedIndex(0);
+      setQuery("");
+    }
   }, [isOpen]);
 
   useEffect(() => {
@@ -170,17 +207,22 @@ export const SlashCommandMenu = ({ editor, isOpen, onClose, position }: { editor
 
       if (e.key === "ArrowDown") {
         e.preventDefault();
+        e.stopPropagation(); // Block Tiptap from seeing the event
         setSelectedIndex((prev) => (prev + 1) % filteredItemsRef.current.length);
       } else if (e.key === "ArrowUp") {
         e.preventDefault();
+        e.stopPropagation();
         setSelectedIndex((prev) => (prev - 1 + filteredItemsRef.current.length) % filteredItemsRef.current.length);
       } else if (e.key === "Enter") {
         e.preventDefault();
+        e.stopPropagation(); // Critical fix: Stops the newline insertion
         const item = filteredItemsRef.current[selectedIndexRef.current];
         if (item) {
           executeCommand(item);
         }
       } else if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
         onClose();
       }
     };
@@ -191,11 +233,12 @@ export const SlashCommandMenu = ({ editor, isOpen, onClose, position }: { editor
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
+    // Use { capture: true } to intercept the keys BEFORE ProseMirror handles them
+    window.addEventListener("keydown", handleKeyDown, { capture: true });
     window.addEventListener("mousedown", handleClickOutside);
     
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown, { capture: true });
       window.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, executeCommand, onClose]);
@@ -205,12 +248,16 @@ export const SlashCommandMenu = ({ editor, isOpen, onClose, position }: { editor
   return (
     <div
       ref={menuRef}
-      className="fixed z-50 w-72 rounded-lg border border-[#3f3f3f] bg-[#252525] p-2 shadow-xl"
-      style={{ top: position.y, left: position.x }}
+      className="fixed z-50 w-72 rounded-lg border border-zinc-700 bg-zinc-900 p-2 shadow-xl"
+      style={{ 
+        left: position.x, 
+        top: position.top ?? position.y, 
+        bottom: position.bottom 
+      }}
     >
-      <div className="max-h-80 overflow-y-auto">
+      <div className="max-h-80 overflow-y-auto custom-scrollbar">
         {filteredItems.length === 0 ? (
-          <div className="px-2 py-3 text-sm text-[#858585]">No results found</div>
+          <div className="px-2 py-3 text-sm text-zinc-400">No results found</div>
         ) : (
           filteredItems.map((item, index) => {
             const Icon = item.icon;
@@ -220,17 +267,18 @@ export const SlashCommandMenu = ({ editor, isOpen, onClose, position }: { editor
               <button
                 key={item.title}
                 type="button"
+                data-selected={isSelected}
                 className={`flex w-full items-center gap-3 rounded-md px-2 py-2 text-left text-sm transition-colors ${
                   isSelected
-                    ? "bg-[#333333] text-white"
-                    : "text-[#d4d4d4] hover:bg-[#2f2f2f]"
+                    ? "bg-zinc-800 text-zinc-100"
+                    : "text-zinc-300 hover:bg-zinc-800/50"
                 }`}
                 onClick={() => executeCommand(item)}
               >
                 <Icon className="h-4 w-4 shrink-0" />
                 <div className="flex-1">
                   <div className="font-medium">{item.title}</div>
-                  <div className="text-xs text-[#858585]">{item.description}</div>
+                  <div className="text-xs text-zinc-500">{item.description}</div>
                 </div>
               </button>
             );

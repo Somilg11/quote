@@ -44,6 +44,13 @@ export function PageEditor({
   const [inviteEmail, setInviteEmail] = useState('');
   const [shareMessage, setShareMessage] = useState('');
   const [shareType, setShareType] = useState(page.shareType || 'private');
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    const progress = (scrollTop / (scrollHeight - clientHeight)) * 100;
+    setScrollProgress(isNaN(progress) ? 0 : Math.max(0, Math.min(100, progress)));
+  };
 
   const handleIconChange = async (newIcon: string) => {
     setIcon(newIcon);
@@ -112,7 +119,6 @@ export function PageEditor({
       if (response.ok) {
         setInviteEmail('');
         setShowInvite(false);
-        // Show success message
       }
     } catch (error) {
       console.error('Failed to send invite:', error);
@@ -147,6 +153,12 @@ export function PageEditor({
   };
 
   const isOwner = workspace.ownerId === currentUser.id;
+
+  const TOTAL_SEGMENTS = 14;
+  const activeSegment = Math.min(
+    Math.floor((scrollProgress / 100) * TOTAL_SEGMENTS),
+    TOTAL_SEGMENTS - 1
+  );
 
   return (
     <div className="h-full flex flex-col bg-[#191919] text-[#f1f1ef]">
@@ -297,13 +309,26 @@ export function PageEditor({
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-4 py-8 sm:px-8 sm:py-10">
+      <div 
+        className="flex-1 overflow-y-auto px-4 py-8 sm:px-8 sm:py-10 relative"
+        onScroll={handleScroll}
+      >
+        <div className="fixed right-6 top-1/2 -translate-y-1/2 hidden sm:flex flex-col gap-[6px] z-50">
+          {Array.from({ length: TOTAL_SEGMENTS }).map((_, i) => (
+            <div
+              key={i}
+              className={`h-[2px] w-4 rounded-full transition-colors duration-300 ${
+                i <= activeSegment ? 'bg-[#f1f1ef]' : 'bg-[#3f3f3f]'
+              }`}
+            />
+          ))}
+        </div>
+
         <div className="mx-auto max-w-3xl">
           <CollaborativeEditor
             initialContent={page.content || ''}
             pageId={page.id}
             onContentChange={async (content) => {
-              // Content is saved with debouncing in the editor component
               try {
                 await fetch(`/api/pages/${page.id}`, {
                   method: 'PATCH',
