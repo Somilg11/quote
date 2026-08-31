@@ -36,6 +36,16 @@ export async function POST(request: Request) {
       );
     }
 
+    // An invite link is emailed to one address. Without this check, anyone who
+    // obtains the link - a forwarded mail, a shared screen - could join.
+    const sessionEmail = session.user.email?.trim().toLowerCase();
+    if (!sessionEmail || sessionEmail !== invite.email.trim().toLowerCase()) {
+      return NextResponse.json(
+        { message: "This invite was sent to a different email address" },
+        { status: 403 }
+      );
+    }
+
     // Check if user is already a member
     const existingMember = await prisma.workspaceMember.findUnique({
       where: {
@@ -65,10 +75,6 @@ export async function POST(request: Request) {
     await prisma.workspaceInvite.delete({
       where: { id: invite.id },
     });
-
-    console.log(
-      `[invite] ${session.user.email} accepted invite to workspace ${invite.workspace.name}`
-    );
 
     return NextResponse.json(
       { message: "Invite accepted successfully", workspaceId: invite.workspaceId },

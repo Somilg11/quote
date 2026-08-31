@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import type { Workspace } from "@/lib/prisma-client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Check, ChevronsUpDown, Plus, SquarePen } from "lucide-react";
+import { useState } from "react";
+import { NewWorkspaceDialog } from "@/components/workspace/new-workspace-dialog";
 
 interface WorkspaceSwitcherProps {
-  workspaces: Workspace[];
+  workspaces: { id: string; name: string }[];
   currentWorkspaceId: string;
 }
 
@@ -24,8 +26,11 @@ export function WorkspaceSwitcher({
 }: WorkspaceSwitcherProps) {
   const currentWorkspace = workspaces.find((w) => w.id === currentWorkspaceId);
   const initial = (currentWorkspace?.name || "Quote").charAt(0).toUpperCase();
+  // The dialog lives outside the menu so closing the menu does not unmount it.
+  const [creating, setCreating] = useState(false);
 
   return (
+    <>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
@@ -64,13 +69,20 @@ export function WorkspaceSwitcher({
             All workspaces
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild className="rounded-md focus:bg-[#333333] focus:text-[#f7f7f5]">
-          <Link href="/workspaces/new" className="cursor-pointer flex items-center gap-2">
-            <Plus className="h-4 w-4" />
-            New workspace
-          </Link>
+        <DropdownMenuItem
+          className="cursor-pointer gap-2 rounded-md focus:bg-[#333333] focus:text-[#f7f7f5]"
+          onSelect={(event) => {
+            event.preventDefault();
+            setCreating(true);
+          }}
+        >
+          <Plus className="h-4 w-4" />
+          New workspace
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+
+    <NewWorkspaceDialog open={creating} onOpenChange={setCreating} />
+    </>
   );
 }

@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { sendInviteEmail } from "@/lib/email";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import { isValidEmail } from "@/lib/security";
+import { absoluteUrl } from "@/lib/brand";
 
 const INVITE_EXPIRY_HOURS = 7 * 24; // 7 days
 
@@ -14,7 +16,15 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { email, workspaceId } = await request.json();
+    const { email: rawEmail, workspaceId } = await request.json();
+
+    if (!isValidEmail(rawEmail)) {
+      return NextResponse.json({ message: "Enter a valid email address" }, { status: 400 });
+    }
+
+    // Invites are matched against the signed-in address on acceptance, so both
+    // sides must be normalised the same way.
+    const email = rawEmail.trim().toLowerCase();
 
     const workspace = await prisma.workspace.findUnique({
       where: { id: workspaceId },
@@ -95,25 +105,19 @@ export async function POST(request: Request) {
     }
 
     // Send email with invite link
-    const inviteUrl = `${process.env.NEXTAUTH_URL || 'http://localhost:3000'}/invites/${invite.token}`;
+    const inviteUrl = absoluteUrl(`/invites/${invite.token}`);
     try {
       await sendInviteEmail(email, workspace.name, inviteUrl);
-      console.log(
-        `[invite] Email sent to ${email} for workspace ${workspace.name}`
-      );
     } catch (emailError) {
+      // The invite row still stands; only delivery failed.
       console.error("[invite] Failed to send email:", emailError);
-      // Continue anyway - invite is created, just email failed
     }
 
-    console.log(
-      `[invite] Invitation created for ${email} for workspace ${workspace.name}`
+    // The token is a credential: never log it, and never return it to the caller.
+    return NextResponse.json(
+      { invite: { id: invite.id, email: invite.email, expiresAt: invite.expiresAt } },
+      { status: 201 }
     );
-    console.log(
-      `[invite] Invite token: ${invite.token} (valid until ${expiresAt})`
-    );
-
-    return NextResponse.json({ invite }, { status: 201 });
   } catch (error) {
     console.error("[invites]", error);
     return NextResponse.json(
@@ -157,7 +161,17 @@ export async function GET(request: Request) {
       );
     }
 
-    return NextResponse.json({ invite }, { status: 200 });
+    return NextResponse.json(
+      {
+        invite: {
+          id: invite.id,
+          email: invite.email,
+          expiresAt: invite.expiresAt,
+          workspace: { id: invite.workspace.id, name: invite.workspace.name },
+        },
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("[get-invite]", error);
     return NextResponse.json(

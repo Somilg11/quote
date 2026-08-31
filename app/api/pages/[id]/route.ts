@@ -1,6 +1,21 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { sanitizeHtml } from "@/lib/sanitize-html";
+import { generateShareToken } from "@/lib/security";
+import { editablePageSelect } from "@/lib/types";
+
+/**
+ * Strips collaboration internals before a page crosses an HTTP boundary.
+ * `ydoc` is Bytes and `ydocSeq` is a BigInt - neither survives JSON.stringify.
+ */
+function serializePage(page: Record<string, unknown>) {
+  const { ydoc, ydocSeq, workspace, ...rest } = page;
+  void ydoc;
+  void ydocSeq;
+  void workspace;
+  return rest;
+}
 
 export async function PATCH(
   request: Request,
@@ -14,14 +29,20 @@ export async function PATCH(
 
   try {
     const { id: pageId } = await params;
-    const { title, content, shareType, icon } = await request.json();
+    const { title, content, shareType, icon, coverImage, source } = await request.json();
 
     const page = await prisma.page.findUnique({
       where: { id: pageId },
-      include: {
+      select: {
+        id: true,
+        content: true,
+        shareToken: true,
         workspace: {
-          include: {
-            members: true,
+          select: {
+            members: {
+              where: { userId: session.user.id },
+              select: { role: true },
+            },
           },
         },
       },
@@ -31,10 +52,7 @@ export async function PATCH(
       return NextResponse.json({ message: "Page not found" }, { status: 404 });
     }
 
-    // Verify user has access to this workspace
-    const member = page.workspace.members.find(
-      (m) => m.userId === session.user?.id
-    );
+    const member = page.workspace.members[0];
 
     if (!member) {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
@@ -43,18 +61,44 @@ export async function PATCH(
     // Generate share token if switching to global share
     let shareToken = page.shareToken;
     if (shareType === "global" && !shareToken) {
-      shareToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      shareToken = generateShareToken();
     }
 
-    // Update page
+    // Content written by anything other than the live editor (the REST API, an MCP
+    // client) bumps `version`, which is how open editors learn to offer a refresh.
+    const isExternalContentWrite = content !== undefined && source !== "editor";
+    // Bodies can be rendered on a public share page, so they are sanitised on write.
+    const safeContent = content === undefined ? undefined : sanitizeHtml(String(content));
+
     const updatedPage = await prisma.page.update({
       where: { id: pageId },
       data: {
         ...(title && { title }),
-        ...(content !== undefined && { content }),
+        ...(safeContent !== undefined && { content: safeContent }),
         ...(shareType && { shareType }),
         ...(shareToken && { shareToken }),
-        ...(icon && { icon }),
+        // `null` clears these, so an explicit undefined check is required.
+        ...(icon !== undefined && { icon: icon || null }),
+        ...(coverImage !== undefined && { coverImage: coverImage || null }),
+        ...(isExternalContentWrite && { version: { increment: 1 } }),
+      },
+      // `ydoc`/`ydocSeq` are Bytes and BigInt: not JSON-serialisable, and of no use
+      // to an HTTP client.
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        icon: true,
+        coverImage: true,
+        content: true,
+        parentId: true,
+        shareType: true,
+        shareToken: true,
+        version: true,
+        workspaceId: true,
+        createdById: true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
 
@@ -77,12 +121,19 @@ export async function GET(
   try {
     const { id: pageId } = await params;
 
+    const userId = (session?.user as { id?: string } | undefined)?.id;
+
     const page = await prisma.page.findUnique({
       where: { id: pageId },
-      include: {
+      select: {
+        ...editablePageSelect,
+        // Only the caller's own membership: every other row carries a password hash
+        // and none of it is needed to answer this request.
         workspace: {
-          include: {
-            members: true,
+          select: {
+            members: userId
+              ? { where: { userId }, select: { role: true } }
+              : { where: { userId: "" }, select: { role: true } },
           },
         },
       },
@@ -94,7 +145,7 @@ export async function GET(
 
     // If page is globally shared, allow access without authentication
     if (page.shareType === "global") {
-      return NextResponse.json({ page, isReadOnly: true }, { status: 200 });
+      return NextResponse.json({ page: serializePage(page), isReadOnly: true }, { status: 200 });
     }
 
     // For workspace or private sharing, require authentication
@@ -102,10 +153,7 @@ export async function GET(
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    // Verify user has access
-    const member = page.workspace.members.find(
-      (m) => m.userId === session.user?.id
-    );
+    const member = page.workspace.members[0];
 
     if (!member) {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
@@ -114,7 +162,7 @@ export async function GET(
     // Determine if user can edit (workspace members can edit)
     const isReadOnly = page.shareType === "private" && member.role !== "owner";
 
-    return NextResponse.json({ page, isReadOnly }, { status: 200 });
+    return NextResponse.json({ page: serializePage(page), isReadOnly }, { status: 200 });
   } catch (error) {
     console.error("[get-page]", error);
     return NextResponse.json(
@@ -139,10 +187,12 @@ export async function DELETE(
 
     const page = await prisma.page.findUnique({
       where: { id: pageId },
-      include: {
+      select: {
+        id: true,
+        createdById: true,
         workspace: {
-          include: {
-            members: true,
+          select: {
+            members: { where: { userId: session.user.id }, select: { role: true } },
           },
         },
       },
@@ -152,9 +202,7 @@ export async function DELETE(
       return NextResponse.json({ message: "Page not found" }, { status: 404 });
     }
 
-    const member = page.workspace.members.find(
-      (m) => m.userId === session.user?.id
-    );
+    const member = page.workspace.members[0];
 
     if (!member) {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });

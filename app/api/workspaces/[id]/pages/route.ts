@@ -14,7 +14,7 @@ export async function POST(
 
   try {
     const { id: workspaceId } = await params;
-    const { title, icon } = await request.json();
+    const { title, icon, parentId } = await request.json();
 
     // Verify user has access to this workspace
     const member = await prisma.workspaceMember.findUnique({
@@ -44,7 +44,17 @@ export async function POST(
       count++;
     }
 
-    // Create page
+    // A parent must live in the same workspace, or the tree could span workspaces.
+    if (parentId) {
+      const parent = await prisma.page.findUnique({
+        where: { id: parentId },
+        select: { workspaceId: true },
+      });
+      if (!parent || parent.workspaceId !== workspaceId) {
+        return NextResponse.json({ message: "Invalid parent page" }, { status: 400 });
+      }
+    }
+
     const page = await prisma.page.create({
       data: {
         title: title || "Untitled",
@@ -52,7 +62,26 @@ export async function POST(
         icon: icon || "📄",
         workspaceId,
         createdById: session.user.id,
+        parentId: parentId ?? null,
         content: "",
+      },
+      // `ydoc`/`ydocSeq` are collaboration internals: Bytes and BigInt, neither of
+      // which JSON can serialise. They are never useful to an HTTP client.
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        icon: true,
+        coverImage: true,
+        content: true,
+        parentId: true,
+        shareType: true,
+        shareToken: true,
+        version: true,
+        workspaceId: true,
+        createdById: true,
+        createdAt: true,
+        updatedAt: true,
       },
     });
 

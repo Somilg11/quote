@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Sidebar } from "@/components/workspace/sidebar";
+import { pageSummarySelect } from "@/lib/types";
 import { ReactNode } from "react";
 
 export default async function WorkspaceLayout({
@@ -37,53 +38,19 @@ export default async function WorkspaceLayout({
 
   const pages = await prisma.page.findMany({
     where: { workspaceId },
-    orderBy: { createdAt: "desc" },
+    select: pageSummarySelect,
+    orderBy: { updatedAt: "desc" },
   });
 
   const workspaces = await prisma.workspace.findMany({
-    where: {
-      members: {
-        some: {
-          userId,
-        },
-      },
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
+    where: { members: { some: { userId } } },
+    select: { id: true, name: true },
+    orderBy: { updatedAt: "desc" },
   });
-
-  const handleNewSubPage = async (parentId: string) => {
-    "use server";
-    const parentPage = await prisma.page.findUnique({
-      where: { id: parentId },
-    });
-
-    if (!parentPage || parentPage.workspaceId !== workspaceId) {
-      return;
-    }
-
-    const newPage = await prisma.page.create({
-      data: {
-        title: "Untitled",
-        slug: `untitled-${Date.now()}`,
-        workspaceId,
-        createdById: userId,
-        parentId,
-      },
-    });
-
-    redirect(`/workspaces/${workspaceId}/pages/${newPage.id}`);
-  };
 
   return (
     <div className="flex min-h-screen flex-col bg-[#191919] text-[#f1f1ef] md:h-screen md:flex-row">
-      <Sidebar 
-        workspaceId={workspaceId} 
-        workspaces={workspaces} 
-        pages={pages} 
-        onNewSubPage={handleNewSubPage}
-      />
+      <Sidebar workspaceId={workspaceId} workspaces={workspaces} pages={pages} />
       <main className="min-w-0 flex-1 overflow-y-auto bg-[#191919]">
         {children}
       </main>

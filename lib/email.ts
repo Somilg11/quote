@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { escapeHtml } from "@/lib/security";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -13,6 +14,10 @@ export async function sendInviteEmail(
   workspaceName: string,
   inviteUrl: string
 ) {
+  // Workspace names are user-supplied and land inside an HTML body.
+  const safeName = escapeHtml(workspaceName);
+  const safeUrl = escapeHtml(inviteUrl);
+
   try {
     const info = await transporter.sendMail({
       from: process.env.GMAIL_EMAIL,
@@ -20,11 +25,11 @@ export async function sendInviteEmail(
       subject: `You're invited to join ${workspaceName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2>You're invited to join ${workspaceName}</h2>
+          <h2>You're invited to join ${safeName}</h2>
           <p>You have been invited to collaborate on a workspace. Click the button below to accept the invitation:</p>
-          <a href="${inviteUrl}" style="display: inline-block; padding: 12px 24px; background-color: #0070f3; color: white; text-decoration: none; border-radius: 6px; margin: 16px 0;">Accept Invitation</a>
+          <a href="${safeUrl}" style="display: inline-block; padding: 12px 24px; background-color: #0070f3; color: white; text-decoration: none; border-radius: 6px; margin: 16px 0;">Accept Invitation</a>
           <p>Or copy and paste this link into your browser:</p>
-          <p style="word-break: break-all; color: #666;">${inviteUrl}</p>
+          <p style="word-break: break-all; color: #666;">${safeUrl}</p>
           <p style="color: #666; font-size: 14px; margin-top: 32px;">This invitation will expire in 7 days.</p>
         </div>
       `,

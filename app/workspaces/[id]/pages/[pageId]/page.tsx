@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { PageEditor } from "@/components/workspace/page-editor";
+import { editablePageSelect, safeUserSelect } from "@/lib/types";
 
 export default async function PageEditorPage({
   params,
@@ -18,9 +19,7 @@ export default async function PageEditorPage({
 
   const page = await prisma.page.findUnique({
     where: { id: pageId },
-    include: {
-      createdBy: true,
-    },
+    select: editablePageSelect,
   });
 
   if (!page || page.workspaceId !== workspaceId) {
@@ -37,7 +36,8 @@ export default async function PageEditorPage({
 
   const members = await prisma.workspaceMember.findMany({
     where: { workspaceId },
-    include: { user: true },
+    select: { id: true, userId: true, role: true, user: { select: safeUserSelect } },
+    orderBy: { joinedAt: "asc" },
   });
 
   return (

@@ -1,24 +1,56 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import type { Page, User, Workspace, WorkspaceMember } from "@/lib/prisma-client";
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
+import { toast } from "sonner";
+import type { Workspace } from "@/lib/prisma-client";
+import type { PageSummary, SafeMember } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import { WorkspaceInviteDialog } from "@/components/workspace/workspace-invite-dialog";
-import { FileText, Plus, Search, Users } from "lucide-react";
-
-type MemberWithUser = WorkspaceMember & { user: User };
+import { FileText, Loader2, LogOut, MoreHorizontal, Plus, Search, Trash2, Users } from "lucide-react";
+import { createPage, pageHref } from "@/lib/pages";
+import { PagePeek } from "@/components/workspace/page-peek";
+import { DeleteWorkspaceDialog } from "@/components/workspace/delete-workspace-dialog";
+import { LeaveWorkspaceDialog } from "@/components/workspace/leave-workspace-dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface WorkspaceHomeProps {
   workspace: Workspace;
-  pages: Page[];
-  members: MemberWithUser[];
+  pages: PageSummary[];
+  members: SafeMember[];
+  currentUser: { id: string };
 }
 
-export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps) {
+export function WorkspaceHome({ workspace, pages, members, currentUser }: WorkspaceHomeProps) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
+  const [creating, setCreating] = useState(false);
+  const [peekPageId, setPeekPageId] = useState<string | null>(null);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [confirmingLeave, setConfirmingLeave] = useState(false);
+  const isOwner = workspace.ownerId === currentUser.id;
+
+  const addPage = useCallback(async () => {
+    if (creating) return;
+    setCreating(true);
+    try {
+      const page = await createPage(workspace.id);
+      router.push(pageHref(workspace.id, page.id));
+      router.refresh();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not create the page");
+    } finally {
+      setCreating(false);
+    }
+  }, [creating, router, workspace.id]);
   const filteredPages = useMemo(
     () =>
       pages.filter((page) =>
@@ -28,7 +60,8 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
   );
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 text-[#f1f1ef] sm:px-8 lg:px-10 lg:py-12">
+    <>
+      <div className="mx-auto max-w-5xl px-4 py-8 text-[#f1f1ef] sm:px-8 lg:px-10 lg:py-12">
       <div className="mb-8 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between">
         <div className="min-w-0">
           <div className="mb-4 text-5xl sm:text-6xl">{workspace.name.charAt(0).toUpperCase()}</div>
@@ -40,7 +73,7 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
         <div className="flex flex-wrap items-center gap-2">
           <HoverCard openDelay={120}>
             <HoverCardTrigger asChild>
-              <button className="flex items-center rounded-md px-1.5 py-1 transition-all duration-200 hover:bg-[#2f2f2f] hover:scale-105 active:scale-95" aria-label="Show collaborators">
+              <button className="flex items-center rounded-md px-1.5 py-1 transition-colors duration-150 hover:bg-[#2f2f2f]" aria-label="Show collaborators">
                 <div className="flex -space-x-2">
                   {members.slice(0, 5).map((member) => (
                     <div
@@ -76,12 +109,57 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
             </HoverCardContent>
           </HoverCard>
           <WorkspaceInviteDialog workspaceId={workspace.id} />
-          <Link href={`/workspaces/${workspace.id}/pages/new`}>
-            <Button className="rounded-md bg-[#f1f1ef] text-[#202020] shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md hover:scale-105 active:scale-95">
-              <Plus className="h-4 w-4 mr-2" />
-              New page
-            </Button>
-          </Link>
+          <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Workspace settings"
+                  className="grid h-9 w-9 place-items-center rounded-md text-[#9b9b9b] transition-colors hover:bg-[#2f2f2f] hover:text-white"
+                >
+                  <MoreHorizontal className="h-4 w-4" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-48 rounded-lg border-[#3f3f3f] bg-[#252525] p-1 text-[#f1f1ef] shadow-xl"
+              >
+                {isOwner ? (
+                  <DropdownMenuItem
+                    className="gap-2 rounded-md text-[#ff7369] focus:bg-[#3a2928] focus:text-[#ff8a82]"
+                    onSelect={(event) => {
+                      event.preventDefault();
+                      setConfirmingDelete(true);
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    Delete workspace
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem
+                    className="gap-2 rounded-md text-[#ff7369] focus:bg-[#3a2928] focus:text-[#ff8a82]"
+                    onSelect={(event) => {
+                      event.preventDefault();
+                      setConfirmingLeave(true);
+                    }}
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Leave workspace
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          <Button
+            onClick={() => void addPage()}
+            disabled={creating}
+            className="rounded-md bg-[#f1f1ef] text-[#202020] shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md"
+          >
+            {creating ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Plus className="mr-2 h-4 w-4" />
+            )}
+            New page
+          </Button>
         </div>
       </div>
 
@@ -103,12 +181,18 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
             {query ? "Try a different search term." : "Create your first page to start collaborating"}
           </p>
           {!query && (
-            <Link href={`/workspaces/${workspace.id}/pages/new`}>
-              <Button className="rounded-md bg-[#f1f1ef] text-[#202020] shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md hover:scale-105 active:scale-95">
-                <Plus className="h-4 w-4 mr-2" />
-                Create page
-              </Button>
-            </Link>
+            <Button
+              onClick={() => void addPage()}
+              disabled={creating}
+              className="rounded-md bg-[#f1f1ef] text-[#202020] shadow-sm transition-all duration-200 hover:bg-white hover:shadow-md"
+            >
+              {creating ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Plus className="mr-2 h-4 w-4" />
+              )}
+              Create page
+            </Button>
           )}
         </div>
       ) : (
@@ -116,8 +200,15 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
           {filteredPages.map((page) => (
             <Link
               key={page.id}
-              href={`/workspaces/${workspace.id}/pages/${page.id}`}
-              className="group flex items-center justify-between gap-4 rounded-md px-3 py-2 transition-all duration-200 hover:bg-[#2f2f2f] hover:scale-[1.01] active:scale-[0.99]"
+              href={pageHref(workspace.id, page.id)}
+              onClick={(event) => {
+                // Plain click peeks; modified clicks keep the browser's own
+                // new-tab and new-window behaviour.
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+                event.preventDefault();
+                setPeekPageId(page.id);
+              }}
+              className="group flex items-center justify-between gap-4 rounded-md px-3 py-2 transition-colors duration-150 hover:bg-[#2f2f2f]"
             >
               <div className="flex min-w-0 items-center gap-3">
                 <span className="grid h-7 w-7 shrink-0 place-items-center text-xl">{page.icon}</span>
@@ -131,5 +222,31 @@ export function WorkspaceHome({ workspace, pages, members }: WorkspaceHomeProps)
         </div>
       )}
     </div>
+
+      <PagePeek
+        workspace={workspace}
+        members={members}
+        currentUser={currentUser}
+        pageId={peekPageId}
+        onClose={() => setPeekPageId(null)}
+      />
+
+      <DeleteWorkspaceDialog
+        workspace={{
+          id: workspace.id,
+          name: workspace.name,
+          pageCount: pages.length,
+          memberCount: members.length,
+        }}
+        open={confirmingDelete}
+        onOpenChange={setConfirmingDelete}
+      />
+
+      <LeaveWorkspaceDialog
+        workspace={{ id: workspace.id, name: workspace.name }}
+        open={confirmingLeave}
+        onOpenChange={setConfirmingLeave}
+      />
+    </>
   );
 }

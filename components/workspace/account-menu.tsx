@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { LogOut, UserRound } from "lucide-react";
+import Link from "next/link";
+import { LogOut, Plug } from "lucide-react";
 
 interface AccountMenuProps {
   user: {
@@ -54,9 +55,11 @@ export function AccountMenu({ user }: AccountMenuProps) {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-[#3a3a3a]" />
-        <DropdownMenuItem disabled className="gap-2 rounded-md text-[#9b9b9b]">
-          <UserRound className="h-4 w-4" />
-          Account settings
+        <DropdownMenuItem asChild className="gap-2 rounded-md focus:bg-[#333333] focus:text-white">
+          <Link href="/settings/connections">
+            <Plug className="h-4 w-4" />
+            Connections &amp; API tokens
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="gap-2 rounded-md text-[#ff7369] focus:bg-[#3a2928] focus:text-[#ff8a82]"

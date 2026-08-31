@@ -67,6 +67,7 @@ model User {
   workspaces         Workspace[]
   workspaceMemberships WorkspaceMember[]
   pages              Page[]
+  apiTokens          ApiToken[]
 
   @@index([email])
 }
@@ -123,11 +124,19 @@ model Page {
   slug        String
   content     String?  @default("") // Stores HTML or JSON from TipTap
   icon        String?  @default("📄")
+  // Either an image URL or a `gradient:<id>` token from the built-in presets.
+  coverImage  String?
   workspaceId String
   createdById String?
   parentId    String?  // For nested pages like Notion
   shareType   String   @default("private") // "private", "workspace", "global"
   shareToken  String?  @unique // Unique token for global sharing
+  // Collaboration state: a compacted Yjs snapshot plus the log offset it covers.
+  ydoc        Bytes?
+  ydocSeq     BigInt   @default(0)
+  // Bumped whenever `content` is written from outside the live editor (API/MCP),
+  // so open editors can offer to pull the change in.
+  version     Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -135,10 +144,64 @@ model Page {
   createdBy User?     @relation(fields: [createdById], references: [id], onDelete: SetNull)
   parent    Page?     @relation("PageHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
   children  Page[]    @relation("PageHierarchy")
+  updates   PageUpdate[]
+  presence  PagePresence[]
 
   @@unique([workspaceId, slug])
   @@index([workspaceId])
+  @@index([workspaceId, updatedAt])
+  @@index([updatedAt])
   @@index([createdById])
   @@index([shareToken])
   @@index([parentId])
+}
+
+// Append-only log of Yjs document updates. Clients push their local updates here
+// and poll for everyone else's, which keeps collaboration serverless-friendly.
+// Rows older than the page snapshot (`Page.ydocSeq`) are compacted away.
+model PageUpdate {
+  seq       BigInt   @id @default(autoincrement())
+  pageId    String
+  update    Bytes
+  clientId  String
+  createdAt DateTime @default(now())
+
+  page Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([pageId, seq])
+  @@index([createdAt])
+}
+
+// Ephemeral "who has this page open" state. Rows are refreshed on every poll and
+// treated as stale after a short window, so no cleanup job is required.
+model PagePresence {
+  id        String   @id @default(cuid())
+  pageId    String
+  userId    String
+  name      String
+  color     String
+  updatedAt DateTime @updatedAt
+
+  page Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@unique([pageId, userId])
+  @@index([pageId, updatedAt])
+}
+
+// Personal access token used by MCP clients (Claude Code, ChatGPT, Gemini, ...).
+// Only the SHA-256 hash is stored; the plaintext is shown once at creation.
+model ApiToken {
+  id         String    @id @default(cuid())
+  userId     String
+  name       String
+  tokenHash  String    @unique
+  prefix     String
+  lastUsedAt DateTime?
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

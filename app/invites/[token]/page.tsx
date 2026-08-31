@@ -20,7 +20,15 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
 
   const validateInvite = async () => {
     try {
-      const response = await fetch(`/api/invites?token=${token}`);
+      const response = await fetch(`/api/invites?token=${encodeURIComponent(token)}`);
+
+      // An invite link is usually opened straight from an email, so signing in
+      // first is the common path rather than an error.
+      if (response.status === 401) {
+        window.location.href = `/auth/signin?callbackUrl=${encodeURIComponent(`/invites/${token}`)}`;
+        return;
+      }
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -53,8 +61,9 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
         return;
       }
 
-      // Redirect to workspace
-      window.location.href = `/workspaces/${invite.workspaceId}`;
+      // The accept response carries the workspace id; the invite lookup no
+      // longer exposes more than it needs to.
+      window.location.href = `/workspaces/${data.workspaceId}`;
     } catch (err) {
       setError("Failed to accept invite");
       setAccepting(false);

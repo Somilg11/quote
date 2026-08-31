@@ -1,7 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { RoomProviderWrapper } from "@/components/providers/liveblocks-provider";
 import { ReactNode } from "react";
 
 export default async function PageEditorLayout({
@@ -44,11 +43,5 @@ export default async function PageEditorLayout({
     redirect(`/workspaces/${workspaceId}`);
   }
 
-  const roomId = `workspace-${workspaceId}-page-${pageId}`;
-
-  return (
-    <RoomProviderWrapper roomId={roomId}>
-      {children}
-    </RoomProviderWrapper>
-  );
+  return <>{children}</>;
 }

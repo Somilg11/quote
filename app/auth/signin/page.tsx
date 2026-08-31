@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
-import { ArrowRight, Quote } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Logo } from '@/components/brand/logo';
 
 export default function SignInPage() {
   const router = useRouter();
@@ -47,9 +48,8 @@ export default function SignInPage() {
 
   return (
     <div className="min-h-screen bg-[#191919] px-4 py-6 text-[#f1f1ef] sm:px-6">
-      <Link href="/" className="inline-flex items-center gap-2 rounded-md px-2 py-1 text-sm font-semibold transition-colors hover:bg-[#2f2f2f]">
-        <Quote className="h-4 w-4" />
-        Quote
+      <Link href="/" className="inline-flex rounded-md px-2 py-1 transition-opacity hover:opacity-80">
+        <Logo />
       </Link>
       <div className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-sm items-center">
         <div className="w-full rounded-md border border-[#2f2f2f] bg-[#202020] p-5 shadow-2xl sm:p-6">

@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
 
         try {
           const user = await prisma.user.findUnique({
-            where: { email: credentials.email },
+            where: { email: credentials.email.trim().toLowerCase() },
           });
 
           if (!user || !user.password) {
@@ -41,7 +41,8 @@ export const authOptions: NextAuthOptions = {
 
           return {
             id: user.id,
-            email: user.email,
+            // NextAuth's `User` requires a string here; credentials users always have one.
+            email: user.email ?? "",
             name: user.name || undefined,
             image: user.image || undefined,
           };

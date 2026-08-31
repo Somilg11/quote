@@ -1,0 +1,8 @@
+<svg width="132" height="32" viewBox="0 0 132 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="8" fill="#F7F7F5"/>
+  <g fill="#191919" transform="translate(3.2 0) skewX(-10)">
+    <rect x="7.6" y="8.5" width="4.6" height="15" rx="2.3"/>
+    <rect x="15.4" y="8.5" width="4.6" height="15" rx="2.3"/>
+  </g>
+  <text x="42" y="22.5" font-family="Geist, Inter, system-ui, sans-serif" font-size="19" font-weight="600" letter-spacing="-0.6" fill="currentColor">Quote</text>
+</svg>

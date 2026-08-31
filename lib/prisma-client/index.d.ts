@@ -53,6 +53,21 @@ export type WorkspaceInvite = $Result.DefaultSelection<Prisma.$WorkspaceInvitePa
  * 
  */
 export type Page = $Result.DefaultSelection<Prisma.$PagePayload>
+/**
+ * Model PageUpdate
+ * 
+ */
+export type PageUpdate = $Result.DefaultSelection<Prisma.$PageUpdatePayload>
+/**
+ * Model PagePresence
+ * 
+ */
+export type PagePresence = $Result.DefaultSelection<Prisma.$PagePresencePayload>
+/**
+ * Model ApiToken
+ * 
+ */
+export type ApiToken = $Result.DefaultSelection<Prisma.$ApiTokenPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -254,6 +269,36 @@ export class PrismaClient<
     * ```
     */
   get page(): Prisma.PageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pageUpdate`: Exposes CRUD operations for the **PageUpdate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PageUpdates
+    * const pageUpdates = await prisma.pageUpdate.findMany()
+    * ```
+    */
+  get pageUpdate(): Prisma.PageUpdateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pagePresence`: Exposes CRUD operations for the **PagePresence** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PagePresences
+    * const pagePresences = await prisma.pagePresence.findMany()
+    * ```
+    */
+  get pagePresence(): Prisma.PagePresenceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.apiToken`: Exposes CRUD operations for the **ApiToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ApiTokens
+    * const apiTokens = await prisma.apiToken.findMany()
+    * ```
+    */
+  get apiToken(): Prisma.ApiTokenDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -695,7 +740,10 @@ export namespace Prisma {
     Workspace: 'Workspace',
     WorkspaceMember: 'WorkspaceMember',
     WorkspaceInvite: 'WorkspaceInvite',
-    Page: 'Page'
+    Page: 'Page',
+    PageUpdate: 'PageUpdate',
+    PagePresence: 'PagePresence',
+    ApiToken: 'ApiToken'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -711,7 +759,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "workspace" | "workspaceMember" | "workspaceInvite" | "page"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "workspace" | "workspaceMember" | "workspaceInvite" | "page" | "pageUpdate" | "pagePresence" | "apiToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1307,6 +1355,228 @@ export namespace Prisma {
           }
         }
       }
+      PageUpdate: {
+        payload: Prisma.$PageUpdatePayload<ExtArgs>
+        fields: Prisma.PageUpdateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PageUpdateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PageUpdateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>
+          }
+          findFirst: {
+            args: Prisma.PageUpdateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PageUpdateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>
+          }
+          findMany: {
+            args: Prisma.PageUpdateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>[]
+          }
+          create: {
+            args: Prisma.PageUpdateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>
+          }
+          createMany: {
+            args: Prisma.PageUpdateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PageUpdateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>[]
+          }
+          delete: {
+            args: Prisma.PageUpdateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>
+          }
+          update: {
+            args: Prisma.PageUpdateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>
+          }
+          deleteMany: {
+            args: Prisma.PageUpdateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PageUpdateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PageUpdateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>[]
+          }
+          upsert: {
+            args: Prisma.PageUpdateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PageUpdatePayload>
+          }
+          aggregate: {
+            args: Prisma.PageUpdateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePageUpdate>
+          }
+          groupBy: {
+            args: Prisma.PageUpdateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PageUpdateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PageUpdateCountArgs<ExtArgs>
+            result: $Utils.Optional<PageUpdateCountAggregateOutputType> | number
+          }
+        }
+      }
+      PagePresence: {
+        payload: Prisma.$PagePresencePayload<ExtArgs>
+        fields: Prisma.PagePresenceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PagePresenceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PagePresenceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>
+          }
+          findFirst: {
+            args: Prisma.PagePresenceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PagePresenceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>
+          }
+          findMany: {
+            args: Prisma.PagePresenceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>[]
+          }
+          create: {
+            args: Prisma.PagePresenceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>
+          }
+          createMany: {
+            args: Prisma.PagePresenceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PagePresenceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>[]
+          }
+          delete: {
+            args: Prisma.PagePresenceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>
+          }
+          update: {
+            args: Prisma.PagePresenceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>
+          }
+          deleteMany: {
+            args: Prisma.PagePresenceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PagePresenceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PagePresenceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>[]
+          }
+          upsert: {
+            args: Prisma.PagePresenceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PagePresencePayload>
+          }
+          aggregate: {
+            args: Prisma.PagePresenceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePagePresence>
+          }
+          groupBy: {
+            args: Prisma.PagePresenceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PagePresenceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PagePresenceCountArgs<ExtArgs>
+            result: $Utils.Optional<PagePresenceCountAggregateOutputType> | number
+          }
+        }
+      }
+      ApiToken: {
+        payload: Prisma.$ApiTokenPayload<ExtArgs>
+        fields: Prisma.ApiTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ApiTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ApiTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.ApiTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ApiTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>
+          }
+          findMany: {
+            args: Prisma.ApiTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>[]
+          }
+          create: {
+            args: Prisma.ApiTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>
+          }
+          createMany: {
+            args: Prisma.ApiTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ApiTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.ApiTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>
+          }
+          update: {
+            args: Prisma.ApiTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.ApiTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ApiTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ApiTokenUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>[]
+          }
+          upsert: {
+            args: Prisma.ApiTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ApiTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.ApiTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateApiToken>
+          }
+          groupBy: {
+            args: Prisma.ApiTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ApiTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ApiTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<ApiTokenCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1423,6 +1693,9 @@ export namespace Prisma {
     workspaceMember?: WorkspaceMemberOmit
     workspaceInvite?: WorkspaceInviteOmit
     page?: PageOmit
+    pageUpdate?: PageUpdateOmit
+    pagePresence?: PagePresenceOmit
+    apiToken?: ApiTokenOmit
   }
 
   /* Types for Logging */
@@ -1508,6 +1781,7 @@ export namespace Prisma {
     workspaces: number
     workspaceMemberships: number
     pages: number
+    apiTokens: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1516,6 +1790,7 @@ export namespace Prisma {
     workspaces?: boolean | UserCountOutputTypeCountWorkspacesArgs
     workspaceMemberships?: boolean | UserCountOutputTypeCountWorkspaceMembershipsArgs
     pages?: boolean | UserCountOutputTypeCountPagesArgs
+    apiTokens?: boolean | UserCountOutputTypeCountApiTokensArgs
   }
 
   // Custom InputTypes
@@ -1562,6 +1837,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountApiTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ApiTokenWhereInput
   }
 
 
@@ -1620,10 +1902,14 @@ export namespace Prisma {
 
   export type PageCountOutputType = {
     children: number
+    updates: number
+    presence: number
   }
 
   export type PageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     children?: boolean | PageCountOutputTypeCountChildrenArgs
+    updates?: boolean | PageCountOutputTypeCountUpdatesArgs
+    presence?: boolean | PageCountOutputTypeCountPresenceArgs
   }
 
   // Custom InputTypes
@@ -1642,6 +1928,20 @@ export namespace Prisma {
    */
   export type PageCountOutputTypeCountChildrenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PageWhereInput
+  }
+
+  /**
+   * PageCountOutputType without action
+   */
+  export type PageCountOutputTypeCountUpdatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PageUpdateWhereInput
+  }
+
+  /**
+   * PageCountOutputType without action
+   */
+  export type PageCountOutputTypeCountPresenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PagePresenceWhereInput
   }
 
 
@@ -5054,6 +5354,7 @@ export namespace Prisma {
     workspaces?: boolean | User$workspacesArgs<ExtArgs>
     workspaceMemberships?: boolean | User$workspaceMembershipsArgs<ExtArgs>
     pages?: boolean | User$pagesArgs<ExtArgs>
+    apiTokens?: boolean | User$apiTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5097,6 +5398,7 @@ export namespace Prisma {
     workspaces?: boolean | User$workspacesArgs<ExtArgs>
     workspaceMemberships?: boolean | User$workspaceMembershipsArgs<ExtArgs>
     pages?: boolean | User$pagesArgs<ExtArgs>
+    apiTokens?: boolean | User$apiTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5110,6 +5412,7 @@ export namespace Prisma {
       workspaces: Prisma.$WorkspacePayload<ExtArgs>[]
       workspaceMemberships: Prisma.$WorkspaceMemberPayload<ExtArgs>[]
       pages: Prisma.$PagePayload<ExtArgs>[]
+      apiTokens: Prisma.$ApiTokenPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5519,6 +5822,7 @@ export namespace Prisma {
     workspaces<T extends User$workspacesArgs<ExtArgs> = {}>(args?: Subset<T, User$workspacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workspaceMemberships<T extends User$workspaceMembershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$workspaceMembershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspaceMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     pages<T extends User$pagesArgs<ExtArgs> = {}>(args?: Subset<T, User$pagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    apiTokens<T extends User$apiTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$apiTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6066,6 +6370,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PageScalarFieldEnum | PageScalarFieldEnum[]
+  }
+
+  /**
+   * User.apiTokens
+   */
+  export type User$apiTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    where?: ApiTokenWhereInput
+    orderBy?: ApiTokenOrderByWithRelationInput | ApiTokenOrderByWithRelationInput[]
+    cursor?: ApiTokenWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ApiTokenScalarFieldEnum | ApiTokenScalarFieldEnum[]
   }
 
   /**
@@ -9415,8 +9743,20 @@ export namespace Prisma {
 
   export type AggregatePage = {
     _count: PageCountAggregateOutputType | null
+    _avg: PageAvgAggregateOutputType | null
+    _sum: PageSumAggregateOutputType | null
     _min: PageMinAggregateOutputType | null
     _max: PageMaxAggregateOutputType | null
+  }
+
+  export type PageAvgAggregateOutputType = {
+    ydocSeq: number | null
+    version: number | null
+  }
+
+  export type PageSumAggregateOutputType = {
+    ydocSeq: bigint | null
+    version: number | null
   }
 
   export type PageMinAggregateOutputType = {
@@ -9425,11 +9765,15 @@ export namespace Prisma {
     slug: string | null
     content: string | null
     icon: string | null
+    coverImage: string | null
     workspaceId: string | null
     createdById: string | null
     parentId: string | null
     shareType: string | null
     shareToken: string | null
+    ydoc: Bytes | null
+    ydocSeq: bigint | null
+    version: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9440,11 +9784,15 @@ export namespace Prisma {
     slug: string | null
     content: string | null
     icon: string | null
+    coverImage: string | null
     workspaceId: string | null
     createdById: string | null
     parentId: string | null
     shareType: string | null
     shareToken: string | null
+    ydoc: Bytes | null
+    ydocSeq: bigint | null
+    version: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9455,16 +9803,30 @@ export namespace Prisma {
     slug: number
     content: number
     icon: number
+    coverImage: number
     workspaceId: number
     createdById: number
     parentId: number
     shareType: number
     shareToken: number
+    ydoc: number
+    ydocSeq: number
+    version: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type PageAvgAggregateInputType = {
+    ydocSeq?: true
+    version?: true
+  }
+
+  export type PageSumAggregateInputType = {
+    ydocSeq?: true
+    version?: true
+  }
 
   export type PageMinAggregateInputType = {
     id?: true
@@ -9472,11 +9834,15 @@ export namespace Prisma {
     slug?: true
     content?: true
     icon?: true
+    coverImage?: true
     workspaceId?: true
     createdById?: true
     parentId?: true
     shareType?: true
     shareToken?: true
+    ydoc?: true
+    ydocSeq?: true
+    version?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9487,11 +9853,15 @@ export namespace Prisma {
     slug?: true
     content?: true
     icon?: true
+    coverImage?: true
     workspaceId?: true
     createdById?: true
     parentId?: true
     shareType?: true
     shareToken?: true
+    ydoc?: true
+    ydocSeq?: true
+    version?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9502,11 +9872,15 @@ export namespace Prisma {
     slug?: true
     content?: true
     icon?: true
+    coverImage?: true
     workspaceId?: true
     createdById?: true
     parentId?: true
     shareType?: true
     shareToken?: true
+    ydoc?: true
+    ydocSeq?: true
+    version?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -9550,6 +9924,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: PageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PageMinAggregateInputType
@@ -9580,6 +9966,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PageCountAggregateInputType | true
+    _avg?: PageAvgAggregateInputType
+    _sum?: PageSumAggregateInputType
     _min?: PageMinAggregateInputType
     _max?: PageMaxAggregateInputType
   }
@@ -9590,14 +9978,20 @@ export namespace Prisma {
     slug: string
     content: string | null
     icon: string | null
+    coverImage: string | null
     workspaceId: string
     createdById: string | null
     parentId: string | null
     shareType: string
     shareToken: string | null
+    ydoc: Bytes | null
+    ydocSeq: bigint
+    version: number
     createdAt: Date
     updatedAt: Date
     _count: PageCountAggregateOutputType | null
+    _avg: PageAvgAggregateOutputType | null
+    _sum: PageSumAggregateOutputType | null
     _min: PageMinAggregateOutputType | null
     _max: PageMaxAggregateOutputType | null
   }
@@ -9622,17 +10016,23 @@ export namespace Prisma {
     slug?: boolean
     content?: boolean
     icon?: boolean
+    coverImage?: boolean
     workspaceId?: boolean
     createdById?: boolean
     parentId?: boolean
     shareType?: boolean
     shareToken?: boolean
+    ydoc?: boolean
+    ydocSeq?: boolean
+    version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     createdBy?: boolean | Page$createdByArgs<ExtArgs>
     parent?: boolean | Page$parentArgs<ExtArgs>
     children?: boolean | Page$childrenArgs<ExtArgs>
+    updates?: boolean | Page$updatesArgs<ExtArgs>
+    presence?: boolean | Page$presenceArgs<ExtArgs>
     _count?: boolean | PageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["page"]>
 
@@ -9642,11 +10042,15 @@ export namespace Prisma {
     slug?: boolean
     content?: boolean
     icon?: boolean
+    coverImage?: boolean
     workspaceId?: boolean
     createdById?: boolean
     parentId?: boolean
     shareType?: boolean
     shareToken?: boolean
+    ydoc?: boolean
+    ydocSeq?: boolean
+    version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
@@ -9660,11 +10064,15 @@ export namespace Prisma {
     slug?: boolean
     content?: boolean
     icon?: boolean
+    coverImage?: boolean
     workspaceId?: boolean
     createdById?: boolean
     parentId?: boolean
     shareType?: boolean
     shareToken?: boolean
+    ydoc?: boolean
+    ydocSeq?: boolean
+    version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
@@ -9678,21 +10086,27 @@ export namespace Prisma {
     slug?: boolean
     content?: boolean
     icon?: boolean
+    coverImage?: boolean
     workspaceId?: boolean
     createdById?: boolean
     parentId?: boolean
     shareType?: boolean
     shareToken?: boolean
+    ydoc?: boolean
+    ydocSeq?: boolean
+    version?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "content" | "icon" | "workspaceId" | "createdById" | "parentId" | "shareType" | "shareToken" | "createdAt" | "updatedAt", ExtArgs["result"]["page"]>
+  export type PageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "content" | "icon" | "coverImage" | "workspaceId" | "createdById" | "parentId" | "shareType" | "shareToken" | "ydoc" | "ydocSeq" | "version" | "createdAt" | "updatedAt", ExtArgs["result"]["page"]>
   export type PageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     createdBy?: boolean | Page$createdByArgs<ExtArgs>
     parent?: boolean | Page$parentArgs<ExtArgs>
     children?: boolean | Page$childrenArgs<ExtArgs>
+    updates?: boolean | Page$updatesArgs<ExtArgs>
+    presence?: boolean | Page$presenceArgs<ExtArgs>
     _count?: boolean | PageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9713,6 +10127,8 @@ export namespace Prisma {
       createdBy: Prisma.$UserPayload<ExtArgs> | null
       parent: Prisma.$PagePayload<ExtArgs> | null
       children: Prisma.$PagePayload<ExtArgs>[]
+      updates: Prisma.$PageUpdatePayload<ExtArgs>[]
+      presence: Prisma.$PagePresencePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9720,11 +10136,15 @@ export namespace Prisma {
       slug: string
       content: string | null
       icon: string | null
+      coverImage: string | null
       workspaceId: string
       createdById: string | null
       parentId: string | null
       shareType: string
       shareToken: string | null
+      ydoc: Prisma.Bytes | null
+      ydocSeq: bigint
+      version: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["page"]>
@@ -10125,6 +10545,8 @@ export namespace Prisma {
     createdBy<T extends Page$createdByArgs<ExtArgs> = {}>(args?: Subset<T, Page$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     parent<T extends Page$parentArgs<ExtArgs> = {}>(args?: Subset<T, Page$parentArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     children<T extends Page$childrenArgs<ExtArgs> = {}>(args?: Subset<T, Page$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    updates<T extends Page$updatesArgs<ExtArgs> = {}>(args?: Subset<T, Page$updatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    presence<T extends Page$presenceArgs<ExtArgs> = {}>(args?: Subset<T, Page$presenceArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10159,11 +10581,15 @@ export namespace Prisma {
     readonly slug: FieldRef<"Page", 'String'>
     readonly content: FieldRef<"Page", 'String'>
     readonly icon: FieldRef<"Page", 'String'>
+    readonly coverImage: FieldRef<"Page", 'String'>
     readonly workspaceId: FieldRef<"Page", 'String'>
     readonly createdById: FieldRef<"Page", 'String'>
     readonly parentId: FieldRef<"Page", 'String'>
     readonly shareType: FieldRef<"Page", 'String'>
     readonly shareToken: FieldRef<"Page", 'String'>
+    readonly ydoc: FieldRef<"Page", 'Bytes'>
+    readonly ydocSeq: FieldRef<"Page", 'BigInt'>
+    readonly version: FieldRef<"Page", 'Int'>
     readonly createdAt: FieldRef<"Page", 'DateTime'>
     readonly updatedAt: FieldRef<"Page", 'DateTime'>
   }
@@ -10629,6 +11055,54 @@ export namespace Prisma {
   }
 
   /**
+   * Page.updates
+   */
+  export type Page$updatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    where?: PageUpdateWhereInput
+    orderBy?: PageUpdateOrderByWithRelationInput | PageUpdateOrderByWithRelationInput[]
+    cursor?: PageUpdateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PageUpdateScalarFieldEnum | PageUpdateScalarFieldEnum[]
+  }
+
+  /**
+   * Page.presence
+   */
+  export type Page$presenceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    where?: PagePresenceWhereInput
+    orderBy?: PagePresenceOrderByWithRelationInput | PagePresenceOrderByWithRelationInput[]
+    cursor?: PagePresenceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PagePresenceScalarFieldEnum | PagePresenceScalarFieldEnum[]
+  }
+
+  /**
    * Page without action
    */
   export type PageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10644,6 +11118,3294 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PageUpdate
+   */
+
+  export type AggregatePageUpdate = {
+    _count: PageUpdateCountAggregateOutputType | null
+    _avg: PageUpdateAvgAggregateOutputType | null
+    _sum: PageUpdateSumAggregateOutputType | null
+    _min: PageUpdateMinAggregateOutputType | null
+    _max: PageUpdateMaxAggregateOutputType | null
+  }
+
+  export type PageUpdateAvgAggregateOutputType = {
+    seq: number | null
+  }
+
+  export type PageUpdateSumAggregateOutputType = {
+    seq: bigint | null
+  }
+
+  export type PageUpdateMinAggregateOutputType = {
+    seq: bigint | null
+    pageId: string | null
+    update: Bytes | null
+    clientId: string | null
+    createdAt: Date | null
+  }
+
+  export type PageUpdateMaxAggregateOutputType = {
+    seq: bigint | null
+    pageId: string | null
+    update: Bytes | null
+    clientId: string | null
+    createdAt: Date | null
+  }
+
+  export type PageUpdateCountAggregateOutputType = {
+    seq: number
+    pageId: number
+    update: number
+    clientId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PageUpdateAvgAggregateInputType = {
+    seq?: true
+  }
+
+  export type PageUpdateSumAggregateInputType = {
+    seq?: true
+  }
+
+  export type PageUpdateMinAggregateInputType = {
+    seq?: true
+    pageId?: true
+    update?: true
+    clientId?: true
+    createdAt?: true
+  }
+
+  export type PageUpdateMaxAggregateInputType = {
+    seq?: true
+    pageId?: true
+    update?: true
+    clientId?: true
+    createdAt?: true
+  }
+
+  export type PageUpdateCountAggregateInputType = {
+    seq?: true
+    pageId?: true
+    update?: true
+    clientId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PageUpdateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PageUpdate to aggregate.
+     */
+    where?: PageUpdateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PageUpdates to fetch.
+     */
+    orderBy?: PageUpdateOrderByWithRelationInput | PageUpdateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PageUpdateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PageUpdates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PageUpdates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PageUpdates
+    **/
+    _count?: true | PageUpdateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PageUpdateAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PageUpdateSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PageUpdateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PageUpdateMaxAggregateInputType
+  }
+
+  export type GetPageUpdateAggregateType<T extends PageUpdateAggregateArgs> = {
+        [P in keyof T & keyof AggregatePageUpdate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePageUpdate[P]>
+      : GetScalarType<T[P], AggregatePageUpdate[P]>
+  }
+
+
+
+
+  export type PageUpdateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PageUpdateWhereInput
+    orderBy?: PageUpdateOrderByWithAggregationInput | PageUpdateOrderByWithAggregationInput[]
+    by: PageUpdateScalarFieldEnum[] | PageUpdateScalarFieldEnum
+    having?: PageUpdateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PageUpdateCountAggregateInputType | true
+    _avg?: PageUpdateAvgAggregateInputType
+    _sum?: PageUpdateSumAggregateInputType
+    _min?: PageUpdateMinAggregateInputType
+    _max?: PageUpdateMaxAggregateInputType
+  }
+
+  export type PageUpdateGroupByOutputType = {
+    seq: bigint
+    pageId: string
+    update: Bytes
+    clientId: string
+    createdAt: Date
+    _count: PageUpdateCountAggregateOutputType | null
+    _avg: PageUpdateAvgAggregateOutputType | null
+    _sum: PageUpdateSumAggregateOutputType | null
+    _min: PageUpdateMinAggregateOutputType | null
+    _max: PageUpdateMaxAggregateOutputType | null
+  }
+
+  type GetPageUpdateGroupByPayload<T extends PageUpdateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PageUpdateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PageUpdateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PageUpdateGroupByOutputType[P]>
+            : GetScalarType<T[P], PageUpdateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PageUpdateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    seq?: boolean
+    pageId?: boolean
+    update?: boolean
+    clientId?: boolean
+    createdAt?: boolean
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pageUpdate"]>
+
+  export type PageUpdateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    seq?: boolean
+    pageId?: boolean
+    update?: boolean
+    clientId?: boolean
+    createdAt?: boolean
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pageUpdate"]>
+
+  export type PageUpdateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    seq?: boolean
+    pageId?: boolean
+    update?: boolean
+    clientId?: boolean
+    createdAt?: boolean
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pageUpdate"]>
+
+  export type PageUpdateSelectScalar = {
+    seq?: boolean
+    pageId?: boolean
+    update?: boolean
+    clientId?: boolean
+    createdAt?: boolean
+  }
+
+  export type PageUpdateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"seq" | "pageId" | "update" | "clientId" | "createdAt", ExtArgs["result"]["pageUpdate"]>
+  export type PageUpdateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }
+  export type PageUpdateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }
+  export type PageUpdateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }
+
+  export type $PageUpdatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PageUpdate"
+    objects: {
+      page: Prisma.$PagePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      seq: bigint
+      pageId: string
+      update: Prisma.Bytes
+      clientId: string
+      createdAt: Date
+    }, ExtArgs["result"]["pageUpdate"]>
+    composites: {}
+  }
+
+  type PageUpdateGetPayload<S extends boolean | null | undefined | PageUpdateDefaultArgs> = $Result.GetResult<Prisma.$PageUpdatePayload, S>
+
+  type PageUpdateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PageUpdateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PageUpdateCountAggregateInputType | true
+    }
+
+  export interface PageUpdateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PageUpdate'], meta: { name: 'PageUpdate' } }
+    /**
+     * Find zero or one PageUpdate that matches the filter.
+     * @param {PageUpdateFindUniqueArgs} args - Arguments to find a PageUpdate
+     * @example
+     * // Get one PageUpdate
+     * const pageUpdate = await prisma.pageUpdate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PageUpdateFindUniqueArgs>(args: SelectSubset<T, PageUpdateFindUniqueArgs<ExtArgs>>): Prisma__PageUpdateClient<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PageUpdate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PageUpdateFindUniqueOrThrowArgs} args - Arguments to find a PageUpdate
+     * @example
+     * // Get one PageUpdate
+     * const pageUpdate = await prisma.pageUpdate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PageUpdateFindUniqueOrThrowArgs>(args: SelectSubset<T, PageUpdateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PageUpdateClient<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PageUpdate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PageUpdateFindFirstArgs} args - Arguments to find a PageUpdate
+     * @example
+     * // Get one PageUpdate
+     * const pageUpdate = await prisma.pageUpdate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PageUpdateFindFirstArgs>(args?: SelectSubset<T, PageUpdateFindFirstArgs<ExtArgs>>): Prisma__PageUpdateClient<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PageUpdate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PageUpdateFindFirstOrThrowArgs} args - Arguments to find a PageUpdate
+     * @example
+     * // Get one PageUpdate
+     * const pageUpdate = await prisma.pageUpdate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PageUpdateFindFirstOrThrowArgs>(args?: SelectSubset<T, PageUpdateFindFirstOrThrowArgs<ExtArgs>>): Prisma__PageUpdateClient<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PageUpdates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PageUpdateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PageUpdates
+     * const pageUpdates = await prisma.pageUpdate.findMany()
+     * 
+     * // Get first 10 PageUpdates
+     * const pageUpdates = await prisma.pageUpdate.findMany({ take: 10 })
+     * 
+     * // Only select the `seq`
+     * const pageUpdateWithSeqOnly = await prisma.pageUpdate.findMany({ select: { seq: true } })
+     * 
+     */
+    findMany<T extends PageUpdateFindManyArgs>(args?: SelectSubset<T, PageUpdateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PageUpdate.
+     * @param {PageUpdateCreateArgs} args - Arguments to create a PageUpdate.
+     * @example
+     * // Create one PageUpdate
+     * const PageUpdate = await prisma.pageUpdate.create({
+     *   data: {
+     *     // ... data to create a PageUpdate
+     *   }
+     * })
+     * 
+     */
+    create<T extends PageUpdateCreateArgs>(args: SelectSubset<T, PageUpdateCreateArgs<ExtArgs>>): Prisma__PageUpdateClient<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PageUpdates.
+     * @param {PageUpdateCreateManyArgs} args - Arguments to create many PageUpdates.
+     * @example
+     * // Create many PageUpdates
+     * const pageUpdate = await prisma.pageUpdate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PageUpdateCreateManyArgs>(args?: SelectSubset<T, PageUpdateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PageUpdates and returns the data saved in the database.
+     * @param {PageUpdateCreateManyAndReturnArgs} args - Arguments to create many PageUpdates.
+     * @example
+     * // Create many PageUpdates
+     * const pageUpdate = await prisma.pageUpdate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PageUpdates and only return the `seq`
+     * const pageUpdateWithSeqOnly = await prisma.pageUpdate.createManyAndReturn({
+     *   select: { seq: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PageUpdateCreateManyAndReturnArgs>(args?: SelectSubset<T, PageUpdateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PageUpdate.
+     * @param {PageUpdateDeleteArgs} args - Arguments to delete one PageUpdate.
+     * @example
+     * // Delete one PageUpdate
+     * const PageUpdate = await prisma.pageUpdate.delete({
+     *   where: {
+     *     // ... filter to delete one PageUpdate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PageUpdateDeleteArgs>(args: SelectSubset<T, PageUpdateDeleteArgs<ExtArgs>>): Prisma__PageUpdateClient<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PageUpdate.
+     * @param {PageUpdateUpdateArgs} args - Arguments to update one PageUpdate.
+     * @example
+     * // Update one PageUpdate
+     * const pageUpdate = await prisma.pageUpdate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PageUpdateUpdateArgs>(args: SelectSubset<T, PageUpdateUpdateArgs<ExtArgs>>): Prisma__PageUpdateClient<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PageUpdates.
+     * @param {PageUpdateDeleteManyArgs} args - Arguments to filter PageUpdates to delete.
+     * @example
+     * // Delete a few PageUpdates
+     * const { count } = await prisma.pageUpdate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PageUpdateDeleteManyArgs>(args?: SelectSubset<T, PageUpdateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PageUpdates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PageUpdateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PageUpdates
+     * const pageUpdate = await prisma.pageUpdate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PageUpdateUpdateManyArgs>(args: SelectSubset<T, PageUpdateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PageUpdates and returns the data updated in the database.
+     * @param {PageUpdateUpdateManyAndReturnArgs} args - Arguments to update many PageUpdates.
+     * @example
+     * // Update many PageUpdates
+     * const pageUpdate = await prisma.pageUpdate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PageUpdates and only return the `seq`
+     * const pageUpdateWithSeqOnly = await prisma.pageUpdate.updateManyAndReturn({
+     *   select: { seq: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PageUpdateUpdateManyAndReturnArgs>(args: SelectSubset<T, PageUpdateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PageUpdate.
+     * @param {PageUpdateUpsertArgs} args - Arguments to update or create a PageUpdate.
+     * @example
+     * // Update or create a PageUpdate
+     * const pageUpdate = await prisma.pageUpdate.upsert({
+     *   create: {
+     *     // ... data to create a PageUpdate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PageUpdate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PageUpdateUpsertArgs>(args: SelectSubset<T, PageUpdateUpsertArgs<ExtArgs>>): Prisma__PageUpdateClient<$Result.GetResult<Prisma.$PageUpdatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PageUpdates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PageUpdateCountArgs} args - Arguments to filter PageUpdates to count.
+     * @example
+     * // Count the number of PageUpdates
+     * const count = await prisma.pageUpdate.count({
+     *   where: {
+     *     // ... the filter for the PageUpdates we want to count
+     *   }
+     * })
+    **/
+    count<T extends PageUpdateCountArgs>(
+      args?: Subset<T, PageUpdateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PageUpdateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PageUpdate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PageUpdateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PageUpdateAggregateArgs>(args: Subset<T, PageUpdateAggregateArgs>): Prisma.PrismaPromise<GetPageUpdateAggregateType<T>>
+
+    /**
+     * Group by PageUpdate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PageUpdateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PageUpdateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PageUpdateGroupByArgs['orderBy'] }
+        : { orderBy?: PageUpdateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PageUpdateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPageUpdateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PageUpdate model
+   */
+  readonly fields: PageUpdateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PageUpdate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PageUpdateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    page<T extends PageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PageDefaultArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PageUpdate model
+   */
+  interface PageUpdateFieldRefs {
+    readonly seq: FieldRef<"PageUpdate", 'BigInt'>
+    readonly pageId: FieldRef<"PageUpdate", 'String'>
+    readonly update: FieldRef<"PageUpdate", 'Bytes'>
+    readonly clientId: FieldRef<"PageUpdate", 'String'>
+    readonly createdAt: FieldRef<"PageUpdate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PageUpdate findUnique
+   */
+  export type PageUpdateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which PageUpdate to fetch.
+     */
+    where: PageUpdateWhereUniqueInput
+  }
+
+  /**
+   * PageUpdate findUniqueOrThrow
+   */
+  export type PageUpdateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which PageUpdate to fetch.
+     */
+    where: PageUpdateWhereUniqueInput
+  }
+
+  /**
+   * PageUpdate findFirst
+   */
+  export type PageUpdateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which PageUpdate to fetch.
+     */
+    where?: PageUpdateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PageUpdates to fetch.
+     */
+    orderBy?: PageUpdateOrderByWithRelationInput | PageUpdateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PageUpdates.
+     */
+    cursor?: PageUpdateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PageUpdates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PageUpdates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PageUpdates.
+     */
+    distinct?: PageUpdateScalarFieldEnum | PageUpdateScalarFieldEnum[]
+  }
+
+  /**
+   * PageUpdate findFirstOrThrow
+   */
+  export type PageUpdateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which PageUpdate to fetch.
+     */
+    where?: PageUpdateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PageUpdates to fetch.
+     */
+    orderBy?: PageUpdateOrderByWithRelationInput | PageUpdateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PageUpdates.
+     */
+    cursor?: PageUpdateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PageUpdates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PageUpdates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PageUpdates.
+     */
+    distinct?: PageUpdateScalarFieldEnum | PageUpdateScalarFieldEnum[]
+  }
+
+  /**
+   * PageUpdate findMany
+   */
+  export type PageUpdateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * Filter, which PageUpdates to fetch.
+     */
+    where?: PageUpdateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PageUpdates to fetch.
+     */
+    orderBy?: PageUpdateOrderByWithRelationInput | PageUpdateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PageUpdates.
+     */
+    cursor?: PageUpdateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PageUpdates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PageUpdates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PageUpdates.
+     */
+    distinct?: PageUpdateScalarFieldEnum | PageUpdateScalarFieldEnum[]
+  }
+
+  /**
+   * PageUpdate create
+   */
+  export type PageUpdateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PageUpdate.
+     */
+    data: XOR<PageUpdateCreateInput, PageUpdateUncheckedCreateInput>
+  }
+
+  /**
+   * PageUpdate createMany
+   */
+  export type PageUpdateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PageUpdates.
+     */
+    data: PageUpdateCreateManyInput | PageUpdateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PageUpdate createManyAndReturn
+   */
+  export type PageUpdateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * The data used to create many PageUpdates.
+     */
+    data: PageUpdateCreateManyInput | PageUpdateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PageUpdate update
+   */
+  export type PageUpdateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PageUpdate.
+     */
+    data: XOR<PageUpdateUpdateInput, PageUpdateUncheckedUpdateInput>
+    /**
+     * Choose, which PageUpdate to update.
+     */
+    where: PageUpdateWhereUniqueInput
+  }
+
+  /**
+   * PageUpdate updateMany
+   */
+  export type PageUpdateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PageUpdates.
+     */
+    data: XOR<PageUpdateUpdateManyMutationInput, PageUpdateUncheckedUpdateManyInput>
+    /**
+     * Filter which PageUpdates to update
+     */
+    where?: PageUpdateWhereInput
+    /**
+     * Limit how many PageUpdates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PageUpdate updateManyAndReturn
+   */
+  export type PageUpdateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * The data used to update PageUpdates.
+     */
+    data: XOR<PageUpdateUpdateManyMutationInput, PageUpdateUncheckedUpdateManyInput>
+    /**
+     * Filter which PageUpdates to update
+     */
+    where?: PageUpdateWhereInput
+    /**
+     * Limit how many PageUpdates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PageUpdate upsert
+   */
+  export type PageUpdateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PageUpdate to update in case it exists.
+     */
+    where: PageUpdateWhereUniqueInput
+    /**
+     * In case the PageUpdate found by the `where` argument doesn't exist, create a new PageUpdate with this data.
+     */
+    create: XOR<PageUpdateCreateInput, PageUpdateUncheckedCreateInput>
+    /**
+     * In case the PageUpdate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PageUpdateUpdateInput, PageUpdateUncheckedUpdateInput>
+  }
+
+  /**
+   * PageUpdate delete
+   */
+  export type PageUpdateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+    /**
+     * Filter which PageUpdate to delete.
+     */
+    where: PageUpdateWhereUniqueInput
+  }
+
+  /**
+   * PageUpdate deleteMany
+   */
+  export type PageUpdateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PageUpdates to delete
+     */
+    where?: PageUpdateWhereInput
+    /**
+     * Limit how many PageUpdates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PageUpdate without action
+   */
+  export type PageUpdateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PageUpdate
+     */
+    select?: PageUpdateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PageUpdate
+     */
+    omit?: PageUpdateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PageUpdateInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PagePresence
+   */
+
+  export type AggregatePagePresence = {
+    _count: PagePresenceCountAggregateOutputType | null
+    _min: PagePresenceMinAggregateOutputType | null
+    _max: PagePresenceMaxAggregateOutputType | null
+  }
+
+  export type PagePresenceMinAggregateOutputType = {
+    id: string | null
+    pageId: string | null
+    userId: string | null
+    name: string | null
+    color: string | null
+    updatedAt: Date | null
+  }
+
+  export type PagePresenceMaxAggregateOutputType = {
+    id: string | null
+    pageId: string | null
+    userId: string | null
+    name: string | null
+    color: string | null
+    updatedAt: Date | null
+  }
+
+  export type PagePresenceCountAggregateOutputType = {
+    id: number
+    pageId: number
+    userId: number
+    name: number
+    color: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PagePresenceMinAggregateInputType = {
+    id?: true
+    pageId?: true
+    userId?: true
+    name?: true
+    color?: true
+    updatedAt?: true
+  }
+
+  export type PagePresenceMaxAggregateInputType = {
+    id?: true
+    pageId?: true
+    userId?: true
+    name?: true
+    color?: true
+    updatedAt?: true
+  }
+
+  export type PagePresenceCountAggregateInputType = {
+    id?: true
+    pageId?: true
+    userId?: true
+    name?: true
+    color?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PagePresenceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PagePresence to aggregate.
+     */
+    where?: PagePresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PagePresences to fetch.
+     */
+    orderBy?: PagePresenceOrderByWithRelationInput | PagePresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PagePresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PagePresences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PagePresences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PagePresences
+    **/
+    _count?: true | PagePresenceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PagePresenceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PagePresenceMaxAggregateInputType
+  }
+
+  export type GetPagePresenceAggregateType<T extends PagePresenceAggregateArgs> = {
+        [P in keyof T & keyof AggregatePagePresence]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePagePresence[P]>
+      : GetScalarType<T[P], AggregatePagePresence[P]>
+  }
+
+
+
+
+  export type PagePresenceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PagePresenceWhereInput
+    orderBy?: PagePresenceOrderByWithAggregationInput | PagePresenceOrderByWithAggregationInput[]
+    by: PagePresenceScalarFieldEnum[] | PagePresenceScalarFieldEnum
+    having?: PagePresenceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PagePresenceCountAggregateInputType | true
+    _min?: PagePresenceMinAggregateInputType
+    _max?: PagePresenceMaxAggregateInputType
+  }
+
+  export type PagePresenceGroupByOutputType = {
+    id: string
+    pageId: string
+    userId: string
+    name: string
+    color: string
+    updatedAt: Date
+    _count: PagePresenceCountAggregateOutputType | null
+    _min: PagePresenceMinAggregateOutputType | null
+    _max: PagePresenceMaxAggregateOutputType | null
+  }
+
+  type GetPagePresenceGroupByPayload<T extends PagePresenceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PagePresenceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PagePresenceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PagePresenceGroupByOutputType[P]>
+            : GetScalarType<T[P], PagePresenceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PagePresenceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pageId?: boolean
+    userId?: boolean
+    name?: boolean
+    color?: boolean
+    updatedAt?: boolean
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pagePresence"]>
+
+  export type PagePresenceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pageId?: boolean
+    userId?: boolean
+    name?: boolean
+    color?: boolean
+    updatedAt?: boolean
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pagePresence"]>
+
+  export type PagePresenceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    pageId?: boolean
+    userId?: boolean
+    name?: boolean
+    color?: boolean
+    updatedAt?: boolean
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pagePresence"]>
+
+  export type PagePresenceSelectScalar = {
+    id?: boolean
+    pageId?: boolean
+    userId?: boolean
+    name?: boolean
+    color?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PagePresenceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "pageId" | "userId" | "name" | "color" | "updatedAt", ExtArgs["result"]["pagePresence"]>
+  export type PagePresenceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }
+  export type PagePresenceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }
+  export type PagePresenceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    page?: boolean | PageDefaultArgs<ExtArgs>
+  }
+
+  export type $PagePresencePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PagePresence"
+    objects: {
+      page: Prisma.$PagePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      pageId: string
+      userId: string
+      name: string
+      color: string
+      updatedAt: Date
+    }, ExtArgs["result"]["pagePresence"]>
+    composites: {}
+  }
+
+  type PagePresenceGetPayload<S extends boolean | null | undefined | PagePresenceDefaultArgs> = $Result.GetResult<Prisma.$PagePresencePayload, S>
+
+  type PagePresenceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PagePresenceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PagePresenceCountAggregateInputType | true
+    }
+
+  export interface PagePresenceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PagePresence'], meta: { name: 'PagePresence' } }
+    /**
+     * Find zero or one PagePresence that matches the filter.
+     * @param {PagePresenceFindUniqueArgs} args - Arguments to find a PagePresence
+     * @example
+     * // Get one PagePresence
+     * const pagePresence = await prisma.pagePresence.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PagePresenceFindUniqueArgs>(args: SelectSubset<T, PagePresenceFindUniqueArgs<ExtArgs>>): Prisma__PagePresenceClient<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PagePresence that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PagePresenceFindUniqueOrThrowArgs} args - Arguments to find a PagePresence
+     * @example
+     * // Get one PagePresence
+     * const pagePresence = await prisma.pagePresence.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PagePresenceFindUniqueOrThrowArgs>(args: SelectSubset<T, PagePresenceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PagePresenceClient<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PagePresence that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PagePresenceFindFirstArgs} args - Arguments to find a PagePresence
+     * @example
+     * // Get one PagePresence
+     * const pagePresence = await prisma.pagePresence.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PagePresenceFindFirstArgs>(args?: SelectSubset<T, PagePresenceFindFirstArgs<ExtArgs>>): Prisma__PagePresenceClient<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PagePresence that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PagePresenceFindFirstOrThrowArgs} args - Arguments to find a PagePresence
+     * @example
+     * // Get one PagePresence
+     * const pagePresence = await prisma.pagePresence.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PagePresenceFindFirstOrThrowArgs>(args?: SelectSubset<T, PagePresenceFindFirstOrThrowArgs<ExtArgs>>): Prisma__PagePresenceClient<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PagePresences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PagePresenceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PagePresences
+     * const pagePresences = await prisma.pagePresence.findMany()
+     * 
+     * // Get first 10 PagePresences
+     * const pagePresences = await prisma.pagePresence.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pagePresenceWithIdOnly = await prisma.pagePresence.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PagePresenceFindManyArgs>(args?: SelectSubset<T, PagePresenceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PagePresence.
+     * @param {PagePresenceCreateArgs} args - Arguments to create a PagePresence.
+     * @example
+     * // Create one PagePresence
+     * const PagePresence = await prisma.pagePresence.create({
+     *   data: {
+     *     // ... data to create a PagePresence
+     *   }
+     * })
+     * 
+     */
+    create<T extends PagePresenceCreateArgs>(args: SelectSubset<T, PagePresenceCreateArgs<ExtArgs>>): Prisma__PagePresenceClient<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PagePresences.
+     * @param {PagePresenceCreateManyArgs} args - Arguments to create many PagePresences.
+     * @example
+     * // Create many PagePresences
+     * const pagePresence = await prisma.pagePresence.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PagePresenceCreateManyArgs>(args?: SelectSubset<T, PagePresenceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PagePresences and returns the data saved in the database.
+     * @param {PagePresenceCreateManyAndReturnArgs} args - Arguments to create many PagePresences.
+     * @example
+     * // Create many PagePresences
+     * const pagePresence = await prisma.pagePresence.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PagePresences and only return the `id`
+     * const pagePresenceWithIdOnly = await prisma.pagePresence.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PagePresenceCreateManyAndReturnArgs>(args?: SelectSubset<T, PagePresenceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PagePresence.
+     * @param {PagePresenceDeleteArgs} args - Arguments to delete one PagePresence.
+     * @example
+     * // Delete one PagePresence
+     * const PagePresence = await prisma.pagePresence.delete({
+     *   where: {
+     *     // ... filter to delete one PagePresence
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PagePresenceDeleteArgs>(args: SelectSubset<T, PagePresenceDeleteArgs<ExtArgs>>): Prisma__PagePresenceClient<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PagePresence.
+     * @param {PagePresenceUpdateArgs} args - Arguments to update one PagePresence.
+     * @example
+     * // Update one PagePresence
+     * const pagePresence = await prisma.pagePresence.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PagePresenceUpdateArgs>(args: SelectSubset<T, PagePresenceUpdateArgs<ExtArgs>>): Prisma__PagePresenceClient<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PagePresences.
+     * @param {PagePresenceDeleteManyArgs} args - Arguments to filter PagePresences to delete.
+     * @example
+     * // Delete a few PagePresences
+     * const { count } = await prisma.pagePresence.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PagePresenceDeleteManyArgs>(args?: SelectSubset<T, PagePresenceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PagePresences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PagePresenceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PagePresences
+     * const pagePresence = await prisma.pagePresence.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PagePresenceUpdateManyArgs>(args: SelectSubset<T, PagePresenceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PagePresences and returns the data updated in the database.
+     * @param {PagePresenceUpdateManyAndReturnArgs} args - Arguments to update many PagePresences.
+     * @example
+     * // Update many PagePresences
+     * const pagePresence = await prisma.pagePresence.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PagePresences and only return the `id`
+     * const pagePresenceWithIdOnly = await prisma.pagePresence.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PagePresenceUpdateManyAndReturnArgs>(args: SelectSubset<T, PagePresenceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PagePresence.
+     * @param {PagePresenceUpsertArgs} args - Arguments to update or create a PagePresence.
+     * @example
+     * // Update or create a PagePresence
+     * const pagePresence = await prisma.pagePresence.upsert({
+     *   create: {
+     *     // ... data to create a PagePresence
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PagePresence we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PagePresenceUpsertArgs>(args: SelectSubset<T, PagePresenceUpsertArgs<ExtArgs>>): Prisma__PagePresenceClient<$Result.GetResult<Prisma.$PagePresencePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PagePresences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PagePresenceCountArgs} args - Arguments to filter PagePresences to count.
+     * @example
+     * // Count the number of PagePresences
+     * const count = await prisma.pagePresence.count({
+     *   where: {
+     *     // ... the filter for the PagePresences we want to count
+     *   }
+     * })
+    **/
+    count<T extends PagePresenceCountArgs>(
+      args?: Subset<T, PagePresenceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PagePresenceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PagePresence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PagePresenceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PagePresenceAggregateArgs>(args: Subset<T, PagePresenceAggregateArgs>): Prisma.PrismaPromise<GetPagePresenceAggregateType<T>>
+
+    /**
+     * Group by PagePresence.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PagePresenceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PagePresenceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PagePresenceGroupByArgs['orderBy'] }
+        : { orderBy?: PagePresenceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PagePresenceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPagePresenceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PagePresence model
+   */
+  readonly fields: PagePresenceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PagePresence.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PagePresenceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    page<T extends PageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PageDefaultArgs<ExtArgs>>): Prisma__PageClient<$Result.GetResult<Prisma.$PagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PagePresence model
+   */
+  interface PagePresenceFieldRefs {
+    readonly id: FieldRef<"PagePresence", 'String'>
+    readonly pageId: FieldRef<"PagePresence", 'String'>
+    readonly userId: FieldRef<"PagePresence", 'String'>
+    readonly name: FieldRef<"PagePresence", 'String'>
+    readonly color: FieldRef<"PagePresence", 'String'>
+    readonly updatedAt: FieldRef<"PagePresence", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PagePresence findUnique
+   */
+  export type PagePresenceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which PagePresence to fetch.
+     */
+    where: PagePresenceWhereUniqueInput
+  }
+
+  /**
+   * PagePresence findUniqueOrThrow
+   */
+  export type PagePresenceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which PagePresence to fetch.
+     */
+    where: PagePresenceWhereUniqueInput
+  }
+
+  /**
+   * PagePresence findFirst
+   */
+  export type PagePresenceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which PagePresence to fetch.
+     */
+    where?: PagePresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PagePresences to fetch.
+     */
+    orderBy?: PagePresenceOrderByWithRelationInput | PagePresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PagePresences.
+     */
+    cursor?: PagePresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PagePresences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PagePresences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PagePresences.
+     */
+    distinct?: PagePresenceScalarFieldEnum | PagePresenceScalarFieldEnum[]
+  }
+
+  /**
+   * PagePresence findFirstOrThrow
+   */
+  export type PagePresenceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which PagePresence to fetch.
+     */
+    where?: PagePresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PagePresences to fetch.
+     */
+    orderBy?: PagePresenceOrderByWithRelationInput | PagePresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PagePresences.
+     */
+    cursor?: PagePresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PagePresences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PagePresences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PagePresences.
+     */
+    distinct?: PagePresenceScalarFieldEnum | PagePresenceScalarFieldEnum[]
+  }
+
+  /**
+   * PagePresence findMany
+   */
+  export type PagePresenceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * Filter, which PagePresences to fetch.
+     */
+    where?: PagePresenceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PagePresences to fetch.
+     */
+    orderBy?: PagePresenceOrderByWithRelationInput | PagePresenceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PagePresences.
+     */
+    cursor?: PagePresenceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PagePresences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PagePresences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PagePresences.
+     */
+    distinct?: PagePresenceScalarFieldEnum | PagePresenceScalarFieldEnum[]
+  }
+
+  /**
+   * PagePresence create
+   */
+  export type PagePresenceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PagePresence.
+     */
+    data: XOR<PagePresenceCreateInput, PagePresenceUncheckedCreateInput>
+  }
+
+  /**
+   * PagePresence createMany
+   */
+  export type PagePresenceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PagePresences.
+     */
+    data: PagePresenceCreateManyInput | PagePresenceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PagePresence createManyAndReturn
+   */
+  export type PagePresenceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * The data used to create many PagePresences.
+     */
+    data: PagePresenceCreateManyInput | PagePresenceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PagePresence update
+   */
+  export type PagePresenceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PagePresence.
+     */
+    data: XOR<PagePresenceUpdateInput, PagePresenceUncheckedUpdateInput>
+    /**
+     * Choose, which PagePresence to update.
+     */
+    where: PagePresenceWhereUniqueInput
+  }
+
+  /**
+   * PagePresence updateMany
+   */
+  export type PagePresenceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PagePresences.
+     */
+    data: XOR<PagePresenceUpdateManyMutationInput, PagePresenceUncheckedUpdateManyInput>
+    /**
+     * Filter which PagePresences to update
+     */
+    where?: PagePresenceWhereInput
+    /**
+     * Limit how many PagePresences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PagePresence updateManyAndReturn
+   */
+  export type PagePresenceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * The data used to update PagePresences.
+     */
+    data: XOR<PagePresenceUpdateManyMutationInput, PagePresenceUncheckedUpdateManyInput>
+    /**
+     * Filter which PagePresences to update
+     */
+    where?: PagePresenceWhereInput
+    /**
+     * Limit how many PagePresences to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PagePresence upsert
+   */
+  export type PagePresenceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PagePresence to update in case it exists.
+     */
+    where: PagePresenceWhereUniqueInput
+    /**
+     * In case the PagePresence found by the `where` argument doesn't exist, create a new PagePresence with this data.
+     */
+    create: XOR<PagePresenceCreateInput, PagePresenceUncheckedCreateInput>
+    /**
+     * In case the PagePresence was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PagePresenceUpdateInput, PagePresenceUncheckedUpdateInput>
+  }
+
+  /**
+   * PagePresence delete
+   */
+  export type PagePresenceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+    /**
+     * Filter which PagePresence to delete.
+     */
+    where: PagePresenceWhereUniqueInput
+  }
+
+  /**
+   * PagePresence deleteMany
+   */
+  export type PagePresenceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PagePresences to delete
+     */
+    where?: PagePresenceWhereInput
+    /**
+     * Limit how many PagePresences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PagePresence without action
+   */
+  export type PagePresenceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PagePresence
+     */
+    select?: PagePresenceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PagePresence
+     */
+    omit?: PagePresenceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PagePresenceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ApiToken
+   */
+
+  export type AggregateApiToken = {
+    _count: ApiTokenCountAggregateOutputType | null
+    _min: ApiTokenMinAggregateOutputType | null
+    _max: ApiTokenMaxAggregateOutputType | null
+  }
+
+  export type ApiTokenMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    tokenHash: string | null
+    prefix: string | null
+    lastUsedAt: Date | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type ApiTokenMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    tokenHash: string | null
+    prefix: string | null
+    lastUsedAt: Date | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type ApiTokenCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    tokenHash: number
+    prefix: number
+    lastUsedAt: number
+    expiresAt: number
+    revokedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ApiTokenMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    tokenHash?: true
+    prefix?: true
+    lastUsedAt?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+  }
+
+  export type ApiTokenMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    tokenHash?: true
+    prefix?: true
+    lastUsedAt?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+  }
+
+  export type ApiTokenCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    tokenHash?: true
+    prefix?: true
+    lastUsedAt?: true
+    expiresAt?: true
+    revokedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ApiTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ApiToken to aggregate.
+     */
+    where?: ApiTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApiTokens to fetch.
+     */
+    orderBy?: ApiTokenOrderByWithRelationInput | ApiTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ApiTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApiTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApiTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ApiTokens
+    **/
+    _count?: true | ApiTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ApiTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ApiTokenMaxAggregateInputType
+  }
+
+  export type GetApiTokenAggregateType<T extends ApiTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregateApiToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateApiToken[P]>
+      : GetScalarType<T[P], AggregateApiToken[P]>
+  }
+
+
+
+
+  export type ApiTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ApiTokenWhereInput
+    orderBy?: ApiTokenOrderByWithAggregationInput | ApiTokenOrderByWithAggregationInput[]
+    by: ApiTokenScalarFieldEnum[] | ApiTokenScalarFieldEnum
+    having?: ApiTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ApiTokenCountAggregateInputType | true
+    _min?: ApiTokenMinAggregateInputType
+    _max?: ApiTokenMaxAggregateInputType
+  }
+
+  export type ApiTokenGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    tokenHash: string
+    prefix: string
+    lastUsedAt: Date | null
+    expiresAt: Date | null
+    revokedAt: Date | null
+    createdAt: Date
+    _count: ApiTokenCountAggregateOutputType | null
+    _min: ApiTokenMinAggregateOutputType | null
+    _max: ApiTokenMaxAggregateOutputType | null
+  }
+
+  type GetApiTokenGroupByPayload<T extends ApiTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ApiTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ApiTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ApiTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], ApiTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ApiTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    tokenHash?: boolean
+    prefix?: boolean
+    lastUsedAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["apiToken"]>
+
+  export type ApiTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    tokenHash?: boolean
+    prefix?: boolean
+    lastUsedAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["apiToken"]>
+
+  export type ApiTokenSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    tokenHash?: boolean
+    prefix?: boolean
+    lastUsedAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["apiToken"]>
+
+  export type ApiTokenSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    tokenHash?: boolean
+    prefix?: boolean
+    lastUsedAt?: boolean
+    expiresAt?: boolean
+    revokedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type ApiTokenOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "tokenHash" | "prefix" | "lastUsedAt" | "expiresAt" | "revokedAt" | "createdAt", ExtArgs["result"]["apiToken"]>
+  export type ApiTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ApiTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ApiTokenIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ApiTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ApiToken"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      tokenHash: string
+      prefix: string
+      lastUsedAt: Date | null
+      expiresAt: Date | null
+      revokedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["apiToken"]>
+    composites: {}
+  }
+
+  type ApiTokenGetPayload<S extends boolean | null | undefined | ApiTokenDefaultArgs> = $Result.GetResult<Prisma.$ApiTokenPayload, S>
+
+  type ApiTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ApiTokenFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ApiTokenCountAggregateInputType | true
+    }
+
+  export interface ApiTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ApiToken'], meta: { name: 'ApiToken' } }
+    /**
+     * Find zero or one ApiToken that matches the filter.
+     * @param {ApiTokenFindUniqueArgs} args - Arguments to find a ApiToken
+     * @example
+     * // Get one ApiToken
+     * const apiToken = await prisma.apiToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ApiTokenFindUniqueArgs>(args: SelectSubset<T, ApiTokenFindUniqueArgs<ExtArgs>>): Prisma__ApiTokenClient<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ApiToken that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ApiTokenFindUniqueOrThrowArgs} args - Arguments to find a ApiToken
+     * @example
+     * // Get one ApiToken
+     * const apiToken = await prisma.apiToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ApiTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, ApiTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ApiTokenClient<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ApiToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiTokenFindFirstArgs} args - Arguments to find a ApiToken
+     * @example
+     * // Get one ApiToken
+     * const apiToken = await prisma.apiToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ApiTokenFindFirstArgs>(args?: SelectSubset<T, ApiTokenFindFirstArgs<ExtArgs>>): Prisma__ApiTokenClient<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ApiToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiTokenFindFirstOrThrowArgs} args - Arguments to find a ApiToken
+     * @example
+     * // Get one ApiToken
+     * const apiToken = await prisma.apiToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ApiTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, ApiTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__ApiTokenClient<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ApiTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ApiTokens
+     * const apiTokens = await prisma.apiToken.findMany()
+     * 
+     * // Get first 10 ApiTokens
+     * const apiTokens = await prisma.apiToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const apiTokenWithIdOnly = await prisma.apiToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ApiTokenFindManyArgs>(args?: SelectSubset<T, ApiTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ApiToken.
+     * @param {ApiTokenCreateArgs} args - Arguments to create a ApiToken.
+     * @example
+     * // Create one ApiToken
+     * const ApiToken = await prisma.apiToken.create({
+     *   data: {
+     *     // ... data to create a ApiToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends ApiTokenCreateArgs>(args: SelectSubset<T, ApiTokenCreateArgs<ExtArgs>>): Prisma__ApiTokenClient<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ApiTokens.
+     * @param {ApiTokenCreateManyArgs} args - Arguments to create many ApiTokens.
+     * @example
+     * // Create many ApiTokens
+     * const apiToken = await prisma.apiToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ApiTokenCreateManyArgs>(args?: SelectSubset<T, ApiTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ApiTokens and returns the data saved in the database.
+     * @param {ApiTokenCreateManyAndReturnArgs} args - Arguments to create many ApiTokens.
+     * @example
+     * // Create many ApiTokens
+     * const apiToken = await prisma.apiToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ApiTokens and only return the `id`
+     * const apiTokenWithIdOnly = await prisma.apiToken.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ApiTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, ApiTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ApiToken.
+     * @param {ApiTokenDeleteArgs} args - Arguments to delete one ApiToken.
+     * @example
+     * // Delete one ApiToken
+     * const ApiToken = await prisma.apiToken.delete({
+     *   where: {
+     *     // ... filter to delete one ApiToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ApiTokenDeleteArgs>(args: SelectSubset<T, ApiTokenDeleteArgs<ExtArgs>>): Prisma__ApiTokenClient<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ApiToken.
+     * @param {ApiTokenUpdateArgs} args - Arguments to update one ApiToken.
+     * @example
+     * // Update one ApiToken
+     * const apiToken = await prisma.apiToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ApiTokenUpdateArgs>(args: SelectSubset<T, ApiTokenUpdateArgs<ExtArgs>>): Prisma__ApiTokenClient<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ApiTokens.
+     * @param {ApiTokenDeleteManyArgs} args - Arguments to filter ApiTokens to delete.
+     * @example
+     * // Delete a few ApiTokens
+     * const { count } = await prisma.apiToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ApiTokenDeleteManyArgs>(args?: SelectSubset<T, ApiTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ApiTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ApiTokens
+     * const apiToken = await prisma.apiToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ApiTokenUpdateManyArgs>(args: SelectSubset<T, ApiTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ApiTokens and returns the data updated in the database.
+     * @param {ApiTokenUpdateManyAndReturnArgs} args - Arguments to update many ApiTokens.
+     * @example
+     * // Update many ApiTokens
+     * const apiToken = await prisma.apiToken.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ApiTokens and only return the `id`
+     * const apiTokenWithIdOnly = await prisma.apiToken.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ApiTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, ApiTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ApiToken.
+     * @param {ApiTokenUpsertArgs} args - Arguments to update or create a ApiToken.
+     * @example
+     * // Update or create a ApiToken
+     * const apiToken = await prisma.apiToken.upsert({
+     *   create: {
+     *     // ... data to create a ApiToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ApiToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ApiTokenUpsertArgs>(args: SelectSubset<T, ApiTokenUpsertArgs<ExtArgs>>): Prisma__ApiTokenClient<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ApiTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiTokenCountArgs} args - Arguments to filter ApiTokens to count.
+     * @example
+     * // Count the number of ApiTokens
+     * const count = await prisma.apiToken.count({
+     *   where: {
+     *     // ... the filter for the ApiTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends ApiTokenCountArgs>(
+      args?: Subset<T, ApiTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ApiTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ApiToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ApiTokenAggregateArgs>(args: Subset<T, ApiTokenAggregateArgs>): Prisma.PrismaPromise<GetApiTokenAggregateType<T>>
+
+    /**
+     * Group by ApiToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ApiTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ApiTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ApiTokenGroupByArgs['orderBy'] }
+        : { orderBy?: ApiTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ApiTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetApiTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ApiToken model
+   */
+  readonly fields: ApiTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ApiToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ApiTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ApiToken model
+   */
+  interface ApiTokenFieldRefs {
+    readonly id: FieldRef<"ApiToken", 'String'>
+    readonly userId: FieldRef<"ApiToken", 'String'>
+    readonly name: FieldRef<"ApiToken", 'String'>
+    readonly tokenHash: FieldRef<"ApiToken", 'String'>
+    readonly prefix: FieldRef<"ApiToken", 'String'>
+    readonly lastUsedAt: FieldRef<"ApiToken", 'DateTime'>
+    readonly expiresAt: FieldRef<"ApiToken", 'DateTime'>
+    readonly revokedAt: FieldRef<"ApiToken", 'DateTime'>
+    readonly createdAt: FieldRef<"ApiToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ApiToken findUnique
+   */
+  export type ApiTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiToken to fetch.
+     */
+    where: ApiTokenWhereUniqueInput
+  }
+
+  /**
+   * ApiToken findUniqueOrThrow
+   */
+  export type ApiTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiToken to fetch.
+     */
+    where: ApiTokenWhereUniqueInput
+  }
+
+  /**
+   * ApiToken findFirst
+   */
+  export type ApiTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiToken to fetch.
+     */
+    where?: ApiTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApiTokens to fetch.
+     */
+    orderBy?: ApiTokenOrderByWithRelationInput | ApiTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ApiTokens.
+     */
+    cursor?: ApiTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApiTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApiTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApiTokens.
+     */
+    distinct?: ApiTokenScalarFieldEnum | ApiTokenScalarFieldEnum[]
+  }
+
+  /**
+   * ApiToken findFirstOrThrow
+   */
+  export type ApiTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiToken to fetch.
+     */
+    where?: ApiTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApiTokens to fetch.
+     */
+    orderBy?: ApiTokenOrderByWithRelationInput | ApiTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ApiTokens.
+     */
+    cursor?: ApiTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApiTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApiTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApiTokens.
+     */
+    distinct?: ApiTokenScalarFieldEnum | ApiTokenScalarFieldEnum[]
+  }
+
+  /**
+   * ApiToken findMany
+   */
+  export type ApiTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which ApiTokens to fetch.
+     */
+    where?: ApiTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ApiTokens to fetch.
+     */
+    orderBy?: ApiTokenOrderByWithRelationInput | ApiTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ApiTokens.
+     */
+    cursor?: ApiTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ApiTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ApiTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ApiTokens.
+     */
+    distinct?: ApiTokenScalarFieldEnum | ApiTokenScalarFieldEnum[]
+  }
+
+  /**
+   * ApiToken create
+   */
+  export type ApiTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ApiToken.
+     */
+    data: XOR<ApiTokenCreateInput, ApiTokenUncheckedCreateInput>
+  }
+
+  /**
+   * ApiToken createMany
+   */
+  export type ApiTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ApiTokens.
+     */
+    data: ApiTokenCreateManyInput | ApiTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ApiToken createManyAndReturn
+   */
+  export type ApiTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * The data used to create many ApiTokens.
+     */
+    data: ApiTokenCreateManyInput | ApiTokenCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ApiToken update
+   */
+  export type ApiTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ApiToken.
+     */
+    data: XOR<ApiTokenUpdateInput, ApiTokenUncheckedUpdateInput>
+    /**
+     * Choose, which ApiToken to update.
+     */
+    where: ApiTokenWhereUniqueInput
+  }
+
+  /**
+   * ApiToken updateMany
+   */
+  export type ApiTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ApiTokens.
+     */
+    data: XOR<ApiTokenUpdateManyMutationInput, ApiTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which ApiTokens to update
+     */
+    where?: ApiTokenWhereInput
+    /**
+     * Limit how many ApiTokens to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ApiToken updateManyAndReturn
+   */
+  export type ApiTokenUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * The data used to update ApiTokens.
+     */
+    data: XOR<ApiTokenUpdateManyMutationInput, ApiTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which ApiTokens to update
+     */
+    where?: ApiTokenWhereInput
+    /**
+     * Limit how many ApiTokens to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ApiToken upsert
+   */
+  export type ApiTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ApiToken to update in case it exists.
+     */
+    where: ApiTokenWhereUniqueInput
+    /**
+     * In case the ApiToken found by the `where` argument doesn't exist, create a new ApiToken with this data.
+     */
+    create: XOR<ApiTokenCreateInput, ApiTokenUncheckedCreateInput>
+    /**
+     * In case the ApiToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ApiTokenUpdateInput, ApiTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * ApiToken delete
+   */
+  export type ApiTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
+    /**
+     * Filter which ApiToken to delete.
+     */
+    where: ApiTokenWhereUniqueInput
+  }
+
+  /**
+   * ApiToken deleteMany
+   */
+  export type ApiTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ApiTokens to delete
+     */
+    where?: ApiTokenWhereInput
+    /**
+     * Limit how many ApiTokens to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ApiToken without action
+   */
+  export type ApiTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ApiToken
+     */
+    select?: ApiTokenSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ApiToken
+     */
+    omit?: ApiTokenOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ApiTokenInclude<ExtArgs> | null
   }
 
 
@@ -10754,16 +14516,58 @@ export namespace Prisma {
     slug: 'slug',
     content: 'content',
     icon: 'icon',
+    coverImage: 'coverImage',
     workspaceId: 'workspaceId',
     createdById: 'createdById',
     parentId: 'parentId',
     shareType: 'shareType',
     shareToken: 'shareToken',
+    ydoc: 'ydoc',
+    ydocSeq: 'ydocSeq',
+    version: 'version',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type PageScalarFieldEnum = (typeof PageScalarFieldEnum)[keyof typeof PageScalarFieldEnum]
+
+
+  export const PageUpdateScalarFieldEnum: {
+    seq: 'seq',
+    pageId: 'pageId',
+    update: 'update',
+    clientId: 'clientId',
+    createdAt: 'createdAt'
+  };
+
+  export type PageUpdateScalarFieldEnum = (typeof PageUpdateScalarFieldEnum)[keyof typeof PageUpdateScalarFieldEnum]
+
+
+  export const PagePresenceScalarFieldEnum: {
+    id: 'id',
+    pageId: 'pageId',
+    userId: 'userId',
+    name: 'name',
+    color: 'color',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PagePresenceScalarFieldEnum = (typeof PagePresenceScalarFieldEnum)[keyof typeof PagePresenceScalarFieldEnum]
+
+
+  export const ApiTokenScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    tokenHash: 'tokenHash',
+    prefix: 'prefix',
+    lastUsedAt: 'lastUsedAt',
+    expiresAt: 'expiresAt',
+    revokedAt: 'revokedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type ApiTokenScalarFieldEnum = (typeof ApiTokenScalarFieldEnum)[keyof typeof ApiTokenScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10834,6 +14638,34 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Bytes'
+   */
+  export type BytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes'>
+    
+
+
+  /**
+   * Reference to a field of type 'Bytes[]'
+   */
+  export type ListBytesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Bytes[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
 
 
@@ -11057,6 +14889,7 @@ export namespace Prisma {
     workspaces?: WorkspaceListRelationFilter
     workspaceMemberships?: WorkspaceMemberListRelationFilter
     pages?: PageListRelationFilter
+    apiTokens?: ApiTokenListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -11073,6 +14906,7 @@ export namespace Prisma {
     workspaces?: WorkspaceOrderByRelationAggregateInput
     workspaceMemberships?: WorkspaceMemberOrderByRelationAggregateInput
     pages?: PageOrderByRelationAggregateInput
+    apiTokens?: ApiTokenOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -11092,6 +14926,7 @@ export namespace Prisma {
     workspaces?: WorkspaceListRelationFilter
     workspaceMemberships?: WorkspaceMemberListRelationFilter
     pages?: PageListRelationFilter
+    apiTokens?: ApiTokenListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11325,17 +15160,23 @@ export namespace Prisma {
     slug?: StringFilter<"Page"> | string
     content?: StringNullableFilter<"Page"> | string | null
     icon?: StringNullableFilter<"Page"> | string | null
+    coverImage?: StringNullableFilter<"Page"> | string | null
     workspaceId?: StringFilter<"Page"> | string
     createdById?: StringNullableFilter<"Page"> | string | null
     parentId?: StringNullableFilter<"Page"> | string | null
     shareType?: StringFilter<"Page"> | string
     shareToken?: StringNullableFilter<"Page"> | string | null
+    ydoc?: BytesNullableFilter<"Page"> | Bytes | null
+    ydocSeq?: BigIntFilter<"Page"> | bigint | number
+    version?: IntFilter<"Page"> | number
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     parent?: XOR<PageNullableScalarRelationFilter, PageWhereInput> | null
     children?: PageListRelationFilter
+    updates?: PageUpdateListRelationFilter
+    presence?: PagePresenceListRelationFilter
   }
 
   export type PageOrderByWithRelationInput = {
@@ -11344,17 +15185,23 @@ export namespace Prisma {
     slug?: SortOrder
     content?: SortOrderInput | SortOrder
     icon?: SortOrderInput | SortOrder
+    coverImage?: SortOrderInput | SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrderInput | SortOrder
     parentId?: SortOrderInput | SortOrder
     shareType?: SortOrder
     shareToken?: SortOrderInput | SortOrder
+    ydoc?: SortOrderInput | SortOrder
+    ydocSeq?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     workspace?: WorkspaceOrderByWithRelationInput
     createdBy?: UserOrderByWithRelationInput
     parent?: PageOrderByWithRelationInput
     children?: PageOrderByRelationAggregateInput
+    updates?: PageUpdateOrderByRelationAggregateInput
+    presence?: PagePresenceOrderByRelationAggregateInput
   }
 
   export type PageWhereUniqueInput = Prisma.AtLeast<{
@@ -11368,16 +15215,22 @@ export namespace Prisma {
     slug?: StringFilter<"Page"> | string
     content?: StringNullableFilter<"Page"> | string | null
     icon?: StringNullableFilter<"Page"> | string | null
+    coverImage?: StringNullableFilter<"Page"> | string | null
     workspaceId?: StringFilter<"Page"> | string
     createdById?: StringNullableFilter<"Page"> | string | null
     parentId?: StringNullableFilter<"Page"> | string | null
     shareType?: StringFilter<"Page"> | string
+    ydoc?: BytesNullableFilter<"Page"> | Bytes | null
+    ydocSeq?: BigIntFilter<"Page"> | bigint | number
+    version?: IntFilter<"Page"> | number
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     parent?: XOR<PageNullableScalarRelationFilter, PageWhereInput> | null
     children?: PageListRelationFilter
+    updates?: PageUpdateListRelationFilter
+    presence?: PagePresenceListRelationFilter
   }, "id" | "shareToken" | "workspaceId_slug">
 
   export type PageOrderByWithAggregationInput = {
@@ -11386,16 +15239,22 @@ export namespace Prisma {
     slug?: SortOrder
     content?: SortOrderInput | SortOrder
     icon?: SortOrderInput | SortOrder
+    coverImage?: SortOrderInput | SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrderInput | SortOrder
     parentId?: SortOrderInput | SortOrder
     shareType?: SortOrder
     shareToken?: SortOrderInput | SortOrder
+    ydoc?: SortOrderInput | SortOrder
+    ydocSeq?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: PageCountOrderByAggregateInput
+    _avg?: PageAvgOrderByAggregateInput
     _max?: PageMaxOrderByAggregateInput
     _min?: PageMinOrderByAggregateInput
+    _sum?: PageSumOrderByAggregateInput
   }
 
   export type PageScalarWhereWithAggregatesInput = {
@@ -11407,13 +15266,210 @@ export namespace Prisma {
     slug?: StringWithAggregatesFilter<"Page"> | string
     content?: StringNullableWithAggregatesFilter<"Page"> | string | null
     icon?: StringNullableWithAggregatesFilter<"Page"> | string | null
+    coverImage?: StringNullableWithAggregatesFilter<"Page"> | string | null
     workspaceId?: StringWithAggregatesFilter<"Page"> | string
     createdById?: StringNullableWithAggregatesFilter<"Page"> | string | null
     parentId?: StringNullableWithAggregatesFilter<"Page"> | string | null
     shareType?: StringWithAggregatesFilter<"Page"> | string
     shareToken?: StringNullableWithAggregatesFilter<"Page"> | string | null
+    ydoc?: BytesNullableWithAggregatesFilter<"Page"> | Bytes | null
+    ydocSeq?: BigIntWithAggregatesFilter<"Page"> | bigint | number
+    version?: IntWithAggregatesFilter<"Page"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Page"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Page"> | Date | string
+  }
+
+  export type PageUpdateWhereInput = {
+    AND?: PageUpdateWhereInput | PageUpdateWhereInput[]
+    OR?: PageUpdateWhereInput[]
+    NOT?: PageUpdateWhereInput | PageUpdateWhereInput[]
+    seq?: BigIntFilter<"PageUpdate"> | bigint | number
+    pageId?: StringFilter<"PageUpdate"> | string
+    update?: BytesFilter<"PageUpdate"> | Bytes
+    clientId?: StringFilter<"PageUpdate"> | string
+    createdAt?: DateTimeFilter<"PageUpdate"> | Date | string
+    page?: XOR<PageScalarRelationFilter, PageWhereInput>
+  }
+
+  export type PageUpdateOrderByWithRelationInput = {
+    seq?: SortOrder
+    pageId?: SortOrder
+    update?: SortOrder
+    clientId?: SortOrder
+    createdAt?: SortOrder
+    page?: PageOrderByWithRelationInput
+  }
+
+  export type PageUpdateWhereUniqueInput = Prisma.AtLeast<{
+    seq?: bigint | number
+    AND?: PageUpdateWhereInput | PageUpdateWhereInput[]
+    OR?: PageUpdateWhereInput[]
+    NOT?: PageUpdateWhereInput | PageUpdateWhereInput[]
+    pageId?: StringFilter<"PageUpdate"> | string
+    update?: BytesFilter<"PageUpdate"> | Bytes
+    clientId?: StringFilter<"PageUpdate"> | string
+    createdAt?: DateTimeFilter<"PageUpdate"> | Date | string
+    page?: XOR<PageScalarRelationFilter, PageWhereInput>
+  }, "seq">
+
+  export type PageUpdateOrderByWithAggregationInput = {
+    seq?: SortOrder
+    pageId?: SortOrder
+    update?: SortOrder
+    clientId?: SortOrder
+    createdAt?: SortOrder
+    _count?: PageUpdateCountOrderByAggregateInput
+    _avg?: PageUpdateAvgOrderByAggregateInput
+    _max?: PageUpdateMaxOrderByAggregateInput
+    _min?: PageUpdateMinOrderByAggregateInput
+    _sum?: PageUpdateSumOrderByAggregateInput
+  }
+
+  export type PageUpdateScalarWhereWithAggregatesInput = {
+    AND?: PageUpdateScalarWhereWithAggregatesInput | PageUpdateScalarWhereWithAggregatesInput[]
+    OR?: PageUpdateScalarWhereWithAggregatesInput[]
+    NOT?: PageUpdateScalarWhereWithAggregatesInput | PageUpdateScalarWhereWithAggregatesInput[]
+    seq?: BigIntWithAggregatesFilter<"PageUpdate"> | bigint | number
+    pageId?: StringWithAggregatesFilter<"PageUpdate"> | string
+    update?: BytesWithAggregatesFilter<"PageUpdate"> | Bytes
+    clientId?: StringWithAggregatesFilter<"PageUpdate"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PageUpdate"> | Date | string
+  }
+
+  export type PagePresenceWhereInput = {
+    AND?: PagePresenceWhereInput | PagePresenceWhereInput[]
+    OR?: PagePresenceWhereInput[]
+    NOT?: PagePresenceWhereInput | PagePresenceWhereInput[]
+    id?: StringFilter<"PagePresence"> | string
+    pageId?: StringFilter<"PagePresence"> | string
+    userId?: StringFilter<"PagePresence"> | string
+    name?: StringFilter<"PagePresence"> | string
+    color?: StringFilter<"PagePresence"> | string
+    updatedAt?: DateTimeFilter<"PagePresence"> | Date | string
+    page?: XOR<PageScalarRelationFilter, PageWhereInput>
+  }
+
+  export type PagePresenceOrderByWithRelationInput = {
+    id?: SortOrder
+    pageId?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    color?: SortOrder
+    updatedAt?: SortOrder
+    page?: PageOrderByWithRelationInput
+  }
+
+  export type PagePresenceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    pageId_userId?: PagePresencePageIdUserIdCompoundUniqueInput
+    AND?: PagePresenceWhereInput | PagePresenceWhereInput[]
+    OR?: PagePresenceWhereInput[]
+    NOT?: PagePresenceWhereInput | PagePresenceWhereInput[]
+    pageId?: StringFilter<"PagePresence"> | string
+    userId?: StringFilter<"PagePresence"> | string
+    name?: StringFilter<"PagePresence"> | string
+    color?: StringFilter<"PagePresence"> | string
+    updatedAt?: DateTimeFilter<"PagePresence"> | Date | string
+    page?: XOR<PageScalarRelationFilter, PageWhereInput>
+  }, "id" | "pageId_userId">
+
+  export type PagePresenceOrderByWithAggregationInput = {
+    id?: SortOrder
+    pageId?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    color?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PagePresenceCountOrderByAggregateInput
+    _max?: PagePresenceMaxOrderByAggregateInput
+    _min?: PagePresenceMinOrderByAggregateInput
+  }
+
+  export type PagePresenceScalarWhereWithAggregatesInput = {
+    AND?: PagePresenceScalarWhereWithAggregatesInput | PagePresenceScalarWhereWithAggregatesInput[]
+    OR?: PagePresenceScalarWhereWithAggregatesInput[]
+    NOT?: PagePresenceScalarWhereWithAggregatesInput | PagePresenceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PagePresence"> | string
+    pageId?: StringWithAggregatesFilter<"PagePresence"> | string
+    userId?: StringWithAggregatesFilter<"PagePresence"> | string
+    name?: StringWithAggregatesFilter<"PagePresence"> | string
+    color?: StringWithAggregatesFilter<"PagePresence"> | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PagePresence"> | Date | string
+  }
+
+  export type ApiTokenWhereInput = {
+    AND?: ApiTokenWhereInput | ApiTokenWhereInput[]
+    OR?: ApiTokenWhereInput[]
+    NOT?: ApiTokenWhereInput | ApiTokenWhereInput[]
+    id?: StringFilter<"ApiToken"> | string
+    userId?: StringFilter<"ApiToken"> | string
+    name?: StringFilter<"ApiToken"> | string
+    tokenHash?: StringFilter<"ApiToken"> | string
+    prefix?: StringFilter<"ApiToken"> | string
+    lastUsedAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    createdAt?: DateTimeFilter<"ApiToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ApiTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    tokenHash?: SortOrder
+    prefix?: SortOrder
+    lastUsedAt?: SortOrderInput | SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type ApiTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tokenHash?: string
+    AND?: ApiTokenWhereInput | ApiTokenWhereInput[]
+    OR?: ApiTokenWhereInput[]
+    NOT?: ApiTokenWhereInput | ApiTokenWhereInput[]
+    userId?: StringFilter<"ApiToken"> | string
+    name?: StringFilter<"ApiToken"> | string
+    prefix?: StringFilter<"ApiToken"> | string
+    lastUsedAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    createdAt?: DateTimeFilter<"ApiToken"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "tokenHash">
+
+  export type ApiTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    tokenHash?: SortOrder
+    prefix?: SortOrder
+    lastUsedAt?: SortOrderInput | SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    revokedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: ApiTokenCountOrderByAggregateInput
+    _max?: ApiTokenMaxOrderByAggregateInput
+    _min?: ApiTokenMinOrderByAggregateInput
+  }
+
+  export type ApiTokenScalarWhereWithAggregatesInput = {
+    AND?: ApiTokenScalarWhereWithAggregatesInput | ApiTokenScalarWhereWithAggregatesInput[]
+    OR?: ApiTokenScalarWhereWithAggregatesInput[]
+    NOT?: ApiTokenScalarWhereWithAggregatesInput | ApiTokenScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ApiToken"> | string
+    userId?: StringWithAggregatesFilter<"ApiToken"> | string
+    name?: StringWithAggregatesFilter<"ApiToken"> | string
+    tokenHash?: StringWithAggregatesFilter<"ApiToken"> | string
+    prefix?: StringWithAggregatesFilter<"ApiToken"> | string
+    lastUsedAt?: DateTimeNullableWithAggregatesFilter<"ApiToken"> | Date | string | null
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"ApiToken"> | Date | string | null
+    revokedAt?: DateTimeNullableWithAggregatesFilter<"ApiToken"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ApiToken"> | Date | string
   }
 
   export type AccountCreateInput = {
@@ -11624,6 +15680,7 @@ export namespace Prisma {
     workspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     workspaceMemberships?: WorkspaceMemberCreateNestedManyWithoutUserInput
     pages?: PageCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11640,6 +15697,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     workspaceMemberships?: WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
     pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11656,6 +15714,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     workspaceMemberships?: WorkspaceMemberUpdateManyWithoutUserNestedInput
     pages?: PageUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11672,6 +15731,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     workspaceMemberships?: WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput
     pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11910,14 +15970,20 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutPagesInput
     createdBy?: UserCreateNestedOneWithoutPagesInput
     parent?: PageCreateNestedOneWithoutChildrenInput
     children?: PageCreateNestedManyWithoutParentInput
+    updates?: PageUpdateCreateNestedManyWithoutPageInput
+    presence?: PagePresenceCreateNestedManyWithoutPageInput
   }
 
   export type PageUncheckedCreateInput = {
@@ -11926,14 +15992,20 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     workspaceId: string
     createdById?: string | null
     parentId?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     children?: PageUncheckedCreateNestedManyWithoutParentInput
+    updates?: PageUpdateUncheckedCreateNestedManyWithoutPageInput
+    presence?: PagePresenceUncheckedCreateNestedManyWithoutPageInput
   }
 
   export type PageUpdateInput = {
@@ -11942,14 +16014,20 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
     createdBy?: UserUpdateOneWithoutPagesNestedInput
     parent?: PageUpdateOneWithoutChildrenNestedInput
     children?: PageUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUpdateManyWithoutPageNestedInput
   }
 
   export type PageUncheckedUpdateInput = {
@@ -11958,14 +16036,20 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     children?: PageUncheckedUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUncheckedUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUncheckedUpdateManyWithoutPageNestedInput
   }
 
   export type PageCreateManyInput = {
@@ -11974,11 +16058,15 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     workspaceId: string
     createdById?: string | null
     parentId?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11989,8 +16077,12 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12001,13 +16093,217 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PageUpdateCreateInput = {
+    seq?: bigint | number
+    update: Bytes
+    clientId: string
+    createdAt?: Date | string
+    page: PageCreateNestedOneWithoutUpdatesInput
+  }
+
+  export type PageUpdateUncheckedCreateInput = {
+    seq?: bigint | number
+    pageId: string
+    update: Bytes
+    clientId: string
+    createdAt?: Date | string
+  }
+
+  export type PageUpdateUpdateInput = {
+    seq?: BigIntFieldUpdateOperationsInput | bigint | number
+    update?: BytesFieldUpdateOperationsInput | Bytes
+    clientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    page?: PageUpdateOneRequiredWithoutUpdatesNestedInput
+  }
+
+  export type PageUpdateUncheckedUpdateInput = {
+    seq?: BigIntFieldUpdateOperationsInput | bigint | number
+    pageId?: StringFieldUpdateOperationsInput | string
+    update?: BytesFieldUpdateOperationsInput | Bytes
+    clientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PageUpdateCreateManyInput = {
+    seq?: bigint | number
+    pageId: string
+    update: Bytes
+    clientId: string
+    createdAt?: Date | string
+  }
+
+  export type PageUpdateUpdateManyMutationInput = {
+    seq?: BigIntFieldUpdateOperationsInput | bigint | number
+    update?: BytesFieldUpdateOperationsInput | Bytes
+    clientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PageUpdateUncheckedUpdateManyInput = {
+    seq?: BigIntFieldUpdateOperationsInput | bigint | number
+    pageId?: StringFieldUpdateOperationsInput | string
+    update?: BytesFieldUpdateOperationsInput | Bytes
+    clientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PagePresenceCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    color: string
+    updatedAt?: Date | string
+    page: PageCreateNestedOneWithoutPresenceInput
+  }
+
+  export type PagePresenceUncheckedCreateInput = {
+    id?: string
+    pageId: string
+    userId: string
+    name: string
+    color: string
+    updatedAt?: Date | string
+  }
+
+  export type PagePresenceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    page?: PageUpdateOneRequiredWithoutPresenceNestedInput
+  }
+
+  export type PagePresenceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pageId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PagePresenceCreateManyInput = {
+    id?: string
+    pageId: string
+    userId: string
+    name: string
+    color: string
+    updatedAt?: Date | string
+  }
+
+  export type PagePresenceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PagePresenceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pageId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiTokenCreateInput = {
+    id?: string
+    name: string
+    tokenHash: string
+    prefix: string
+    lastUsedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutApiTokensInput
+  }
+
+  export type ApiTokenUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name: string
+    tokenHash: string
+    prefix: string
+    lastUsedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ApiTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    prefix?: StringFieldUpdateOperationsInput | string
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutApiTokensNestedInput
+  }
+
+  export type ApiTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    prefix?: StringFieldUpdateOperationsInput | string
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiTokenCreateManyInput = {
+    id?: string
+    userId: string
+    name: string
+    tokenHash: string
+    prefix: string
+    lastUsedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ApiTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    prefix?: StringFieldUpdateOperationsInput | string
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    prefix?: StringFieldUpdateOperationsInput | string
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -12281,6 +16577,12 @@ export namespace Prisma {
     none?: PageWhereInput
   }
 
+  export type ApiTokenListRelationFilter = {
+    every?: ApiTokenWhereInput
+    some?: ApiTokenWhereInput
+    none?: ApiTokenWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -12298,6 +16600,10 @@ export namespace Prisma {
   }
 
   export type PageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ApiTokenOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12454,6 +16760,35 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type BytesNullableFilter<$PrismaModel = never> = {
+    equals?: Bytes | BytesFieldRefInput<$PrismaModel> | null
+    in?: Bytes[] | ListBytesFieldRefInput<$PrismaModel> | null
+    notIn?: Bytes[] | ListBytesFieldRefInput<$PrismaModel> | null
+    not?: NestedBytesNullableFilter<$PrismaModel> | Bytes | null
+  }
+
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -12462,6 +16797,26 @@ export namespace Prisma {
   export type PageNullableScalarRelationFilter = {
     is?: PageWhereInput | null
     isNot?: PageWhereInput | null
+  }
+
+  export type PageUpdateListRelationFilter = {
+    every?: PageUpdateWhereInput
+    some?: PageUpdateWhereInput
+    none?: PageUpdateWhereInput
+  }
+
+  export type PagePresenceListRelationFilter = {
+    every?: PagePresenceWhereInput
+    some?: PagePresenceWhereInput
+    none?: PagePresenceWhereInput
+  }
+
+  export type PageUpdateOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PagePresenceOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type PageWorkspaceIdSlugCompoundUniqueInput = {
@@ -12475,13 +16830,22 @@ export namespace Prisma {
     slug?: SortOrder
     content?: SortOrder
     icon?: SortOrder
+    coverImage?: SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrder
     parentId?: SortOrder
     shareType?: SortOrder
     shareToken?: SortOrder
+    ydoc?: SortOrder
+    ydocSeq?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PageAvgOrderByAggregateInput = {
+    ydocSeq?: SortOrder
+    version?: SortOrder
   }
 
   export type PageMaxOrderByAggregateInput = {
@@ -12490,11 +16854,15 @@ export namespace Prisma {
     slug?: SortOrder
     content?: SortOrder
     icon?: SortOrder
+    coverImage?: SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrder
     parentId?: SortOrder
     shareType?: SortOrder
     shareToken?: SortOrder
+    ydoc?: SortOrder
+    ydocSeq?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12505,13 +16873,186 @@ export namespace Prisma {
     slug?: SortOrder
     content?: SortOrder
     icon?: SortOrder
+    coverImage?: SortOrder
     workspaceId?: SortOrder
     createdById?: SortOrder
     parentId?: SortOrder
     shareType?: SortOrder
     shareToken?: SortOrder
+    ydoc?: SortOrder
+    ydocSeq?: SortOrder
+    version?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type PageSumOrderByAggregateInput = {
+    ydocSeq?: SortOrder
+    version?: SortOrder
+  }
+
+  export type BytesNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Bytes | BytesFieldRefInput<$PrismaModel> | null
+    in?: Bytes[] | ListBytesFieldRefInput<$PrismaModel> | null
+    notIn?: Bytes[] | ListBytesFieldRefInput<$PrismaModel> | null
+    not?: NestedBytesNullableWithAggregatesFilter<$PrismaModel> | Bytes | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBytesNullableFilter<$PrismaModel>
+    _max?: NestedBytesNullableFilter<$PrismaModel>
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BytesFilter<$PrismaModel = never> = {
+    equals?: Bytes | BytesFieldRefInput<$PrismaModel>
+    in?: Bytes[] | ListBytesFieldRefInput<$PrismaModel>
+    notIn?: Bytes[] | ListBytesFieldRefInput<$PrismaModel>
+    not?: NestedBytesFilter<$PrismaModel> | Bytes
+  }
+
+  export type PageScalarRelationFilter = {
+    is?: PageWhereInput
+    isNot?: PageWhereInput
+  }
+
+  export type PageUpdateCountOrderByAggregateInput = {
+    seq?: SortOrder
+    pageId?: SortOrder
+    update?: SortOrder
+    clientId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PageUpdateAvgOrderByAggregateInput = {
+    seq?: SortOrder
+  }
+
+  export type PageUpdateMaxOrderByAggregateInput = {
+    seq?: SortOrder
+    pageId?: SortOrder
+    update?: SortOrder
+    clientId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PageUpdateMinOrderByAggregateInput = {
+    seq?: SortOrder
+    pageId?: SortOrder
+    update?: SortOrder
+    clientId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PageUpdateSumOrderByAggregateInput = {
+    seq?: SortOrder
+  }
+
+  export type BytesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Bytes | BytesFieldRefInput<$PrismaModel>
+    in?: Bytes[] | ListBytesFieldRefInput<$PrismaModel>
+    notIn?: Bytes[] | ListBytesFieldRefInput<$PrismaModel>
+    not?: NestedBytesWithAggregatesFilter<$PrismaModel> | Bytes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBytesFilter<$PrismaModel>
+    _max?: NestedBytesFilter<$PrismaModel>
+  }
+
+  export type PagePresencePageIdUserIdCompoundUniqueInput = {
+    pageId: string
+    userId: string
+  }
+
+  export type PagePresenceCountOrderByAggregateInput = {
+    id?: SortOrder
+    pageId?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    color?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PagePresenceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    pageId?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    color?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PagePresenceMinOrderByAggregateInput = {
+    id?: SortOrder
+    pageId?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    color?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ApiTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    tokenHash?: SortOrder
+    prefix?: SortOrder
+    lastUsedAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ApiTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    tokenHash?: SortOrder
+    prefix?: SortOrder
+    lastUsedAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ApiTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    tokenHash?: SortOrder
+    prefix?: SortOrder
+    lastUsedAt?: SortOrder
+    expiresAt?: SortOrder
+    revokedAt?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -12597,6 +17138,13 @@ export namespace Prisma {
     connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
   }
 
+  export type ApiTokenCreateNestedManyWithoutUserInput = {
+    create?: XOR<ApiTokenCreateWithoutUserInput, ApiTokenUncheckedCreateWithoutUserInput> | ApiTokenCreateWithoutUserInput[] | ApiTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ApiTokenCreateOrConnectWithoutUserInput | ApiTokenCreateOrConnectWithoutUserInput[]
+    createMany?: ApiTokenCreateManyUserInputEnvelope
+    connect?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12630,6 +17178,13 @@ export namespace Prisma {
     connectOrCreate?: PageCreateOrConnectWithoutCreatedByInput | PageCreateOrConnectWithoutCreatedByInput[]
     createMany?: PageCreateManyCreatedByInputEnvelope
     connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+  }
+
+  export type ApiTokenUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ApiTokenCreateWithoutUserInput, ApiTokenUncheckedCreateWithoutUserInput> | ApiTokenCreateWithoutUserInput[] | ApiTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ApiTokenCreateOrConnectWithoutUserInput | ApiTokenCreateOrConnectWithoutUserInput[]
+    createMany?: ApiTokenCreateManyUserInputEnvelope
+    connect?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -12706,6 +17261,20 @@ export namespace Prisma {
     deleteMany?: PageScalarWhereInput | PageScalarWhereInput[]
   }
 
+  export type ApiTokenUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ApiTokenCreateWithoutUserInput, ApiTokenUncheckedCreateWithoutUserInput> | ApiTokenCreateWithoutUserInput[] | ApiTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ApiTokenCreateOrConnectWithoutUserInput | ApiTokenCreateOrConnectWithoutUserInput[]
+    upsert?: ApiTokenUpsertWithWhereUniqueWithoutUserInput | ApiTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ApiTokenCreateManyUserInputEnvelope
+    set?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+    disconnect?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+    delete?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+    connect?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+    update?: ApiTokenUpdateWithWhereUniqueWithoutUserInput | ApiTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ApiTokenUpdateManyWithWhereWithoutUserInput | ApiTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ApiTokenScalarWhereInput | ApiTokenScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12774,6 +17343,20 @@ export namespace Prisma {
     update?: PageUpdateWithWhereUniqueWithoutCreatedByInput | PageUpdateWithWhereUniqueWithoutCreatedByInput[]
     updateMany?: PageUpdateManyWithWhereWithoutCreatedByInput | PageUpdateManyWithWhereWithoutCreatedByInput[]
     deleteMany?: PageScalarWhereInput | PageScalarWhereInput[]
+  }
+
+  export type ApiTokenUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ApiTokenCreateWithoutUserInput, ApiTokenUncheckedCreateWithoutUserInput> | ApiTokenCreateWithoutUserInput[] | ApiTokenUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ApiTokenCreateOrConnectWithoutUserInput | ApiTokenCreateOrConnectWithoutUserInput[]
+    upsert?: ApiTokenUpsertWithWhereUniqueWithoutUserInput | ApiTokenUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ApiTokenCreateManyUserInputEnvelope
+    set?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+    disconnect?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+    delete?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+    connect?: ApiTokenWhereUniqueInput | ApiTokenWhereUniqueInput[]
+    update?: ApiTokenUpdateWithWhereUniqueWithoutUserInput | ApiTokenUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ApiTokenUpdateManyWithWhereWithoutUserInput | ApiTokenUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ApiTokenScalarWhereInput | ApiTokenScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWorkspacesInput = {
@@ -12983,11 +17566,59 @@ export namespace Prisma {
     connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
   }
 
+  export type PageUpdateCreateNestedManyWithoutPageInput = {
+    create?: XOR<PageUpdateCreateWithoutPageInput, PageUpdateUncheckedCreateWithoutPageInput> | PageUpdateCreateWithoutPageInput[] | PageUpdateUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: PageUpdateCreateOrConnectWithoutPageInput | PageUpdateCreateOrConnectWithoutPageInput[]
+    createMany?: PageUpdateCreateManyPageInputEnvelope
+    connect?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+  }
+
+  export type PagePresenceCreateNestedManyWithoutPageInput = {
+    create?: XOR<PagePresenceCreateWithoutPageInput, PagePresenceUncheckedCreateWithoutPageInput> | PagePresenceCreateWithoutPageInput[] | PagePresenceUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: PagePresenceCreateOrConnectWithoutPageInput | PagePresenceCreateOrConnectWithoutPageInput[]
+    createMany?: PagePresenceCreateManyPageInputEnvelope
+    connect?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+  }
+
   export type PageUncheckedCreateNestedManyWithoutParentInput = {
     create?: XOR<PageCreateWithoutParentInput, PageUncheckedCreateWithoutParentInput> | PageCreateWithoutParentInput[] | PageUncheckedCreateWithoutParentInput[]
     connectOrCreate?: PageCreateOrConnectWithoutParentInput | PageCreateOrConnectWithoutParentInput[]
     createMany?: PageCreateManyParentInputEnvelope
     connect?: PageWhereUniqueInput | PageWhereUniqueInput[]
+  }
+
+  export type PageUpdateUncheckedCreateNestedManyWithoutPageInput = {
+    create?: XOR<PageUpdateCreateWithoutPageInput, PageUpdateUncheckedCreateWithoutPageInput> | PageUpdateCreateWithoutPageInput[] | PageUpdateUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: PageUpdateCreateOrConnectWithoutPageInput | PageUpdateCreateOrConnectWithoutPageInput[]
+    createMany?: PageUpdateCreateManyPageInputEnvelope
+    connect?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+  }
+
+  export type PagePresenceUncheckedCreateNestedManyWithoutPageInput = {
+    create?: XOR<PagePresenceCreateWithoutPageInput, PagePresenceUncheckedCreateWithoutPageInput> | PagePresenceCreateWithoutPageInput[] | PagePresenceUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: PagePresenceCreateOrConnectWithoutPageInput | PagePresenceCreateOrConnectWithoutPageInput[]
+    createMany?: PagePresenceCreateManyPageInputEnvelope
+    connect?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+  }
+
+  export type NullableBytesFieldUpdateOperationsInput = {
+    set?: Bytes | null
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type WorkspaceUpdateOneRequiredWithoutPagesNestedInput = {
@@ -13032,6 +17663,34 @@ export namespace Prisma {
     deleteMany?: PageScalarWhereInput | PageScalarWhereInput[]
   }
 
+  export type PageUpdateUpdateManyWithoutPageNestedInput = {
+    create?: XOR<PageUpdateCreateWithoutPageInput, PageUpdateUncheckedCreateWithoutPageInput> | PageUpdateCreateWithoutPageInput[] | PageUpdateUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: PageUpdateCreateOrConnectWithoutPageInput | PageUpdateCreateOrConnectWithoutPageInput[]
+    upsert?: PageUpdateUpsertWithWhereUniqueWithoutPageInput | PageUpdateUpsertWithWhereUniqueWithoutPageInput[]
+    createMany?: PageUpdateCreateManyPageInputEnvelope
+    set?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+    disconnect?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+    delete?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+    connect?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+    update?: PageUpdateUpdateWithWhereUniqueWithoutPageInput | PageUpdateUpdateWithWhereUniqueWithoutPageInput[]
+    updateMany?: PageUpdateUpdateManyWithWhereWithoutPageInput | PageUpdateUpdateManyWithWhereWithoutPageInput[]
+    deleteMany?: PageUpdateScalarWhereInput | PageUpdateScalarWhereInput[]
+  }
+
+  export type PagePresenceUpdateManyWithoutPageNestedInput = {
+    create?: XOR<PagePresenceCreateWithoutPageInput, PagePresenceUncheckedCreateWithoutPageInput> | PagePresenceCreateWithoutPageInput[] | PagePresenceUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: PagePresenceCreateOrConnectWithoutPageInput | PagePresenceCreateOrConnectWithoutPageInput[]
+    upsert?: PagePresenceUpsertWithWhereUniqueWithoutPageInput | PagePresenceUpsertWithWhereUniqueWithoutPageInput[]
+    createMany?: PagePresenceCreateManyPageInputEnvelope
+    set?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+    disconnect?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+    delete?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+    connect?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+    update?: PagePresenceUpdateWithWhereUniqueWithoutPageInput | PagePresenceUpdateWithWhereUniqueWithoutPageInput[]
+    updateMany?: PagePresenceUpdateManyWithWhereWithoutPageInput | PagePresenceUpdateManyWithWhereWithoutPageInput[]
+    deleteMany?: PagePresenceScalarWhereInput | PagePresenceScalarWhereInput[]
+  }
+
   export type PageUncheckedUpdateManyWithoutParentNestedInput = {
     create?: XOR<PageCreateWithoutParentInput, PageUncheckedCreateWithoutParentInput> | PageCreateWithoutParentInput[] | PageUncheckedCreateWithoutParentInput[]
     connectOrCreate?: PageCreateOrConnectWithoutParentInput | PageCreateOrConnectWithoutParentInput[]
@@ -13044,6 +17703,80 @@ export namespace Prisma {
     update?: PageUpdateWithWhereUniqueWithoutParentInput | PageUpdateWithWhereUniqueWithoutParentInput[]
     updateMany?: PageUpdateManyWithWhereWithoutParentInput | PageUpdateManyWithWhereWithoutParentInput[]
     deleteMany?: PageScalarWhereInput | PageScalarWhereInput[]
+  }
+
+  export type PageUpdateUncheckedUpdateManyWithoutPageNestedInput = {
+    create?: XOR<PageUpdateCreateWithoutPageInput, PageUpdateUncheckedCreateWithoutPageInput> | PageUpdateCreateWithoutPageInput[] | PageUpdateUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: PageUpdateCreateOrConnectWithoutPageInput | PageUpdateCreateOrConnectWithoutPageInput[]
+    upsert?: PageUpdateUpsertWithWhereUniqueWithoutPageInput | PageUpdateUpsertWithWhereUniqueWithoutPageInput[]
+    createMany?: PageUpdateCreateManyPageInputEnvelope
+    set?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+    disconnect?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+    delete?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+    connect?: PageUpdateWhereUniqueInput | PageUpdateWhereUniqueInput[]
+    update?: PageUpdateUpdateWithWhereUniqueWithoutPageInput | PageUpdateUpdateWithWhereUniqueWithoutPageInput[]
+    updateMany?: PageUpdateUpdateManyWithWhereWithoutPageInput | PageUpdateUpdateManyWithWhereWithoutPageInput[]
+    deleteMany?: PageUpdateScalarWhereInput | PageUpdateScalarWhereInput[]
+  }
+
+  export type PagePresenceUncheckedUpdateManyWithoutPageNestedInput = {
+    create?: XOR<PagePresenceCreateWithoutPageInput, PagePresenceUncheckedCreateWithoutPageInput> | PagePresenceCreateWithoutPageInput[] | PagePresenceUncheckedCreateWithoutPageInput[]
+    connectOrCreate?: PagePresenceCreateOrConnectWithoutPageInput | PagePresenceCreateOrConnectWithoutPageInput[]
+    upsert?: PagePresenceUpsertWithWhereUniqueWithoutPageInput | PagePresenceUpsertWithWhereUniqueWithoutPageInput[]
+    createMany?: PagePresenceCreateManyPageInputEnvelope
+    set?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+    disconnect?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+    delete?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+    connect?: PagePresenceWhereUniqueInput | PagePresenceWhereUniqueInput[]
+    update?: PagePresenceUpdateWithWhereUniqueWithoutPageInput | PagePresenceUpdateWithWhereUniqueWithoutPageInput[]
+    updateMany?: PagePresenceUpdateManyWithWhereWithoutPageInput | PagePresenceUpdateManyWithWhereWithoutPageInput[]
+    deleteMany?: PagePresenceScalarWhereInput | PagePresenceScalarWhereInput[]
+  }
+
+  export type PageCreateNestedOneWithoutUpdatesInput = {
+    create?: XOR<PageCreateWithoutUpdatesInput, PageUncheckedCreateWithoutUpdatesInput>
+    connectOrCreate?: PageCreateOrConnectWithoutUpdatesInput
+    connect?: PageWhereUniqueInput
+  }
+
+  export type BytesFieldUpdateOperationsInput = {
+    set?: Bytes
+  }
+
+  export type PageUpdateOneRequiredWithoutUpdatesNestedInput = {
+    create?: XOR<PageCreateWithoutUpdatesInput, PageUncheckedCreateWithoutUpdatesInput>
+    connectOrCreate?: PageCreateOrConnectWithoutUpdatesInput
+    upsert?: PageUpsertWithoutUpdatesInput
+    connect?: PageWhereUniqueInput
+    update?: XOR<XOR<PageUpdateToOneWithWhereWithoutUpdatesInput, PageUpdateWithoutUpdatesInput>, PageUncheckedUpdateWithoutUpdatesInput>
+  }
+
+  export type PageCreateNestedOneWithoutPresenceInput = {
+    create?: XOR<PageCreateWithoutPresenceInput, PageUncheckedCreateWithoutPresenceInput>
+    connectOrCreate?: PageCreateOrConnectWithoutPresenceInput
+    connect?: PageWhereUniqueInput
+  }
+
+  export type PageUpdateOneRequiredWithoutPresenceNestedInput = {
+    create?: XOR<PageCreateWithoutPresenceInput, PageUncheckedCreateWithoutPresenceInput>
+    connectOrCreate?: PageCreateOrConnectWithoutPresenceInput
+    upsert?: PageUpsertWithoutPresenceInput
+    connect?: PageWhereUniqueInput
+    update?: XOR<XOR<PageUpdateToOneWithWhereWithoutPresenceInput, PageUpdateWithoutPresenceInput>, PageUncheckedUpdateWithoutPresenceInput>
+  }
+
+  export type UserCreateNestedOneWithoutApiTokensInput = {
+    create?: XOR<UserCreateWithoutApiTokensInput, UserUncheckedCreateWithoutApiTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutApiTokensInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutApiTokensNestedInput = {
+    create?: XOR<UserCreateWithoutApiTokensInput, UserUncheckedCreateWithoutApiTokensInput>
+    connectOrCreate?: UserCreateOrConnectWithoutApiTokensInput
+    upsert?: UserUpsertWithoutApiTokensInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutApiTokensInput, UserUpdateWithoutApiTokensInput>, UserUncheckedUpdateWithoutApiTokensInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -13207,6 +17940,94 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedBytesNullableFilter<$PrismaModel = never> = {
+    equals?: Bytes | BytesFieldRefInput<$PrismaModel> | null
+    in?: Bytes[] | ListBytesFieldRefInput<$PrismaModel> | null
+    notIn?: Bytes[] | ListBytesFieldRefInput<$PrismaModel> | null
+    not?: NestedBytesNullableFilter<$PrismaModel> | Bytes | null
+  }
+
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type NestedBytesNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Bytes | BytesFieldRefInput<$PrismaModel> | null
+    in?: Bytes[] | ListBytesFieldRefInput<$PrismaModel> | null
+    notIn?: Bytes[] | ListBytesFieldRefInput<$PrismaModel> | null
+    not?: NestedBytesNullableWithAggregatesFilter<$PrismaModel> | Bytes | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBytesNullableFilter<$PrismaModel>
+    _max?: NestedBytesNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedBytesFilter<$PrismaModel = never> = {
+    equals?: Bytes | BytesFieldRefInput<$PrismaModel>
+    in?: Bytes[] | ListBytesFieldRefInput<$PrismaModel>
+    notIn?: Bytes[] | ListBytesFieldRefInput<$PrismaModel>
+    not?: NestedBytesFilter<$PrismaModel> | Bytes
+  }
+
+  export type NestedBytesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Bytes | BytesFieldRefInput<$PrismaModel>
+    in?: Bytes[] | ListBytesFieldRefInput<$PrismaModel>
+    notIn?: Bytes[] | ListBytesFieldRefInput<$PrismaModel>
+    not?: NestedBytesWithAggregatesFilter<$PrismaModel> | Bytes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBytesFilter<$PrismaModel>
+    _max?: NestedBytesFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -13220,6 +18041,7 @@ export namespace Prisma {
     workspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     workspaceMemberships?: WorkspaceMemberCreateNestedManyWithoutUserInput
     pages?: PageCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -13235,6 +18057,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     workspaceMemberships?: WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
     pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -13266,6 +18089,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     workspaceMemberships?: WorkspaceMemberUpdateManyWithoutUserNestedInput
     pages?: PageUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -13281,6 +18105,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     workspaceMemberships?: WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput
     pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -13296,6 +18121,7 @@ export namespace Prisma {
     workspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     workspaceMemberships?: WorkspaceMemberCreateNestedManyWithoutUserInput
     pages?: PageCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -13311,6 +18137,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     workspaceMemberships?: WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
     pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -13342,6 +18169,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     workspaceMemberships?: WorkspaceMemberUpdateManyWithoutUserNestedInput
     pages?: PageUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -13357,6 +18185,7 @@ export namespace Prisma {
     workspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     workspaceMemberships?: WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput
     pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -13483,13 +18312,19 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutPagesInput
     parent?: PageCreateNestedOneWithoutChildrenInput
     children?: PageCreateNestedManyWithoutParentInput
+    updates?: PageUpdateCreateNestedManyWithoutPageInput
+    presence?: PagePresenceCreateNestedManyWithoutPageInput
   }
 
   export type PageUncheckedCreateWithoutCreatedByInput = {
@@ -13498,13 +18333,19 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     workspaceId: string
     parentId?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     children?: PageUncheckedCreateNestedManyWithoutParentInput
+    updates?: PageUpdateUncheckedCreateNestedManyWithoutPageInput
+    presence?: PagePresenceUncheckedCreateNestedManyWithoutPageInput
   }
 
   export type PageCreateOrConnectWithoutCreatedByInput = {
@@ -13514,6 +18355,38 @@ export namespace Prisma {
 
   export type PageCreateManyCreatedByInputEnvelope = {
     data: PageCreateManyCreatedByInput | PageCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ApiTokenCreateWithoutUserInput = {
+    id?: string
+    name: string
+    tokenHash: string
+    prefix: string
+    lastUsedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ApiTokenUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    tokenHash: string
+    prefix: string
+    lastUsedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type ApiTokenCreateOrConnectWithoutUserInput = {
+    where: ApiTokenWhereUniqueInput
+    create: XOR<ApiTokenCreateWithoutUserInput, ApiTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type ApiTokenCreateManyUserInputEnvelope = {
+    data: ApiTokenCreateManyUserInput | ApiTokenCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -13658,13 +18531,48 @@ export namespace Prisma {
     slug?: StringFilter<"Page"> | string
     content?: StringNullableFilter<"Page"> | string | null
     icon?: StringNullableFilter<"Page"> | string | null
+    coverImage?: StringNullableFilter<"Page"> | string | null
     workspaceId?: StringFilter<"Page"> | string
     createdById?: StringNullableFilter<"Page"> | string | null
     parentId?: StringNullableFilter<"Page"> | string | null
     shareType?: StringFilter<"Page"> | string
     shareToken?: StringNullableFilter<"Page"> | string | null
+    ydoc?: BytesNullableFilter<"Page"> | Bytes | null
+    ydocSeq?: BigIntFilter<"Page"> | bigint | number
+    version?: IntFilter<"Page"> | number
     createdAt?: DateTimeFilter<"Page"> | Date | string
     updatedAt?: DateTimeFilter<"Page"> | Date | string
+  }
+
+  export type ApiTokenUpsertWithWhereUniqueWithoutUserInput = {
+    where: ApiTokenWhereUniqueInput
+    update: XOR<ApiTokenUpdateWithoutUserInput, ApiTokenUncheckedUpdateWithoutUserInput>
+    create: XOR<ApiTokenCreateWithoutUserInput, ApiTokenUncheckedCreateWithoutUserInput>
+  }
+
+  export type ApiTokenUpdateWithWhereUniqueWithoutUserInput = {
+    where: ApiTokenWhereUniqueInput
+    data: XOR<ApiTokenUpdateWithoutUserInput, ApiTokenUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ApiTokenUpdateManyWithWhereWithoutUserInput = {
+    where: ApiTokenScalarWhereInput
+    data: XOR<ApiTokenUpdateManyMutationInput, ApiTokenUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ApiTokenScalarWhereInput = {
+    AND?: ApiTokenScalarWhereInput | ApiTokenScalarWhereInput[]
+    OR?: ApiTokenScalarWhereInput[]
+    NOT?: ApiTokenScalarWhereInput | ApiTokenScalarWhereInput[]
+    id?: StringFilter<"ApiToken"> | string
+    userId?: StringFilter<"ApiToken"> | string
+    name?: StringFilter<"ApiToken"> | string
+    tokenHash?: StringFilter<"ApiToken"> | string
+    prefix?: StringFilter<"ApiToken"> | string
+    lastUsedAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    expiresAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    revokedAt?: DateTimeNullableFilter<"ApiToken"> | Date | string | null
+    createdAt?: DateTimeFilter<"ApiToken"> | Date | string
   }
 
   export type UserCreateWithoutWorkspacesInput = {
@@ -13680,6 +18588,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     workspaceMemberships?: WorkspaceMemberCreateNestedManyWithoutUserInput
     pages?: PageCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkspacesInput = {
@@ -13695,6 +18604,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     workspaceMemberships?: WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
     pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkspacesInput = {
@@ -13732,13 +18642,19 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy?: UserCreateNestedOneWithoutPagesInput
     parent?: PageCreateNestedOneWithoutChildrenInput
     children?: PageCreateNestedManyWithoutParentInput
+    updates?: PageUpdateCreateNestedManyWithoutPageInput
+    presence?: PagePresenceCreateNestedManyWithoutPageInput
   }
 
   export type PageUncheckedCreateWithoutWorkspaceInput = {
@@ -13747,13 +18663,19 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     createdById?: string | null
     parentId?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     children?: PageUncheckedCreateNestedManyWithoutParentInput
+    updates?: PageUpdateUncheckedCreateNestedManyWithoutPageInput
+    presence?: PagePresenceUncheckedCreateNestedManyWithoutPageInput
   }
 
   export type PageCreateOrConnectWithoutWorkspaceInput = {
@@ -13816,6 +18738,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     workspaceMemberships?: WorkspaceMemberUpdateManyWithoutUserNestedInput
     pages?: PageUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspacesInput = {
@@ -13831,6 +18754,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     workspaceMemberships?: WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput
     pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceMemberUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -13906,6 +18830,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     workspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     pages?: PageCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkspaceMembershipsInput = {
@@ -13921,6 +18846,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     workspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkspaceMembershipsInput = {
@@ -13981,6 +18907,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     workspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     pages?: PageUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspaceMembershipsInput = {
@@ -13996,6 +18923,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     workspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceUpsertWithoutMembersInput = {
@@ -14139,6 +19067,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     workspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     workspaceMemberships?: WorkspaceMemberCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPagesInput = {
@@ -14154,6 +19083,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     workspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     workspaceMemberships?: WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPagesInput = {
@@ -14167,13 +19097,19 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutPagesInput
     createdBy?: UserCreateNestedOneWithoutPagesInput
     parent?: PageCreateNestedOneWithoutChildrenInput
+    updates?: PageUpdateCreateNestedManyWithoutPageInput
+    presence?: PagePresenceCreateNestedManyWithoutPageInput
   }
 
   export type PageUncheckedCreateWithoutChildrenInput = {
@@ -14182,13 +19118,19 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     workspaceId: string
     createdById?: string | null
     parentId?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    updates?: PageUpdateUncheckedCreateNestedManyWithoutPageInput
+    presence?: PagePresenceUncheckedCreateNestedManyWithoutPageInput
   }
 
   export type PageCreateOrConnectWithoutChildrenInput = {
@@ -14202,13 +19144,19 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutPagesInput
     createdBy?: UserCreateNestedOneWithoutPagesInput
     children?: PageCreateNestedManyWithoutParentInput
+    updates?: PageUpdateCreateNestedManyWithoutPageInput
+    presence?: PagePresenceCreateNestedManyWithoutPageInput
   }
 
   export type PageUncheckedCreateWithoutParentInput = {
@@ -14217,13 +19165,19 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     workspaceId: string
     createdById?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     children?: PageUncheckedCreateNestedManyWithoutParentInput
+    updates?: PageUpdateUncheckedCreateNestedManyWithoutPageInput
+    presence?: PagePresenceUncheckedCreateNestedManyWithoutPageInput
   }
 
   export type PageCreateOrConnectWithoutParentInput = {
@@ -14233,6 +19187,56 @@ export namespace Prisma {
 
   export type PageCreateManyParentInputEnvelope = {
     data: PageCreateManyParentInput | PageCreateManyParentInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PageUpdateCreateWithoutPageInput = {
+    seq?: bigint | number
+    update: Bytes
+    clientId: string
+    createdAt?: Date | string
+  }
+
+  export type PageUpdateUncheckedCreateWithoutPageInput = {
+    seq?: bigint | number
+    update: Bytes
+    clientId: string
+    createdAt?: Date | string
+  }
+
+  export type PageUpdateCreateOrConnectWithoutPageInput = {
+    where: PageUpdateWhereUniqueInput
+    create: XOR<PageUpdateCreateWithoutPageInput, PageUpdateUncheckedCreateWithoutPageInput>
+  }
+
+  export type PageUpdateCreateManyPageInputEnvelope = {
+    data: PageUpdateCreateManyPageInput | PageUpdateCreateManyPageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PagePresenceCreateWithoutPageInput = {
+    id?: string
+    userId: string
+    name: string
+    color: string
+    updatedAt?: Date | string
+  }
+
+  export type PagePresenceUncheckedCreateWithoutPageInput = {
+    id?: string
+    userId: string
+    name: string
+    color: string
+    updatedAt?: Date | string
+  }
+
+  export type PagePresenceCreateOrConnectWithoutPageInput = {
+    where: PagePresenceWhereUniqueInput
+    create: XOR<PagePresenceCreateWithoutPageInput, PagePresenceUncheckedCreateWithoutPageInput>
+  }
+
+  export type PagePresenceCreateManyPageInputEnvelope = {
+    data: PagePresenceCreateManyPageInput | PagePresenceCreateManyPageInput[]
     skipDuplicates?: boolean
   }
 
@@ -14295,6 +19299,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     workspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     workspaceMemberships?: WorkspaceMemberUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPagesInput = {
@@ -14310,6 +19315,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     workspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     workspaceMemberships?: WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PageUpsertWithoutChildrenInput = {
@@ -14329,13 +19335,19 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
     createdBy?: UserUpdateOneWithoutPagesNestedInput
     parent?: PageUpdateOneWithoutChildrenNestedInput
+    updates?: PageUpdateUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUpdateManyWithoutPageNestedInput
   }
 
   export type PageUncheckedUpdateWithoutChildrenInput = {
@@ -14344,13 +19356,19 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updates?: PageUpdateUncheckedUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUncheckedUpdateManyWithoutPageNestedInput
   }
 
   export type PageUpsertWithWhereUniqueWithoutParentInput = {
@@ -14367,6 +19385,341 @@ export namespace Prisma {
   export type PageUpdateManyWithWhereWithoutParentInput = {
     where: PageScalarWhereInput
     data: XOR<PageUpdateManyMutationInput, PageUncheckedUpdateManyWithoutParentInput>
+  }
+
+  export type PageUpdateUpsertWithWhereUniqueWithoutPageInput = {
+    where: PageUpdateWhereUniqueInput
+    update: XOR<PageUpdateUpdateWithoutPageInput, PageUpdateUncheckedUpdateWithoutPageInput>
+    create: XOR<PageUpdateCreateWithoutPageInput, PageUpdateUncheckedCreateWithoutPageInput>
+  }
+
+  export type PageUpdateUpdateWithWhereUniqueWithoutPageInput = {
+    where: PageUpdateWhereUniqueInput
+    data: XOR<PageUpdateUpdateWithoutPageInput, PageUpdateUncheckedUpdateWithoutPageInput>
+  }
+
+  export type PageUpdateUpdateManyWithWhereWithoutPageInput = {
+    where: PageUpdateScalarWhereInput
+    data: XOR<PageUpdateUpdateManyMutationInput, PageUpdateUncheckedUpdateManyWithoutPageInput>
+  }
+
+  export type PageUpdateScalarWhereInput = {
+    AND?: PageUpdateScalarWhereInput | PageUpdateScalarWhereInput[]
+    OR?: PageUpdateScalarWhereInput[]
+    NOT?: PageUpdateScalarWhereInput | PageUpdateScalarWhereInput[]
+    seq?: BigIntFilter<"PageUpdate"> | bigint | number
+    pageId?: StringFilter<"PageUpdate"> | string
+    update?: BytesFilter<"PageUpdate"> | Bytes
+    clientId?: StringFilter<"PageUpdate"> | string
+    createdAt?: DateTimeFilter<"PageUpdate"> | Date | string
+  }
+
+  export type PagePresenceUpsertWithWhereUniqueWithoutPageInput = {
+    where: PagePresenceWhereUniqueInput
+    update: XOR<PagePresenceUpdateWithoutPageInput, PagePresenceUncheckedUpdateWithoutPageInput>
+    create: XOR<PagePresenceCreateWithoutPageInput, PagePresenceUncheckedCreateWithoutPageInput>
+  }
+
+  export type PagePresenceUpdateWithWhereUniqueWithoutPageInput = {
+    where: PagePresenceWhereUniqueInput
+    data: XOR<PagePresenceUpdateWithoutPageInput, PagePresenceUncheckedUpdateWithoutPageInput>
+  }
+
+  export type PagePresenceUpdateManyWithWhereWithoutPageInput = {
+    where: PagePresenceScalarWhereInput
+    data: XOR<PagePresenceUpdateManyMutationInput, PagePresenceUncheckedUpdateManyWithoutPageInput>
+  }
+
+  export type PagePresenceScalarWhereInput = {
+    AND?: PagePresenceScalarWhereInput | PagePresenceScalarWhereInput[]
+    OR?: PagePresenceScalarWhereInput[]
+    NOT?: PagePresenceScalarWhereInput | PagePresenceScalarWhereInput[]
+    id?: StringFilter<"PagePresence"> | string
+    pageId?: StringFilter<"PagePresence"> | string
+    userId?: StringFilter<"PagePresence"> | string
+    name?: StringFilter<"PagePresence"> | string
+    color?: StringFilter<"PagePresence"> | string
+    updatedAt?: DateTimeFilter<"PagePresence"> | Date | string
+  }
+
+  export type PageCreateWithoutUpdatesInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    coverImage?: string | null
+    shareType?: string
+    shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutPagesInput
+    createdBy?: UserCreateNestedOneWithoutPagesInput
+    parent?: PageCreateNestedOneWithoutChildrenInput
+    children?: PageCreateNestedManyWithoutParentInput
+    presence?: PagePresenceCreateNestedManyWithoutPageInput
+  }
+
+  export type PageUncheckedCreateWithoutUpdatesInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    coverImage?: string | null
+    workspaceId: string
+    createdById?: string | null
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    children?: PageUncheckedCreateNestedManyWithoutParentInput
+    presence?: PagePresenceUncheckedCreateNestedManyWithoutPageInput
+  }
+
+  export type PageCreateOrConnectWithoutUpdatesInput = {
+    where: PageWhereUniqueInput
+    create: XOR<PageCreateWithoutUpdatesInput, PageUncheckedCreateWithoutUpdatesInput>
+  }
+
+  export type PageUpsertWithoutUpdatesInput = {
+    update: XOR<PageUpdateWithoutUpdatesInput, PageUncheckedUpdateWithoutUpdatesInput>
+    create: XOR<PageCreateWithoutUpdatesInput, PageUncheckedCreateWithoutUpdatesInput>
+    where?: PageWhereInput
+  }
+
+  export type PageUpdateToOneWithWhereWithoutUpdatesInput = {
+    where?: PageWhereInput
+    data: XOR<PageUpdateWithoutUpdatesInput, PageUncheckedUpdateWithoutUpdatesInput>
+  }
+
+  export type PageUpdateWithoutUpdatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
+    createdBy?: UserUpdateOneWithoutPagesNestedInput
+    parent?: PageUpdateOneWithoutChildrenNestedInput
+    children?: PageUpdateManyWithoutParentNestedInput
+    presence?: PagePresenceUpdateManyWithoutPageNestedInput
+  }
+
+  export type PageUncheckedUpdateWithoutUpdatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: PageUncheckedUpdateManyWithoutParentNestedInput
+    presence?: PagePresenceUncheckedUpdateManyWithoutPageNestedInput
+  }
+
+  export type PageCreateWithoutPresenceInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    coverImage?: string | null
+    shareType?: string
+    shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutPagesInput
+    createdBy?: UserCreateNestedOneWithoutPagesInput
+    parent?: PageCreateNestedOneWithoutChildrenInput
+    children?: PageCreateNestedManyWithoutParentInput
+    updates?: PageUpdateCreateNestedManyWithoutPageInput
+  }
+
+  export type PageUncheckedCreateWithoutPresenceInput = {
+    id?: string
+    title?: string
+    slug: string
+    content?: string | null
+    icon?: string | null
+    coverImage?: string | null
+    workspaceId: string
+    createdById?: string | null
+    parentId?: string | null
+    shareType?: string
+    shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    children?: PageUncheckedCreateNestedManyWithoutParentInput
+    updates?: PageUpdateUncheckedCreateNestedManyWithoutPageInput
+  }
+
+  export type PageCreateOrConnectWithoutPresenceInput = {
+    where: PageWhereUniqueInput
+    create: XOR<PageCreateWithoutPresenceInput, PageUncheckedCreateWithoutPresenceInput>
+  }
+
+  export type PageUpsertWithoutPresenceInput = {
+    update: XOR<PageUpdateWithoutPresenceInput, PageUncheckedUpdateWithoutPresenceInput>
+    create: XOR<PageCreateWithoutPresenceInput, PageUncheckedCreateWithoutPresenceInput>
+    where?: PageWhereInput
+  }
+
+  export type PageUpdateToOneWithWhereWithoutPresenceInput = {
+    where?: PageWhereInput
+    data: XOR<PageUpdateWithoutPresenceInput, PageUncheckedUpdateWithoutPresenceInput>
+  }
+
+  export type PageUpdateWithoutPresenceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
+    createdBy?: UserUpdateOneWithoutPagesNestedInput
+    parent?: PageUpdateOneWithoutChildrenNestedInput
+    children?: PageUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUpdateManyWithoutPageNestedInput
+  }
+
+  export type PageUncheckedUpdateWithoutPresenceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    parentId?: NullableStringFieldUpdateOperationsInput | string | null
+    shareType?: StringFieldUpdateOperationsInput | string
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    children?: PageUncheckedUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUncheckedUpdateManyWithoutPageNestedInput
+  }
+
+  export type UserCreateWithoutApiTokensInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    workspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    workspaceMemberships?: WorkspaceMemberCreateNestedManyWithoutUserInput
+    pages?: PageCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutApiTokensInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    workspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    workspaceMemberships?: WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
+    pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutApiTokensInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutApiTokensInput, UserUncheckedCreateWithoutApiTokensInput>
+  }
+
+  export type UserUpsertWithoutApiTokensInput = {
+    update: XOR<UserUpdateWithoutApiTokensInput, UserUncheckedUpdateWithoutApiTokensInput>
+    create: XOR<UserCreateWithoutApiTokensInput, UserUncheckedCreateWithoutApiTokensInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutApiTokensInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutApiTokensInput, UserUncheckedUpdateWithoutApiTokensInput>
+  }
+
+  export type UserUpdateWithoutApiTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    workspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    workspaceMemberships?: WorkspaceMemberUpdateManyWithoutUserNestedInput
+    pages?: PageUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutApiTokensInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    workspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    workspaceMemberships?: WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput
+    pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -14411,12 +19764,27 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     workspaceId: string
     parentId?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type ApiTokenCreateManyUserInput = {
+    id?: string
+    name: string
+    tokenHash: string
+    prefix: string
+    lastUsedAt?: Date | string | null
+    expiresAt?: Date | string | null
+    revokedAt?: Date | string | null
+    createdAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -14539,13 +19907,19 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
     parent?: PageUpdateOneWithoutChildrenNestedInput
     children?: PageUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUpdateManyWithoutPageNestedInput
   }
 
   export type PageUncheckedUpdateWithoutCreatedByInput = {
@@ -14554,13 +19928,19 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     children?: PageUncheckedUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUncheckedUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUncheckedUpdateManyWithoutPageNestedInput
   }
 
   export type PageUncheckedUpdateManyWithoutCreatedByInput = {
@@ -14569,12 +19949,49 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiTokenUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    prefix?: StringFieldUpdateOperationsInput | string
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiTokenUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    prefix?: StringFieldUpdateOperationsInput | string
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ApiTokenUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    tokenHash?: StringFieldUpdateOperationsInput | string
+    prefix?: StringFieldUpdateOperationsInput | string
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WorkspaceMemberCreateManyWorkspaceInput = {
@@ -14590,10 +20007,14 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     createdById?: string | null
     parentId?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14633,13 +20054,19 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneWithoutPagesNestedInput
     parent?: PageUpdateOneWithoutChildrenNestedInput
     children?: PageUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUpdateManyWithoutPageNestedInput
   }
 
   export type PageUncheckedUpdateWithoutWorkspaceInput = {
@@ -14648,13 +20075,19 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     children?: PageUncheckedUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUncheckedUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUncheckedUpdateManyWithoutPageNestedInput
   }
 
   export type PageUncheckedUpdateManyWithoutWorkspaceInput = {
@@ -14663,10 +20096,14 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     parentId?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14701,11 +20138,30 @@ export namespace Prisma {
     slug: string
     content?: string | null
     icon?: string | null
+    coverImage?: string | null
     workspaceId: string
     createdById?: string | null
     shareType?: string
     shareToken?: string | null
+    ydoc?: Bytes | null
+    ydocSeq?: bigint | number
+    version?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PageUpdateCreateManyPageInput = {
+    seq?: bigint | number
+    update: Bytes
+    clientId: string
+    createdAt?: Date | string
+  }
+
+  export type PagePresenceCreateManyPageInput = {
+    id?: string
+    userId: string
+    name: string
+    color: string
     updatedAt?: Date | string
   }
 
@@ -14715,13 +20171,19 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutPagesNestedInput
     createdBy?: UserUpdateOneWithoutPagesNestedInput
     children?: PageUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUpdateManyWithoutPageNestedInput
   }
 
   export type PageUncheckedUpdateWithoutParentInput = {
@@ -14730,13 +20192,19 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     children?: PageUncheckedUpdateManyWithoutParentNestedInput
+    updates?: PageUpdateUncheckedUpdateManyWithoutPageNestedInput
+    presence?: PagePresenceUncheckedUpdateManyWithoutPageNestedInput
   }
 
   export type PageUncheckedUpdateManyWithoutParentInput = {
@@ -14745,11 +20213,60 @@ export namespace Prisma {
     slug?: StringFieldUpdateOperationsInput | string
     content?: NullableStringFieldUpdateOperationsInput | string | null
     icon?: NullableStringFieldUpdateOperationsInput | string | null
+    coverImage?: NullableStringFieldUpdateOperationsInput | string | null
     workspaceId?: StringFieldUpdateOperationsInput | string
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     shareType?: StringFieldUpdateOperationsInput | string
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    ydoc?: NullableBytesFieldUpdateOperationsInput | Bytes | null
+    ydocSeq?: BigIntFieldUpdateOperationsInput | bigint | number
+    version?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PageUpdateUpdateWithoutPageInput = {
+    seq?: BigIntFieldUpdateOperationsInput | bigint | number
+    update?: BytesFieldUpdateOperationsInput | Bytes
+    clientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PageUpdateUncheckedUpdateWithoutPageInput = {
+    seq?: BigIntFieldUpdateOperationsInput | bigint | number
+    update?: BytesFieldUpdateOperationsInput | Bytes
+    clientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PageUpdateUncheckedUpdateManyWithoutPageInput = {
+    seq?: BigIntFieldUpdateOperationsInput | bigint | number
+    update?: BytesFieldUpdateOperationsInput | Bytes
+    clientId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PagePresenceUpdateWithoutPageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PagePresenceUncheckedUpdateWithoutPageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PagePresenceUncheckedUpdateManyWithoutPageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    color?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
