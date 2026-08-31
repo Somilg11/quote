@@ -14,8 +14,10 @@ export function mcpClientConfigs(
   endpoint: string,
   token: string = MCP_TOKEN_PLACEHOLDER
 ): McpClientConfig[] {
-  // The URL is the credential in this form. Treat it like a password.
-  const browserUrl = `${endpoint.replace(/\/$/, "")}/u/${token}`;
+  // Browser chats sign in with OAuth against the plain endpoint. The
+  // token-in-URL form stays as a fallback for clients that refuse OAuth.
+  const browserUrl = endpoint;
+  const tokenUrl = `${endpoint.replace(/\/$/, "")}/u/${token}`;
 
   const remoteJson = (indent = 2) =>
     JSON.stringify(
@@ -39,9 +41,12 @@ export function mcpClientConfigs(
       group: "browser",
       hint: "claude.ai ▸ Settings ▸ Connectors ▸ Add custom connector",
       language: "text",
-      snippet: `Paste this URL as the remote MCP server:
+      snippet: `Remote MCP server URL:
 
 ${browserUrl}
+
+No token to paste -- Quote runs an OAuth server, so Claude registers
+itself and sends you here to approve the connection.
 
 Pro / Max
   1. claude.ai ▸ sidebar ▸ Settings ▸ Connectors
@@ -49,21 +54,21 @@ Pro / Max
   2. "+ Add custom connector"
   3. Remote MCP server URL: the URL above
   4. Leave Advanced settings (OAuth client ID / secret) empty --
-     the token in the URL is the auth.
-  5. Add.
+     Quote supports dynamic client registration, so Claude fills them
+     in for itself.
+  5. Add, then Connect. Quote asks you to sign in and shows what the
+     connector will be allowed to do. Approve it once.
 
 Team / Enterprise
   1. An Owner adds it once: Organization settings ▸ Connectors
      ▸ Add ▸ hover Custom ▸ Web ▸ paste the URL ▸ Add.
-  2. Each member: Customize ▸ Connectors ▸ Quote ▸ Connect.
+  2. Each member: Customize ▸ Connectors ▸ Quote ▸ Connect, then
+     approves their own consent screen. Grants are per person.
 
 Then in a chat, open the tools/attachments menu and switch Quote on.
 
-Why the URL carries the token: claude.ai's connector form has only a
-URL field plus optional OAuth credentials. There is nowhere to put a
-custom Authorization header, so header auth is unreachable from the
-browser. Anyone holding this link holds your workspace -- revoke it in
-Settings ▸ Connections if it leaks.`,
+Access tokens last an hour and refresh silently. Revoke a connection
+any time under Settings ▸ Connections ▸ Connected apps.`,
     },
     {
       id: "chatgpt",
@@ -71,7 +76,7 @@ Settings ▸ Connections if it leaks.`,
       group: "browser",
       hint: "chatgpt.com ▸ Settings ▸ Apps ▸ Advanced ▸ Developer mode",
       language: "text",
-      snippet: `Paste this URL as the MCP server:
+      snippet: `MCP server URL:
 
 ${browserUrl}
 
@@ -87,20 +92,22 @@ Before you start
     Workspace settings ▸ Permissions & Roles ▸ Connected Data.
 
   1. Settings ▸ Apps ▸ Advanced ▸ turn on Developer mode.
-     The section has been renamed more than once -- older builds show it
-     as Connectors ▸ Advanced or Plugins, and some personal accounts
+     The section has been renamed more than once -- older builds show
+     it as Connectors ▸ Advanced or Plugins, and some personal accounts
      put the toggle under Settings ▸ Security and login ▸ Developer
      mode. Same setting whichever label you see.
   2. Back in Settings ▸ Apps, choose Create.
   3. Name:              Quote
      MCP server URL:    the URL above
-     Authentication:    No authentication
+     Authentication:    OAuth
      Tick the box confirming you trust this server.
-  4. Create.
+  4. Create. ChatGPT reads Quote's OAuth metadata, registers itself,
+     and opens a Quote page where you sign in and approve.
   5. In a chat: + ▸ More ▸ Developer mode, then enable Quote.
 
-Pick "No authentication" on purpose: ChatGPT's form offers OAuth or
-none, never a custom header, so the token travels in the path instead.`,
+If you saw "does not implement OAuth" before: that was the old
+token-in-URL setup. Use the bare URL above instead -- ChatGPT probes
+/.well-known/oauth-protected-resource and refuses anything without it.`,
     },
     {
       id: "gemini-web",
@@ -108,30 +115,31 @@ none, never a custom header, so the token travels in the path instead.`,
       group: "browser",
       hint: "gemini.google.com ▸ Settings & help ▸ Connected Apps",
       language: "text",
-      snippet: `Paste this URL as the MCP server:
+      snippet: `MCP server URL:
 
 ${browserUrl}
 
 Before you start -- Google gates this tightly:
   • Needs Gemini Spark access.
-  • Personal Google Account only. Work and school accounts cannot
-    add custom apps; those go through Gemini Enterprise instead.
+  • Personal Google Account only. Work and school accounts cannot add
+    custom apps; those go through Gemini Enterprise instead.
   • 18+, United States, and "Keep Activity" turned on.
 
   1. gemini.google.com ▸ Settings & help ▸ Connected Apps
      (on some accounts, click Personal Intelligence first).
   2. Under "Custom apps for Spark", choose Add a custom app.
   3. MCP server URL: the URL above.
-  4. Leave the credentials under Advanced features ▸ Show more empty --
-     those are for OAuth servers without dynamic client registration.
-  5. Next, then follow the prompts.
+  4. Leave the credentials under Advanced features ▸ Show more empty.
+     They are only for servers without dynamic client registration;
+     Quote supports it, so Gemini registers itself.
+  5. Next, sign in to Quote and approve the consent screen.
   6. In a Spark task, type @ and pick Quote so Gemini actually uses it.
 
 Set it up on the web once; it then works in the mobile app too.
 
 Work/school account? Use Gemini Enterprise ▸ custom MCP server data
-store instead. It speaks Streamable HTTP only and can authenticate with
-a GCP service-account access token.`,
+store instead. It speaks Streamable HTTP only and can authenticate
+with a GCP service-account access token.`,
     },
     {
       id: "claude-code",
@@ -181,6 +189,21 @@ a GCP service-account access token.`,
       hint: ".cursor/mcp.json or .vscode/mcp.json",
       language: "json",
       snippet: remoteJson(),
+    },
+    {
+      id: "token-url",
+      label: "Token in URL",
+      group: "terminal",
+      hint: "Fallback for clients with no OAuth and no header field",
+      language: "text",
+      snippet: `${tokenUrl}
+
+Use this only when a client can neither run OAuth nor set an
+Authorization header. Everything else should use OAuth (browser chats)
+or the bearer header (terminal and editor clients).
+
+The URL is the credential: it lands in browser history and proxy logs.
+Give each client its own token and revoke it above the moment it leaks.`,
     },
     {
       id: "curl",

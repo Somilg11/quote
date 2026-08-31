@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Check, Copy, KeyRound, Loader2, Plus, ShieldAlert, Trash2 } from "lucide-react";
+import { Check, Copy, KeyRound, Loader2, Plug, Plus, ShieldAlert, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { McpSetup } from "@/components/landing/mcp-setup";
@@ -19,6 +19,15 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
+export interface GrantSummary {
+  id: string;
+  name: string;
+  clientUri: string | null;
+  scopes: string[];
+  createdAt: string;
+  lastUsedAt: string | null;
+}
+
 export interface TokenSummary {
   id: string;
   name: string;
@@ -31,6 +40,7 @@ export interface TokenSummary {
 interface ConnectionsManagerProps {
   endpoint: string;
   tokens: TokenSummary[];
+  grants: GrantSummary[];
 }
 
 const formatDate = (value: string | null) =>
@@ -38,7 +48,7 @@ const formatDate = (value: string | null) =>
     ? new Date(value).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })
     : "Never";
 
-export function ConnectionsManager({ endpoint, tokens }: ConnectionsManagerProps) {
+export function ConnectionsManager({ endpoint, tokens, grants }: ConnectionsManagerProps) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [creating, setCreating] = useState(false);
@@ -88,6 +98,17 @@ export function ConnectionsManager({ endpoint, tokens }: ConnectionsManagerProps
     await navigator.clipboard.writeText(freshToken);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const disconnect = async (grant: GrantSummary) => {
+    try {
+      const response = await fetch(`/api/oauth/grants/${grant.id}`, { method: "DELETE" });
+      if (!response.ok) throw new Error();
+      toast.success(`Disconnected ${grant.name}`);
+      router.refresh();
+    } catch {
+      toast.error("Could not disconnect that app");
+    }
   };
 
   const clients = mcpClientConfigs(endpoint, freshToken ?? MCP_TOKEN_PLACEHOLDER);
@@ -191,6 +212,47 @@ export function ConnectionsManager({ endpoint, tokens }: ConnectionsManagerProps
             </table>
           )}
         </div>
+      </section>
+
+      <section>
+        <h2 className="text-lg font-medium text-[#f1f1ef]">Connected apps</h2>
+        <p className="mt-1 text-sm text-[#8f8f8f]">
+          Apps you signed into through OAuth — claude.ai, ChatGPT, Gemini. Disconnecting
+          one cuts its access off immediately; it can reconnect by asking you again.
+        </p>
+
+        {grants.length === 0 ? (
+          <p className="mt-4 rounded-lg border border-dashed border-[#3f3f3f] px-4 py-6 text-center text-sm text-[#7a7a7a]">
+            Nothing connected yet.
+          </p>
+        ) : (
+          <ul className="mt-4 space-y-2">
+            {grants.map((grant) => (
+              <li
+                key={grant.id}
+                className="flex flex-wrap items-center gap-3 rounded-lg border border-[#3f3f3f] bg-[#1c1c1c] px-4 py-3"
+              >
+                <Plug className="h-4 w-4 shrink-0 text-[#8f8f8f]" />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm text-[#f1f1ef]">{grant.name}</p>
+                  <p className="truncate text-xs text-[#7a7a7a]">
+                    {grant.scopes.includes("mcp:write") ? "Read and write" : "Read only"} ·
+                    connected {formatDate(grant.createdAt)} · last used{" "}
+                    {formatDate(grant.lastUsedAt)}
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  onClick={() => disconnect(grant)}
+                  className="h-8 gap-1.5 px-2 text-xs text-[#b8b8b8] hover:bg-[#3a2928] hover:text-[#ffb4ae]"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                  Disconnect
+                </Button>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       <section>

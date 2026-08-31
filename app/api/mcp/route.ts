@@ -1,4 +1,5 @@
 import { authenticateToken } from "@/lib/mcp/auth";
+import { originFrom } from "@/lib/oauth/server";
 import {
   handleMcpGet,
   handleMcpOptions,
@@ -18,13 +19,13 @@ export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   const identity = await authenticateToken(request.headers.get("authorization"));
-  if (!identity) return unauthorized();
+  if (!identity) return unauthorized(originFrom(request));
   return handleMcpPost(request, identity);
 }
 
 export async function GET(request: Request) {
   const identity = await authenticateToken(request.headers.get("authorization"));
-  if (!identity) return unauthorized();
+  if (!identity) return unauthorized(originFrom(request));
   return handleMcpGet();
 }
 

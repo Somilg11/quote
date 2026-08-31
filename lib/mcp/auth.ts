@@ -2,12 +2,18 @@ import { createHash, randomBytes, timingSafeEqual } from "crypto";
 import { prisma } from "@/lib/prisma";
 
 export const TOKEN_PREFIX = "qt_";
+/** Access tokens minted by the OAuth flow, distinct from personal API tokens. */
+export const OAUTH_TOKEN_PREFIX = "qo_";
 
 export interface McpIdentity {
   userId: string;
   tokenId: string;
   tokenName: string;
+  /** OAuth scopes. Personal API tokens are unscoped and get everything. */
+  scopes: string[];
 }
+
+export const FULL_SCOPES = ["mcp:read", "mcp:write"];
 
 /** Creates a token. The plaintext is returned once and never stored. */
 export function generateToken() {
@@ -40,7 +46,12 @@ export async function authenticateToken(header: string | null): Promise<McpIdent
   if (!header) return null;
 
   const match = header.match(/^Bearer\s+(.+)$/i);
-  return authenticateRawToken(match?.[1]?.trim());
+  const token = match?.[1]?.trim();
+  if (!token) return null;
+
+  // OAuth access tokens (browser chats) and personal API tokens (terminal
+  // clients) arrive the same way, so try each in turn.
+  return (await authenticateOAuthToken(token)) ?? authenticateRawToken(token);
 }
 
 /**
@@ -78,5 +89,42 @@ export async function authenticateRawToken(
     .update({ where: { id: record.id }, data: { lastUsedAt: new Date() } })
     .catch(() => undefined);
 
-  return { userId: record.userId, tokenId: record.id, tokenName: record.name };
+  return {
+    userId: record.userId,
+    tokenId: record.id,
+    tokenName: record.name,
+    scopes: FULL_SCOPES,
+  };
+}
+
+/** Resolves an OAuth access token issued by Quote's authorization server. */
+export async function authenticateOAuthToken(token: string): Promise<McpIdentity | null> {
+  if (!token.startsWith(OAUTH_TOKEN_PREFIX)) return null;
+
+  const record = await prisma.oAuthToken.findUnique({
+    where: { accessTokenHash: hashToken(token) },
+    select: {
+      id: true,
+      userId: true,
+      scopes: true,
+      revokedAt: true,
+      expiresAt: true,
+      client: { select: { name: true } },
+    },
+  });
+
+  if (!record) return null;
+  if (record.revokedAt) return null;
+  if (record.expiresAt.getTime() < Date.now()) return null;
+
+  prisma.oAuthToken
+    .update({ where: { id: record.id }, data: { lastUsedAt: new Date() } })
+    .catch(() => undefined);
+
+  return {
+    userId: record.userId,
+    tokenId: record.id,
+    tokenName: record.client.name,
+    scopes: record.scopes,
+  };
 }

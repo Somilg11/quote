@@ -18,7 +18,7 @@ export const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
   "Access-Control-Allow-Headers": "Authorization, Content-Type, Mcp-Session-Id, MCP-Protocol-Version",
-  "Access-Control-Expose-Headers": "Mcp-Session-Id",
+  "Access-Control-Expose-Headers": "Mcp-Session-Id, WWW-Authenticate",
 };
 
 type JsonRpcId = string | number | null;
@@ -38,15 +38,32 @@ const failure = (id: JsonRpcId, code: number, message: string, data?: unknown) =
   error: { code, message, ...(data === undefined ? {} : { data }) },
 });
 
-export function unauthorized() {
+/**
+ * A 401 that tells the client how to fix itself.
+ *
+ * The `resource_metadata` link is what turns "unauthorized" into a login
+ * button: MCP clients follow it to the protected-resource document, on to the
+ * authorization server, and register themselves from there.
+ */
+export function unauthorized(origin?: string) {
+  const base = origin ?? siteConfig.url;
+  const metadata = `${base}/.well-known/oauth-protected-resource`;
+
   return NextResponse.json(
-    { jsonrpc: "2.0", id: null, error: { code: -32001, message: "Unauthorized: provide a Quote API token as `Authorization: Bearer <token>`." } },
+    {
+      jsonrpc: "2.0",
+      id: null,
+      error: {
+        code: -32001,
+        message:
+          "Unauthorized: sign in through OAuth, or send a Quote API token as `Authorization: Bearer <token>`.",
+      },
+    },
     {
       status: 401,
       headers: {
         ...CORS_HEADERS,
-        // Points conformant clients at where a token comes from.
-        "WWW-Authenticate": `Bearer realm="${siteConfig.name}", error="invalid_token"`,
+        "WWW-Authenticate": `Bearer realm="${siteConfig.name}", error="invalid_token", resource_metadata="${metadata}"`,
       },
     }
   );
@@ -92,6 +109,13 @@ async function handleRpc(message: JsonRpcRequest, identity: McpIdentity) {
     case "tools/call": {
       const tool = toolsByName.get(message.params?.name);
       if (!tool) return failure(id, -32602, `Unknown tool: ${message.params?.name}`);
+
+      // Scopes only ever come from OAuth; a client granted read-only access
+      // must not be able to write through a tool call.
+      const requiredScope = tool.readOnly ? "mcp:read" : "mcp:write";
+      if (!identity.scopes.includes(requiredScope)) {
+        return failure(id, -32001, `This connection is missing the ${requiredScope} scope.`);
+      }
 
       try {
         const output = await tool.handler(message.params?.arguments ?? {}, identity);

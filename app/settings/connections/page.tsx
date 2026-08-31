@@ -22,9 +22,29 @@ export default async function ConnectionsPage() {
     orderBy: { createdAt: "desc" },
   });
 
+  const grants = await prisma.oAuthToken.findMany({
+    where: { userId, revokedAt: null, refreshExpiresAt: { gt: new Date() } },
+    select: {
+      id: true,
+      scopes: true,
+      createdAt: true,
+      lastUsedAt: true,
+      client: { select: { name: true, clientUri: true } },
+    },
+    orderBy: { createdAt: "desc" },
+  });
+
   return (
     <ConnectionsManager
       endpoint={productionUrl("/api/mcp")}
+      grants={grants.map((grant) => ({
+        id: grant.id,
+        name: grant.client.name,
+        clientUri: grant.client.clientUri,
+        scopes: grant.scopes,
+        createdAt: grant.createdAt.toISOString(),
+        lastUsedAt: grant.lastUsedAt?.toISOString() ?? null,
+      }))}
       tokens={tokens.map((token) => ({
         ...token,
         createdAt: token.createdAt.toISOString(),

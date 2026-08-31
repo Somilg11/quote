@@ -1,4 +1,5 @@
 import { authenticateRawToken } from "@/lib/mcp/auth";
+import { originFrom } from "@/lib/oauth/server";
 import {
   handleMcpGet,
   handleMcpOptions,
@@ -37,14 +38,14 @@ const withPrivateHeaders = (response: Response) => {
 export async function POST(request: Request, { params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
   const identity = await authenticateRawToken(decodeURIComponent(token));
-  if (!identity) return withPrivateHeaders(unauthorized());
+  if (!identity) return withPrivateHeaders(unauthorized(originFrom(request)));
   return withPrivateHeaders(await handleMcpPost(request, identity));
 }
 
-export async function GET(_request: Request, { params }: { params: Promise<{ token: string }> }) {
+export async function GET(request: Request, { params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
   const identity = await authenticateRawToken(decodeURIComponent(token));
-  if (!identity) return withPrivateHeaders(unauthorized());
+  if (!identity) return withPrivateHeaders(unauthorized(originFrom(request)));
   return withPrivateHeaders(handleMcpGet());
 }
 

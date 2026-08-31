@@ -68,6 +68,8 @@ model User {
   workspaceMemberships WorkspaceMember[]
   pages              Page[]
   apiTokens          ApiToken[]
+  oauthGrants        OAuthAuthorizationCode[]
+  oauthTokens        OAuthToken[]
 
   @@index([email])
 }
@@ -204,4 +206,76 @@ model ApiToken {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+}
+
+// --- OAuth 2.1 authorization server -----------------------------------------
+// Browser chat clients (claude.ai, ChatGPT, the Gemini app) cannot send a static
+// bearer token: they discover an authorization server, register themselves, and
+// run an authorization-code + PKCE flow. These three models back that.
+
+/// A client registered through RFC 7591 dynamic client registration.
+model OAuthClient {
+  id                      String   @id @default(cuid())
+  clientId                String   @unique
+  /// Only set for confidential clients. Browser chats register as public and rely on PKCE.
+  clientSecretHash        String?
+  name                    String
+  redirectUris            String[]
+  grantTypes              String[] @default(["authorization_code", "refresh_token"])
+  scopes                  String[] @default(["mcp:read", "mcp:write"])
+  tokenEndpointAuthMethod String   @default("none")
+  clientUri               String?
+  logoUri                 String?
+  createdAt               DateTime @default(now())
+
+  codes  OAuthAuthorizationCode[]
+  tokens OAuthToken[]
+}
+
+/// A single-use authorization code, hashed at rest like every other secret here.
+model OAuthAuthorizationCode {
+  id                  String    @id @default(cuid())
+  codeHash            String    @unique
+  clientId            String
+  userId              String
+  redirectUri         String
+  scopes              String[]
+  codeChallenge       String
+  codeChallengeMethod String    @default("S256")
+  /// RFC 8707 audience, echoed back so tokens stay bound to this MCP server.
+  resource            String?
+  expiresAt           DateTime
+  consumedAt          DateTime?
+  createdAt           DateTime  @default(now())
+
+  client OAuthClient @relation(fields: [clientId], references: [clientId], onDelete: Cascade)
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+/// An issued access token plus its refresh token. Rotating a refresh token
+/// replaces the row's hashes rather than creating a second grant.
+model OAuthToken {
+  id               String    @id @default(cuid())
+  accessTokenHash  String    @unique
+  refreshTokenHash String?   @unique
+  clientId         String
+  userId           String
+  scopes           String[]
+  resource         String?
+  expiresAt        DateTime
+  refreshExpiresAt DateTime?
+  revokedAt        DateTime?
+  lastUsedAt       DateTime?
+  createdAt        DateTime  @default(now())
+
+  client OAuthClient @relation(fields: [clientId], references: [clientId], onDelete: Cascade)
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([clientId])
+  @@index([userId])
+  @@index([expiresAt])
 }
