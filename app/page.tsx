@@ -84,7 +84,7 @@ const faqs = [
   },
   {
     q: "What can an AI assistant actually do with my notes?",
-    a: "Whatever the token allows: search, read, create, update, and delete pages in the workspaces that token can reach. Tokens are scoped to your account, shown once at creation, and revocable at any time.",
+    a: "Everything you can: create and delete workspaces, scaffold nested page trees, search, read, move, duplicate and edit pages, invite or remove members, and change sharing. Twenty-three tools in all. Access is scoped to your account, read-only connections cannot write, and any connection can be revoked at any time.",
   },
   {
     q: "Which AI tools can connect?",

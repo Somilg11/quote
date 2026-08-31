@@ -81,8 +81,14 @@ async function handleRpc(message: JsonRpcRequest, identity: McpIdentity) {
           : PROTOCOL_VERSION,
         capabilities: { tools: { listChanged: false } },
         serverInfo: { name: "quote", title: siteConfig.name, version: "1.0.0" },
-        instructions:
-          "Quote is the user's personal notes workspace. Call list_workspaces first when no workspace is named, search_pages to find things, and read_page before editing so you preserve existing content. Page bodies are Markdown.",
+        instructions: [
+          "Quote is the user's notes workspace, and this server can run all of it: workspaces, pages, members, and sharing.",
+          "Orient first: call list_workspaces when no workspace is named, list_recent_pages for \"what was I working on\", get_page_tree for the shape of a workspace, and search_pages to find something specific.",
+          "Read before you write: read_page returns the current body, and update_page with mode 'replace' overwrites it. Use 'append' or 'prepend' when adding to a page you have not read.",
+          "Building something new: create_workspace makes a workspace outright, and create_pages scaffolds a whole nested section in one call -- prefer it over many create_page calls.",
+          "Page bodies are Markdown in both directions.",
+          "Destructive tools (delete_page, delete_workspace, remove_member, revoke_invite, leave_workspace) are irreversible; delete_workspace additionally requires the workspace's exact name as confirmation. Confirm with the user before calling them.",
+        ].join(" "),
       });
     }
 
