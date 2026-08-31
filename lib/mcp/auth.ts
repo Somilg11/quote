@@ -40,7 +40,18 @@ export async function authenticateToken(header: string | null): Promise<McpIdent
   if (!header) return null;
 
   const match = header.match(/^Bearer\s+(.+)$/i);
-  const token = match?.[1]?.trim();
+  return authenticateRawToken(match?.[1]?.trim());
+}
+
+/**
+ * Same checks as `authenticateToken`, but for a token that arrived somewhere
+ * other than the Authorization header -- browser chat clients (claude.ai,
+ * ChatGPT, the Gemini app) only accept a bare URL, so the token rides in the
+ * path there.
+ */
+export async function authenticateRawToken(
+  token: string | undefined | null
+): Promise<McpIdentity | null> {
   if (!token || !token.startsWith(TOKEN_PREFIX)) return null;
 
   const tokenHash = hashToken(token);

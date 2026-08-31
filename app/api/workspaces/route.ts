@@ -19,23 +19,27 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check if slug is unique
-    const existingWorkspace = await prisma.workspace.findUnique({
-      where: { slug },
-    });
-
-    if (existingWorkspace) {
-      return NextResponse.json(
-        { message: "Workspace URL already taken" },
-        { status: 400 }
-      );
+    // Slugs are unique across every account, but a user only ever sees their own
+    // workspaces -- so a collision with a stranger's slug must not block them.
+    // Suffix until free instead of rejecting.
+    const baseSlug = slug.slice(0, 40);
+    let uniqueSlug = baseSlug;
+    let suffix = 1;
+    while (
+      await prisma.workspace.findUnique({
+        where: { slug: uniqueSlug },
+        select: { id: true },
+      })
+    ) {
+      suffix += 1;
+      uniqueSlug = `${baseSlug}-${suffix}`;
     }
 
     // Create workspace
     const workspace = await prisma.workspace.create({
       data: {
         name,
-        slug,
+        slug: uniqueSlug,
         description,
         ownerId: session.user.id,
         members: {
@@ -52,6 +56,17 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ workspace }, { status: 201 });
   } catch (error) {
+    // Concurrent creates can still lose the race on the unique slug index.
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      (error as { code?: string }).code === "P2002"
+    ) {
+      return NextResponse.json(
+        { message: "That URL was just taken. Try again." },
+        { status: 409 }
+      );
+    }
     console.error("[workspaces]", error);
     return NextResponse.json(
       { message: "Internal server error" },

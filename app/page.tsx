@@ -88,7 +88,7 @@ const faqs = [
   },
   {
     q: "Which AI tools can connect?",
-    a: "Any MCP client that speaks streamable HTTP. Claude Code and Claude Desktop, ChatGPT custom connectors, Gemini CLI, Cursor, and VS Code are all one config block away.",
+    a: "Any MCP client that speaks streamable HTTP. In the browser: claude.ai custom connectors, ChatGPT developer-mode apps, and Gemini custom apps for Spark. In the terminal and your editor: Claude Code, Claude Desktop, Gemini CLI, Cursor, and VS Code.",
   },
   {
     q: "Where does my data live?",
@@ -206,7 +206,7 @@ export default async function HomePage() {
             <span className="w-full text-center text-[10px] uppercase tracking-[0.18em] text-zinc-700 sm:w-auto sm:text-xs">
               Speaks MCP with
             </span>
-            {["Claude Code", "Claude Desktop", "ChatGPT", "Gemini CLI", "Cursor", "VS Code"].map(
+            {["Claude.ai", "ChatGPT", "Gemini", "Claude Code", "Claude Desktop", "Cursor"].map(
               (name) => (
                 <span key={name} className="text-xs font-medium text-zinc-500 sm:text-sm">
                   {name}

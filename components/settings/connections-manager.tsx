@@ -202,6 +202,12 @@ export function ConnectionsManager({ endpoint, tokens }: ConnectionsManagerProps
           </code>
           . Pick your client and paste the config.
         </p>
+        <p className="mt-2 text-sm text-[#8f8f8f]">
+          Browser chats — claude.ai, ChatGPT, the Gemini app — have no field for an
+          Authorization header, so their tab hands you a URL with the token inside it.
+          That link <em>is</em> the credential: give each one its own token and revoke it
+          above if it ever leaks.
+        </p>
         <div className="mt-5">
           <McpSetup clients={clients} />
         </div>
