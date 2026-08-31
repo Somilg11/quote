@@ -1,4 +1,4 @@
-import { authenticateRawToken } from "@/lib/mcp/auth";
+import { authenticateRawToken, authenticateToken } from "@/lib/mcp/auth";
 import { originFrom } from "@/lib/oauth/server";
 import {
   handleMcpGet,
@@ -35,16 +35,32 @@ const withPrivateHeaders = (response: Response) => {
   return response;
 };
 
+/**
+ * Resolve the caller from the path token, falling back to the Authorization
+ * header.
+ *
+ * The fallback matters: a client pointed at this URL with a stale path token
+ * gets a 401, follows it into the OAuth flow, and then retries *this same URL*
+ * carrying a valid bearer token. Without the fallback it would 401 forever and
+ * report "authorized, but no MCP server found".
+ */
+async function resolve(request: Request, token: string) {
+  return (
+    (await authenticateRawToken(decodeURIComponent(token))) ??
+    authenticateToken(request.headers.get("authorization"))
+  );
+}
+
 export async function POST(request: Request, { params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
-  const identity = await authenticateRawToken(decodeURIComponent(token));
+  const identity = await resolve(request, token);
   if (!identity) return withPrivateHeaders(unauthorized(originFrom(request)));
   return withPrivateHeaders(await handleMcpPost(request, identity));
 }
 
 export async function GET(request: Request, { params }: { params: Promise<{ token: string }> }) {
   const { token } = await params;
-  const identity = await authenticateRawToken(decodeURIComponent(token));
+  const identity = await resolve(request, token);
   if (!identity) return withPrivateHeaders(unauthorized(originFrom(request)));
   return withPrivateHeaders(handleMcpGet());
 }
