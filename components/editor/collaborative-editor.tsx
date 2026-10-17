@@ -45,6 +45,8 @@ interface CollaborativeEditorProps {
   initialContent?: string;
   initialVersion?: number;
   onContentChange?: (content: string) => void;
+  /** False for private pages the viewer did not write: they can read but not type. */
+  editable?: boolean;
 }
 
 /** Autosave delay for the HTML mirror kept on `Page.content`. */
@@ -55,6 +57,7 @@ export function CollaborativeEditor({
   initialContent = "",
   initialVersion = 0,
   onContentChange,
+  editable = true,
 }: CollaborativeEditorProps) {
   const { doc, status, peers, ready, remoteVersion } = useCollab({ pageId, initialVersion });
 
@@ -86,6 +89,7 @@ export function CollaborativeEditor({
         Image.configure({ inline: false, allowBase64: true }),
       ],
       immediatelyRender: false,
+      editable,
       editorProps: {
         attributes: {
           class: "focus:outline-none",
@@ -93,6 +97,7 @@ export function CollaborativeEditor({
         },
       },
       onUpdate: ({ editor }) => {
+        if (!editor.isEditable) return;
         if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
         saveTimeoutRef.current = setTimeout(() => {
           onContentChange?.(editor.getHTML());

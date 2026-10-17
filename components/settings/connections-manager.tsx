@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Check, Copy, KeyRound, Loader2, Plug, Plus, ShieldAlert, Trash2 } from "lucide-react";
+import { Check, Copy, KeyRound, Loader2, Plus, ShieldAlert, Trash2 } from "lucide-react";
+import { SiModelcontextprotocol as Plug } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SettingsSection } from "@/components/settings/settings-section";
 import { McpSetup } from "@/components/landing/mcp-setup";
 import { mcpClientConfigs, MCP_TOKEN_PLACEHOLDER } from "@/lib/mcp/clients";
 import {
@@ -114,15 +116,12 @@ export function ConnectionsManager({ endpoint, tokens, grants }: ConnectionsMana
   const clients = mcpClientConfigs(endpoint, freshToken ?? MCP_TOKEN_PLACEHOLDER);
 
   return (
-    <div className="space-y-10">
-      <section>
-        <h2 className="text-lg font-medium text-[#f1f1ef]">API tokens</h2>
-        <p className="mt-1 text-sm text-[#8f8f8f]">
-          A token lets an MCP client act on your workspaces. It is shown once, hashed at rest,
-          and can be revoked at any time.
-        </p>
-
-        <form onSubmit={createToken} className="mt-5 flex flex-wrap gap-2">
+    <div>
+      <SettingsSection
+        title="API tokens"
+        hint="A token lets an MCP client act on your workspaces. It is shown once, hashed at rest, and can be revoked at any time."
+      >
+        <form onSubmit={createToken} className="flex flex-wrap gap-2">
           <Input
             value={name}
             onChange={(event) => setName(event.target.value)}
@@ -212,14 +211,12 @@ export function ConnectionsManager({ endpoint, tokens, grants }: ConnectionsMana
             </table>
           )}
         </div>
-      </section>
+      </SettingsSection>
 
-      <section>
-        <h2 className="text-lg font-medium text-[#f1f1ef]">Connected apps</h2>
-        <p className="mt-1 text-sm text-[#8f8f8f]">
-          Apps you signed into through OAuth — claude.ai, ChatGPT, Gemini. Disconnecting
-          one cuts its access off immediately; it can reconnect by asking you again.
-        </p>
+      <SettingsSection
+        title="Connected apps"
+        hint="Apps you signed into through OAuth: claude.ai, ChatGPT, Gemini. Disconnecting one cuts its access off immediately."
+      >
 
         {grants.length === 0 ? (
           <p className="mt-4 rounded-lg border border-dashed border-[#3f3f3f] px-4 py-6 text-center text-sm text-[#7a7a7a]">
@@ -253,16 +250,21 @@ export function ConnectionsManager({ endpoint, tokens, grants }: ConnectionsMana
             ))}
           </ul>
         )}
-      </section>
+      </SettingsSection>
 
-      <section>
-        <h2 className="text-lg font-medium text-[#f1f1ef]">Connect a client</h2>
-        <p className="mt-1 text-sm text-[#8f8f8f]">
-          Quote speaks MCP over streamable HTTP at{" "}
-          <code className="rounded bg-[#1c1c1c] px-1.5 py-0.5 font-mono text-xs text-[#c9c9c9]">
+      <SettingsSection
+        title="Connect a client"
+        hint={
+          <>
+            Quote speaks MCP over streamable HTTP. Pick your client and paste the config.
+          </>
+        }
+      >
+        <p className="text-sm text-[#8f8f8f]">
+          Endpoint{" "}
+          <code className="break-all rounded bg-[#1c1c1c] px-1.5 py-0.5 font-mono text-xs text-[#c9c9c9]">
             {endpoint}
           </code>
-          . Pick your client and paste the config.
         </p>
         <p className="mt-2 text-sm text-[#8f8f8f]">
           Browser chats — claude.ai, ChatGPT, the Gemini app — have no field for an
@@ -273,7 +275,7 @@ export function ConnectionsManager({ endpoint, tokens, grants }: ConnectionsMana
         <div className="mt-5">
           <McpSetup clients={clients} />
         </div>
-      </section>
+      </SettingsSection>
 
       <AlertDialog open={!!pendingRevoke} onOpenChange={(open) => !open && setPendingRevoke(null)}>
         <AlertDialogContent className="border-[#3f3f3f] bg-[#252525] text-[#f1f1ef]">

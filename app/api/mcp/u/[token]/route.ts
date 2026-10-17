@@ -45,8 +45,14 @@ const withPrivateHeaders = (response: Response) => {
  * report "authorized, but no MCP server found".
  */
 async function resolve(request: Request, token: string) {
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(token);
+  } catch {
+    return null;
+  }
   return (
-    (await authenticateRawToken(decodeURIComponent(token))) ??
+    (await authenticateRawToken(decoded)) ??
     authenticateToken(request.headers.get("authorization"))
   );
 }

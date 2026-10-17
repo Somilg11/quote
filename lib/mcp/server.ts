@@ -46,7 +46,9 @@ const failure = (id: JsonRpcId, code: number, message: string, data?: unknown) =
  * authorization server, and register themselves from there.
  */
 export function unauthorized(origin?: string) {
-  const base = origin ?? siteConfig.url;
+  // The caller-supplied origin is ignored: only the configured origin is advertised.
+  void origin;
+  const base = siteConfig.url;
   const metadata = `${base}/.well-known/oauth-protected-resource`;
 
   return NextResponse.json(

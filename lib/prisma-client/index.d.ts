@@ -84,6 +84,11 @@ export type OAuthAuthorizationCode = $Result.DefaultSelection<Prisma.$OAuthAutho
  * replaces the row's hashes rather than creating a second grant.
  */
 export type OAuthToken = $Result.DefaultSelection<Prisma.$OAuthTokenPayload>
+/**
+ * Model AiConnection
+ * 
+ */
+export type AiConnection = $Result.DefaultSelection<Prisma.$AiConnectionPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -345,6 +350,16 @@ export class PrismaClient<
     * ```
     */
   get oAuthToken(): Prisma.OAuthTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aiConnection`: Exposes CRUD operations for the **AiConnection** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AiConnections
+    * const aiConnections = await prisma.aiConnection.findMany()
+    * ```
+    */
+  get aiConnection(): Prisma.AiConnectionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -792,7 +807,8 @@ export namespace Prisma {
     ApiToken: 'ApiToken',
     OAuthClient: 'OAuthClient',
     OAuthAuthorizationCode: 'OAuthAuthorizationCode',
-    OAuthToken: 'OAuthToken'
+    OAuthToken: 'OAuthToken',
+    AiConnection: 'AiConnection'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -808,7 +824,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "verificationToken" | "user" | "workspace" | "workspaceMember" | "workspaceInvite" | "page" | "pageUpdate" | "pagePresence" | "apiToken" | "oAuthClient" | "oAuthAuthorizationCode" | "oAuthToken"
+      modelProps: "account" | "session" | "verificationToken" | "user" | "workspace" | "workspaceMember" | "workspaceInvite" | "page" | "pageUpdate" | "pagePresence" | "apiToken" | "oAuthClient" | "oAuthAuthorizationCode" | "oAuthToken" | "aiConnection"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1848,6 +1864,80 @@ export namespace Prisma {
           }
         }
       }
+      AiConnection: {
+        payload: Prisma.$AiConnectionPayload<ExtArgs>
+        fields: Prisma.AiConnectionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AiConnectionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AiConnectionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>
+          }
+          findFirst: {
+            args: Prisma.AiConnectionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AiConnectionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>
+          }
+          findMany: {
+            args: Prisma.AiConnectionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>[]
+          }
+          create: {
+            args: Prisma.AiConnectionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>
+          }
+          createMany: {
+            args: Prisma.AiConnectionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AiConnectionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>[]
+          }
+          delete: {
+            args: Prisma.AiConnectionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>
+          }
+          update: {
+            args: Prisma.AiConnectionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>
+          }
+          deleteMany: {
+            args: Prisma.AiConnectionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AiConnectionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AiConnectionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>[]
+          }
+          upsert: {
+            args: Prisma.AiConnectionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiConnectionPayload>
+          }
+          aggregate: {
+            args: Prisma.AiConnectionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAiConnection>
+          }
+          groupBy: {
+            args: Prisma.AiConnectionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AiConnectionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AiConnectionCountArgs<ExtArgs>
+            result: $Utils.Optional<AiConnectionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1970,6 +2060,7 @@ export namespace Prisma {
     oAuthClient?: OAuthClientOmit
     oAuthAuthorizationCode?: OAuthAuthorizationCodeOmit
     oAuthToken?: OAuthTokenOmit
+    aiConnection?: AiConnectionOmit
   }
 
   /* Types for Logging */
@@ -2058,6 +2149,7 @@ export namespace Prisma {
     apiTokens: number
     oauthGrants: number
     oauthTokens: number
+    aiConnections: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2069,6 +2161,7 @@ export namespace Prisma {
     apiTokens?: boolean | UserCountOutputTypeCountApiTokensArgs
     oauthGrants?: boolean | UserCountOutputTypeCountOauthGrantsArgs
     oauthTokens?: boolean | UserCountOutputTypeCountOauthTokensArgs
+    aiConnections?: boolean | UserCountOutputTypeCountAiConnectionsArgs
   }
 
   // Custom InputTypes
@@ -2136,6 +2229,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountOauthTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OAuthTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiConnectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiConnectionWhereInput
   }
 
 
@@ -5689,6 +5789,7 @@ export namespace Prisma {
     apiTokens?: boolean | User$apiTokensArgs<ExtArgs>
     oauthGrants?: boolean | User$oauthGrantsArgs<ExtArgs>
     oauthTokens?: boolean | User$oauthTokensArgs<ExtArgs>
+    aiConnections?: boolean | User$aiConnectionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5735,6 +5836,7 @@ export namespace Prisma {
     apiTokens?: boolean | User$apiTokensArgs<ExtArgs>
     oauthGrants?: boolean | User$oauthGrantsArgs<ExtArgs>
     oauthTokens?: boolean | User$oauthTokensArgs<ExtArgs>
+    aiConnections?: boolean | User$aiConnectionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5751,6 +5853,7 @@ export namespace Prisma {
       apiTokens: Prisma.$ApiTokenPayload<ExtArgs>[]
       oauthGrants: Prisma.$OAuthAuthorizationCodePayload<ExtArgs>[]
       oauthTokens: Prisma.$OAuthTokenPayload<ExtArgs>[]
+      aiConnections: Prisma.$AiConnectionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6163,6 +6266,7 @@ export namespace Prisma {
     apiTokens<T extends User$apiTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$apiTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApiTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     oauthGrants<T extends User$oauthGrantsArgs<ExtArgs> = {}>(args?: Subset<T, User$oauthGrantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OAuthAuthorizationCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     oauthTokens<T extends User$oauthTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$oauthTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OAuthTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiConnections<T extends User$aiConnectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$aiConnectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6782,6 +6886,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: OAuthTokenScalarFieldEnum | OAuthTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiConnections
+   */
+  export type User$aiConnectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    where?: AiConnectionWhereInput
+    orderBy?: AiConnectionOrderByWithRelationInput | AiConnectionOrderByWithRelationInput[]
+    cursor?: AiConnectionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AiConnectionScalarFieldEnum | AiConnectionScalarFieldEnum[]
   }
 
   /**
@@ -18289,6 +18417,1137 @@ export namespace Prisma {
 
 
   /**
+   * Model AiConnection
+   */
+
+  export type AggregateAiConnection = {
+    _count: AiConnectionCountAggregateOutputType | null
+    _min: AiConnectionMinAggregateOutputType | null
+    _max: AiConnectionMaxAggregateOutputType | null
+  }
+
+  export type AiConnectionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    provider: string | null
+    model: string | null
+    encryptedKey: string | null
+    keyHint: string | null
+    isDefault: boolean | null
+    lastUsedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AiConnectionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    provider: string | null
+    model: string | null
+    encryptedKey: string | null
+    keyHint: string | null
+    isDefault: boolean | null
+    lastUsedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type AiConnectionCountAggregateOutputType = {
+    id: number
+    userId: number
+    provider: number
+    model: number
+    encryptedKey: number
+    keyHint: number
+    isDefault: number
+    lastUsedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type AiConnectionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    model?: true
+    encryptedKey?: true
+    keyHint?: true
+    isDefault?: true
+    lastUsedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AiConnectionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    model?: true
+    encryptedKey?: true
+    keyHint?: true
+    isDefault?: true
+    lastUsedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type AiConnectionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    provider?: true
+    model?: true
+    encryptedKey?: true
+    keyHint?: true
+    isDefault?: true
+    lastUsedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type AiConnectionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiConnection to aggregate.
+     */
+    where?: AiConnectionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiConnections to fetch.
+     */
+    orderBy?: AiConnectionOrderByWithRelationInput | AiConnectionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AiConnectionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiConnections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiConnections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AiConnections
+    **/
+    _count?: true | AiConnectionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AiConnectionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AiConnectionMaxAggregateInputType
+  }
+
+  export type GetAiConnectionAggregateType<T extends AiConnectionAggregateArgs> = {
+        [P in keyof T & keyof AggregateAiConnection]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAiConnection[P]>
+      : GetScalarType<T[P], AggregateAiConnection[P]>
+  }
+
+
+
+
+  export type AiConnectionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiConnectionWhereInput
+    orderBy?: AiConnectionOrderByWithAggregationInput | AiConnectionOrderByWithAggregationInput[]
+    by: AiConnectionScalarFieldEnum[] | AiConnectionScalarFieldEnum
+    having?: AiConnectionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AiConnectionCountAggregateInputType | true
+    _min?: AiConnectionMinAggregateInputType
+    _max?: AiConnectionMaxAggregateInputType
+  }
+
+  export type AiConnectionGroupByOutputType = {
+    id: string
+    userId: string
+    provider: string
+    model: string
+    encryptedKey: string
+    keyHint: string
+    isDefault: boolean
+    lastUsedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: AiConnectionCountAggregateOutputType | null
+    _min: AiConnectionMinAggregateOutputType | null
+    _max: AiConnectionMaxAggregateOutputType | null
+  }
+
+  type GetAiConnectionGroupByPayload<T extends AiConnectionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AiConnectionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AiConnectionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AiConnectionGroupByOutputType[P]>
+            : GetScalarType<T[P], AiConnectionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AiConnectionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    model?: boolean
+    encryptedKey?: boolean
+    keyHint?: boolean
+    isDefault?: boolean
+    lastUsedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiConnection"]>
+
+  export type AiConnectionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    model?: boolean
+    encryptedKey?: boolean
+    keyHint?: boolean
+    isDefault?: boolean
+    lastUsedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiConnection"]>
+
+  export type AiConnectionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    model?: boolean
+    encryptedKey?: boolean
+    keyHint?: boolean
+    isDefault?: boolean
+    lastUsedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["aiConnection"]>
+
+  export type AiConnectionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    provider?: boolean
+    model?: boolean
+    encryptedKey?: boolean
+    keyHint?: boolean
+    isDefault?: boolean
+    lastUsedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type AiConnectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "provider" | "model" | "encryptedKey" | "keyHint" | "isDefault" | "lastUsedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["aiConnection"]>
+  export type AiConnectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AiConnectionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type AiConnectionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $AiConnectionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AiConnection"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      provider: string
+      model: string
+      encryptedKey: string
+      /**
+       * Last four characters, so a key can be recognised in the UI without decrypting.
+       */
+      keyHint: string
+      isDefault: boolean
+      lastUsedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["aiConnection"]>
+    composites: {}
+  }
+
+  type AiConnectionGetPayload<S extends boolean | null | undefined | AiConnectionDefaultArgs> = $Result.GetResult<Prisma.$AiConnectionPayload, S>
+
+  type AiConnectionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AiConnectionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AiConnectionCountAggregateInputType | true
+    }
+
+  export interface AiConnectionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AiConnection'], meta: { name: 'AiConnection' } }
+    /**
+     * Find zero or one AiConnection that matches the filter.
+     * @param {AiConnectionFindUniqueArgs} args - Arguments to find a AiConnection
+     * @example
+     * // Get one AiConnection
+     * const aiConnection = await prisma.aiConnection.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AiConnectionFindUniqueArgs>(args: SelectSubset<T, AiConnectionFindUniqueArgs<ExtArgs>>): Prisma__AiConnectionClient<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AiConnection that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AiConnectionFindUniqueOrThrowArgs} args - Arguments to find a AiConnection
+     * @example
+     * // Get one AiConnection
+     * const aiConnection = await prisma.aiConnection.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AiConnectionFindUniqueOrThrowArgs>(args: SelectSubset<T, AiConnectionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AiConnectionClient<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiConnection that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiConnectionFindFirstArgs} args - Arguments to find a AiConnection
+     * @example
+     * // Get one AiConnection
+     * const aiConnection = await prisma.aiConnection.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AiConnectionFindFirstArgs>(args?: SelectSubset<T, AiConnectionFindFirstArgs<ExtArgs>>): Prisma__AiConnectionClient<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiConnection that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiConnectionFindFirstOrThrowArgs} args - Arguments to find a AiConnection
+     * @example
+     * // Get one AiConnection
+     * const aiConnection = await prisma.aiConnection.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AiConnectionFindFirstOrThrowArgs>(args?: SelectSubset<T, AiConnectionFindFirstOrThrowArgs<ExtArgs>>): Prisma__AiConnectionClient<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AiConnections that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiConnectionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AiConnections
+     * const aiConnections = await prisma.aiConnection.findMany()
+     * 
+     * // Get first 10 AiConnections
+     * const aiConnections = await prisma.aiConnection.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aiConnectionWithIdOnly = await prisma.aiConnection.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AiConnectionFindManyArgs>(args?: SelectSubset<T, AiConnectionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AiConnection.
+     * @param {AiConnectionCreateArgs} args - Arguments to create a AiConnection.
+     * @example
+     * // Create one AiConnection
+     * const AiConnection = await prisma.aiConnection.create({
+     *   data: {
+     *     // ... data to create a AiConnection
+     *   }
+     * })
+     * 
+     */
+    create<T extends AiConnectionCreateArgs>(args: SelectSubset<T, AiConnectionCreateArgs<ExtArgs>>): Prisma__AiConnectionClient<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AiConnections.
+     * @param {AiConnectionCreateManyArgs} args - Arguments to create many AiConnections.
+     * @example
+     * // Create many AiConnections
+     * const aiConnection = await prisma.aiConnection.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AiConnectionCreateManyArgs>(args?: SelectSubset<T, AiConnectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AiConnections and returns the data saved in the database.
+     * @param {AiConnectionCreateManyAndReturnArgs} args - Arguments to create many AiConnections.
+     * @example
+     * // Create many AiConnections
+     * const aiConnection = await prisma.aiConnection.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AiConnections and only return the `id`
+     * const aiConnectionWithIdOnly = await prisma.aiConnection.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AiConnectionCreateManyAndReturnArgs>(args?: SelectSubset<T, AiConnectionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AiConnection.
+     * @param {AiConnectionDeleteArgs} args - Arguments to delete one AiConnection.
+     * @example
+     * // Delete one AiConnection
+     * const AiConnection = await prisma.aiConnection.delete({
+     *   where: {
+     *     // ... filter to delete one AiConnection
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AiConnectionDeleteArgs>(args: SelectSubset<T, AiConnectionDeleteArgs<ExtArgs>>): Prisma__AiConnectionClient<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AiConnection.
+     * @param {AiConnectionUpdateArgs} args - Arguments to update one AiConnection.
+     * @example
+     * // Update one AiConnection
+     * const aiConnection = await prisma.aiConnection.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AiConnectionUpdateArgs>(args: SelectSubset<T, AiConnectionUpdateArgs<ExtArgs>>): Prisma__AiConnectionClient<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AiConnections.
+     * @param {AiConnectionDeleteManyArgs} args - Arguments to filter AiConnections to delete.
+     * @example
+     * // Delete a few AiConnections
+     * const { count } = await prisma.aiConnection.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AiConnectionDeleteManyArgs>(args?: SelectSubset<T, AiConnectionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiConnections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiConnectionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AiConnections
+     * const aiConnection = await prisma.aiConnection.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AiConnectionUpdateManyArgs>(args: SelectSubset<T, AiConnectionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiConnections and returns the data updated in the database.
+     * @param {AiConnectionUpdateManyAndReturnArgs} args - Arguments to update many AiConnections.
+     * @example
+     * // Update many AiConnections
+     * const aiConnection = await prisma.aiConnection.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AiConnections and only return the `id`
+     * const aiConnectionWithIdOnly = await prisma.aiConnection.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AiConnectionUpdateManyAndReturnArgs>(args: SelectSubset<T, AiConnectionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AiConnection.
+     * @param {AiConnectionUpsertArgs} args - Arguments to update or create a AiConnection.
+     * @example
+     * // Update or create a AiConnection
+     * const aiConnection = await prisma.aiConnection.upsert({
+     *   create: {
+     *     // ... data to create a AiConnection
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AiConnection we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AiConnectionUpsertArgs>(args: SelectSubset<T, AiConnectionUpsertArgs<ExtArgs>>): Prisma__AiConnectionClient<$Result.GetResult<Prisma.$AiConnectionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AiConnections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiConnectionCountArgs} args - Arguments to filter AiConnections to count.
+     * @example
+     * // Count the number of AiConnections
+     * const count = await prisma.aiConnection.count({
+     *   where: {
+     *     // ... the filter for the AiConnections we want to count
+     *   }
+     * })
+    **/
+    count<T extends AiConnectionCountArgs>(
+      args?: Subset<T, AiConnectionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AiConnectionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AiConnection.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiConnectionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AiConnectionAggregateArgs>(args: Subset<T, AiConnectionAggregateArgs>): Prisma.PrismaPromise<GetAiConnectionAggregateType<T>>
+
+    /**
+     * Group by AiConnection.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiConnectionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AiConnectionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AiConnectionGroupByArgs['orderBy'] }
+        : { orderBy?: AiConnectionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AiConnectionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAiConnectionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AiConnection model
+   */
+  readonly fields: AiConnectionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AiConnection.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AiConnectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AiConnection model
+   */
+  interface AiConnectionFieldRefs {
+    readonly id: FieldRef<"AiConnection", 'String'>
+    readonly userId: FieldRef<"AiConnection", 'String'>
+    readonly provider: FieldRef<"AiConnection", 'String'>
+    readonly model: FieldRef<"AiConnection", 'String'>
+    readonly encryptedKey: FieldRef<"AiConnection", 'String'>
+    readonly keyHint: FieldRef<"AiConnection", 'String'>
+    readonly isDefault: FieldRef<"AiConnection", 'Boolean'>
+    readonly lastUsedAt: FieldRef<"AiConnection", 'DateTime'>
+    readonly createdAt: FieldRef<"AiConnection", 'DateTime'>
+    readonly updatedAt: FieldRef<"AiConnection", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AiConnection findUnique
+   */
+  export type AiConnectionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which AiConnection to fetch.
+     */
+    where: AiConnectionWhereUniqueInput
+  }
+
+  /**
+   * AiConnection findUniqueOrThrow
+   */
+  export type AiConnectionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which AiConnection to fetch.
+     */
+    where: AiConnectionWhereUniqueInput
+  }
+
+  /**
+   * AiConnection findFirst
+   */
+  export type AiConnectionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which AiConnection to fetch.
+     */
+    where?: AiConnectionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiConnections to fetch.
+     */
+    orderBy?: AiConnectionOrderByWithRelationInput | AiConnectionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiConnections.
+     */
+    cursor?: AiConnectionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiConnections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiConnections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiConnections.
+     */
+    distinct?: AiConnectionScalarFieldEnum | AiConnectionScalarFieldEnum[]
+  }
+
+  /**
+   * AiConnection findFirstOrThrow
+   */
+  export type AiConnectionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which AiConnection to fetch.
+     */
+    where?: AiConnectionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiConnections to fetch.
+     */
+    orderBy?: AiConnectionOrderByWithRelationInput | AiConnectionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiConnections.
+     */
+    cursor?: AiConnectionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiConnections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiConnections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiConnections.
+     */
+    distinct?: AiConnectionScalarFieldEnum | AiConnectionScalarFieldEnum[]
+  }
+
+  /**
+   * AiConnection findMany
+   */
+  export type AiConnectionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * Filter, which AiConnections to fetch.
+     */
+    where?: AiConnectionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiConnections to fetch.
+     */
+    orderBy?: AiConnectionOrderByWithRelationInput | AiConnectionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AiConnections.
+     */
+    cursor?: AiConnectionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiConnections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiConnections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiConnections.
+     */
+    distinct?: AiConnectionScalarFieldEnum | AiConnectionScalarFieldEnum[]
+  }
+
+  /**
+   * AiConnection create
+   */
+  export type AiConnectionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AiConnection.
+     */
+    data: XOR<AiConnectionCreateInput, AiConnectionUncheckedCreateInput>
+  }
+
+  /**
+   * AiConnection createMany
+   */
+  export type AiConnectionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AiConnections.
+     */
+    data: AiConnectionCreateManyInput | AiConnectionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AiConnection createManyAndReturn
+   */
+  export type AiConnectionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * The data used to create many AiConnections.
+     */
+    data: AiConnectionCreateManyInput | AiConnectionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiConnection update
+   */
+  export type AiConnectionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AiConnection.
+     */
+    data: XOR<AiConnectionUpdateInput, AiConnectionUncheckedUpdateInput>
+    /**
+     * Choose, which AiConnection to update.
+     */
+    where: AiConnectionWhereUniqueInput
+  }
+
+  /**
+   * AiConnection updateMany
+   */
+  export type AiConnectionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AiConnections.
+     */
+    data: XOR<AiConnectionUpdateManyMutationInput, AiConnectionUncheckedUpdateManyInput>
+    /**
+     * Filter which AiConnections to update
+     */
+    where?: AiConnectionWhereInput
+    /**
+     * Limit how many AiConnections to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiConnection updateManyAndReturn
+   */
+  export type AiConnectionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * The data used to update AiConnections.
+     */
+    data: XOR<AiConnectionUpdateManyMutationInput, AiConnectionUncheckedUpdateManyInput>
+    /**
+     * Filter which AiConnections to update
+     */
+    where?: AiConnectionWhereInput
+    /**
+     * Limit how many AiConnections to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiConnection upsert
+   */
+  export type AiConnectionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AiConnection to update in case it exists.
+     */
+    where: AiConnectionWhereUniqueInput
+    /**
+     * In case the AiConnection found by the `where` argument doesn't exist, create a new AiConnection with this data.
+     */
+    create: XOR<AiConnectionCreateInput, AiConnectionUncheckedCreateInput>
+    /**
+     * In case the AiConnection was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AiConnectionUpdateInput, AiConnectionUncheckedUpdateInput>
+  }
+
+  /**
+   * AiConnection delete
+   */
+  export type AiConnectionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+    /**
+     * Filter which AiConnection to delete.
+     */
+    where: AiConnectionWhereUniqueInput
+  }
+
+  /**
+   * AiConnection deleteMany
+   */
+  export type AiConnectionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiConnections to delete
+     */
+    where?: AiConnectionWhereInput
+    /**
+     * Limit how many AiConnections to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiConnection without action
+   */
+  export type AiConnectionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiConnection
+     */
+    select?: AiConnectionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiConnection
+     */
+    omit?: AiConnectionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiConnectionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -18502,6 +19761,22 @@ export namespace Prisma {
   export type OAuthTokenScalarFieldEnum = (typeof OAuthTokenScalarFieldEnum)[keyof typeof OAuthTokenScalarFieldEnum]
 
 
+  export const AiConnectionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    provider: 'provider',
+    model: 'model',
+    encryptedKey: 'encryptedKey',
+    keyHint: 'keyHint',
+    isDefault: 'isDefault',
+    lastUsedAt: 'lastUsedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type AiConnectionScalarFieldEnum = (typeof AiConnectionScalarFieldEnum)[keyof typeof AiConnectionScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -18598,6 +19873,13 @@ export namespace Prisma {
    * Reference to a field of type 'BigInt[]'
    */
   export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -18824,6 +20106,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenListRelationFilter
     oauthGrants?: OAuthAuthorizationCodeListRelationFilter
     oauthTokens?: OAuthTokenListRelationFilter
+    aiConnections?: AiConnectionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -18843,6 +20126,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenOrderByRelationAggregateInput
     oauthGrants?: OAuthAuthorizationCodeOrderByRelationAggregateInput
     oauthTokens?: OAuthTokenOrderByRelationAggregateInput
+    aiConnections?: AiConnectionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -18865,6 +20149,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenListRelationFilter
     oauthGrants?: OAuthAuthorizationCodeListRelationFilter
     oauthTokens?: OAuthTokenListRelationFilter
+    aiConnections?: AiConnectionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -19684,6 +20969,87 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"OAuthToken"> | Date | string
   }
 
+  export type AiConnectionWhereInput = {
+    AND?: AiConnectionWhereInput | AiConnectionWhereInput[]
+    OR?: AiConnectionWhereInput[]
+    NOT?: AiConnectionWhereInput | AiConnectionWhereInput[]
+    id?: StringFilter<"AiConnection"> | string
+    userId?: StringFilter<"AiConnection"> | string
+    provider?: StringFilter<"AiConnection"> | string
+    model?: StringFilter<"AiConnection"> | string
+    encryptedKey?: StringFilter<"AiConnection"> | string
+    keyHint?: StringFilter<"AiConnection"> | string
+    isDefault?: BoolFilter<"AiConnection"> | boolean
+    lastUsedAt?: DateTimeNullableFilter<"AiConnection"> | Date | string | null
+    createdAt?: DateTimeFilter<"AiConnection"> | Date | string
+    updatedAt?: DateTimeFilter<"AiConnection"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type AiConnectionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    model?: SortOrder
+    encryptedKey?: SortOrder
+    keyHint?: SortOrder
+    isDefault?: SortOrder
+    lastUsedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type AiConnectionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_provider?: AiConnectionUserIdProviderCompoundUniqueInput
+    AND?: AiConnectionWhereInput | AiConnectionWhereInput[]
+    OR?: AiConnectionWhereInput[]
+    NOT?: AiConnectionWhereInput | AiConnectionWhereInput[]
+    userId?: StringFilter<"AiConnection"> | string
+    provider?: StringFilter<"AiConnection"> | string
+    model?: StringFilter<"AiConnection"> | string
+    encryptedKey?: StringFilter<"AiConnection"> | string
+    keyHint?: StringFilter<"AiConnection"> | string
+    isDefault?: BoolFilter<"AiConnection"> | boolean
+    lastUsedAt?: DateTimeNullableFilter<"AiConnection"> | Date | string | null
+    createdAt?: DateTimeFilter<"AiConnection"> | Date | string
+    updatedAt?: DateTimeFilter<"AiConnection"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_provider">
+
+  export type AiConnectionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    model?: SortOrder
+    encryptedKey?: SortOrder
+    keyHint?: SortOrder
+    isDefault?: SortOrder
+    lastUsedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: AiConnectionCountOrderByAggregateInput
+    _max?: AiConnectionMaxOrderByAggregateInput
+    _min?: AiConnectionMinOrderByAggregateInput
+  }
+
+  export type AiConnectionScalarWhereWithAggregatesInput = {
+    AND?: AiConnectionScalarWhereWithAggregatesInput | AiConnectionScalarWhereWithAggregatesInput[]
+    OR?: AiConnectionScalarWhereWithAggregatesInput[]
+    NOT?: AiConnectionScalarWhereWithAggregatesInput | AiConnectionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AiConnection"> | string
+    userId?: StringWithAggregatesFilter<"AiConnection"> | string
+    provider?: StringWithAggregatesFilter<"AiConnection"> | string
+    model?: StringWithAggregatesFilter<"AiConnection"> | string
+    encryptedKey?: StringWithAggregatesFilter<"AiConnection"> | string
+    keyHint?: StringWithAggregatesFilter<"AiConnection"> | string
+    isDefault?: BoolWithAggregatesFilter<"AiConnection"> | boolean
+    lastUsedAt?: DateTimeNullableWithAggregatesFilter<"AiConnection"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AiConnection"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"AiConnection"> | Date | string
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -19895,6 +21261,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -19914,6 +21281,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -19933,6 +21301,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -19952,6 +21321,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -20838,6 +22208,96 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AiConnectionCreateInput = {
+    id?: string
+    provider: string
+    model: string
+    encryptedKey: string
+    keyHint: string
+    isDefault?: boolean
+    lastUsedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutAiConnectionsInput
+  }
+
+  export type AiConnectionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    provider: string
+    model: string
+    encryptedKey: string
+    keyHint: string
+    isDefault?: boolean
+    lastUsedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AiConnectionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    encryptedKey?: StringFieldUpdateOperationsInput | string
+    keyHint?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiConnectionsNestedInput
+  }
+
+  export type AiConnectionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    encryptedKey?: StringFieldUpdateOperationsInput | string
+    keyHint?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiConnectionCreateManyInput = {
+    id?: string
+    userId: string
+    provider: string
+    model: string
+    encryptedKey: string
+    keyHint: string
+    isDefault?: boolean
+    lastUsedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AiConnectionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    encryptedKey?: StringFieldUpdateOperationsInput | string
+    keyHint?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiConnectionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    encryptedKey?: StringFieldUpdateOperationsInput | string
+    keyHint?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -21127,6 +22587,12 @@ export namespace Prisma {
     none?: OAuthTokenWhereInput
   }
 
+  export type AiConnectionListRelationFilter = {
+    every?: AiConnectionWhereInput
+    some?: AiConnectionWhereInput
+    none?: AiConnectionWhereInput
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -21156,6 +22622,10 @@ export namespace Prisma {
   }
 
   export type OAuthTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AiConnectionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21742,6 +23212,63 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type AiConnectionUserIdProviderCompoundUniqueInput = {
+    userId: string
+    provider: string
+  }
+
+  export type AiConnectionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    model?: SortOrder
+    encryptedKey?: SortOrder
+    keyHint?: SortOrder
+    isDefault?: SortOrder
+    lastUsedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AiConnectionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    model?: SortOrder
+    encryptedKey?: SortOrder
+    keyHint?: SortOrder
+    isDefault?: SortOrder
+    lastUsedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type AiConnectionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    provider?: SortOrder
+    model?: SortOrder
+    encryptedKey?: SortOrder
+    keyHint?: SortOrder
+    isDefault?: SortOrder
+    lastUsedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -21846,6 +23373,13 @@ export namespace Prisma {
     connect?: OAuthTokenWhereUniqueInput | OAuthTokenWhereUniqueInput[]
   }
 
+  export type AiConnectionCreateNestedManyWithoutUserInput = {
+    create?: XOR<AiConnectionCreateWithoutUserInput, AiConnectionUncheckedCreateWithoutUserInput> | AiConnectionCreateWithoutUserInput[] | AiConnectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiConnectionCreateOrConnectWithoutUserInput | AiConnectionCreateOrConnectWithoutUserInput[]
+    createMany?: AiConnectionCreateManyUserInputEnvelope
+    connect?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -21900,6 +23434,13 @@ export namespace Prisma {
     connectOrCreate?: OAuthTokenCreateOrConnectWithoutUserInput | OAuthTokenCreateOrConnectWithoutUserInput[]
     createMany?: OAuthTokenCreateManyUserInputEnvelope
     connect?: OAuthTokenWhereUniqueInput | OAuthTokenWhereUniqueInput[]
+  }
+
+  export type AiConnectionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AiConnectionCreateWithoutUserInput, AiConnectionUncheckedCreateWithoutUserInput> | AiConnectionCreateWithoutUserInput[] | AiConnectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiConnectionCreateOrConnectWithoutUserInput | AiConnectionCreateOrConnectWithoutUserInput[]
+    createMany?: AiConnectionCreateManyUserInputEnvelope
+    connect?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -22018,6 +23559,20 @@ export namespace Prisma {
     deleteMany?: OAuthTokenScalarWhereInput | OAuthTokenScalarWhereInput[]
   }
 
+  export type AiConnectionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AiConnectionCreateWithoutUserInput, AiConnectionUncheckedCreateWithoutUserInput> | AiConnectionCreateWithoutUserInput[] | AiConnectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiConnectionCreateOrConnectWithoutUserInput | AiConnectionCreateOrConnectWithoutUserInput[]
+    upsert?: AiConnectionUpsertWithWhereUniqueWithoutUserInput | AiConnectionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AiConnectionCreateManyUserInputEnvelope
+    set?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+    disconnect?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+    delete?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+    connect?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+    update?: AiConnectionUpdateWithWhereUniqueWithoutUserInput | AiConnectionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AiConnectionUpdateManyWithWhereWithoutUserInput | AiConnectionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AiConnectionScalarWhereInput | AiConnectionScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -22128,6 +23683,20 @@ export namespace Prisma {
     update?: OAuthTokenUpdateWithWhereUniqueWithoutUserInput | OAuthTokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: OAuthTokenUpdateManyWithWhereWithoutUserInput | OAuthTokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: OAuthTokenScalarWhereInput | OAuthTokenScalarWhereInput[]
+  }
+
+  export type AiConnectionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AiConnectionCreateWithoutUserInput, AiConnectionUncheckedCreateWithoutUserInput> | AiConnectionCreateWithoutUserInput[] | AiConnectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiConnectionCreateOrConnectWithoutUserInput | AiConnectionCreateOrConnectWithoutUserInput[]
+    upsert?: AiConnectionUpsertWithWhereUniqueWithoutUserInput | AiConnectionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AiConnectionCreateManyUserInputEnvelope
+    set?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+    disconnect?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+    delete?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+    connect?: AiConnectionWhereUniqueInput | AiConnectionWhereUniqueInput[]
+    update?: AiConnectionUpdateWithWhereUniqueWithoutUserInput | AiConnectionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AiConnectionUpdateManyWithWhereWithoutUserInput | AiConnectionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AiConnectionScalarWhereInput | AiConnectionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWorkspacesInput = {
@@ -22735,6 +24304,24 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOauthTokensInput, UserUpdateWithoutOauthTokensInput>, UserUncheckedUpdateWithoutOauthTokensInput>
   }
 
+  export type UserCreateNestedOneWithoutAiConnectionsInput = {
+    create?: XOR<UserCreateWithoutAiConnectionsInput, UserUncheckedCreateWithoutAiConnectionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiConnectionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutAiConnectionsNestedInput = {
+    create?: XOR<UserCreateWithoutAiConnectionsInput, UserUncheckedCreateWithoutAiConnectionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiConnectionsInput
+    upsert?: UserUpsertWithoutAiConnectionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiConnectionsInput, UserUpdateWithoutAiConnectionsInput>, UserUncheckedUpdateWithoutAiConnectionsInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -22984,6 +24571,19 @@ export namespace Prisma {
     _max?: NestedBytesFilter<$PrismaModel>
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -23000,6 +24600,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -23018,6 +24619,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -23052,6 +24654,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -23070,6 +24673,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -23088,6 +24692,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -23106,6 +24711,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -23140,6 +24746,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -23158,6 +24765,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -23438,6 +25046,40 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AiConnectionCreateWithoutUserInput = {
+    id?: string
+    provider: string
+    model: string
+    encryptedKey: string
+    keyHint: string
+    isDefault?: boolean
+    lastUsedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AiConnectionUncheckedCreateWithoutUserInput = {
+    id?: string
+    provider: string
+    model: string
+    encryptedKey: string
+    keyHint: string
+    isDefault?: boolean
+    lastUsedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type AiConnectionCreateOrConnectWithoutUserInput = {
+    where: AiConnectionWhereUniqueInput
+    create: XOR<AiConnectionCreateWithoutUserInput, AiConnectionUncheckedCreateWithoutUserInput>
+  }
+
+  export type AiConnectionCreateManyUserInputEnvelope = {
+    data: AiConnectionCreateManyUserInput | AiConnectionCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -23691,6 +25333,38 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"OAuthToken"> | Date | string
   }
 
+  export type AiConnectionUpsertWithWhereUniqueWithoutUserInput = {
+    where: AiConnectionWhereUniqueInput
+    update: XOR<AiConnectionUpdateWithoutUserInput, AiConnectionUncheckedUpdateWithoutUserInput>
+    create: XOR<AiConnectionCreateWithoutUserInput, AiConnectionUncheckedCreateWithoutUserInput>
+  }
+
+  export type AiConnectionUpdateWithWhereUniqueWithoutUserInput = {
+    where: AiConnectionWhereUniqueInput
+    data: XOR<AiConnectionUpdateWithoutUserInput, AiConnectionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AiConnectionUpdateManyWithWhereWithoutUserInput = {
+    where: AiConnectionScalarWhereInput
+    data: XOR<AiConnectionUpdateManyMutationInput, AiConnectionUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AiConnectionScalarWhereInput = {
+    AND?: AiConnectionScalarWhereInput | AiConnectionScalarWhereInput[]
+    OR?: AiConnectionScalarWhereInput[]
+    NOT?: AiConnectionScalarWhereInput | AiConnectionScalarWhereInput[]
+    id?: StringFilter<"AiConnection"> | string
+    userId?: StringFilter<"AiConnection"> | string
+    provider?: StringFilter<"AiConnection"> | string
+    model?: StringFilter<"AiConnection"> | string
+    encryptedKey?: StringFilter<"AiConnection"> | string
+    keyHint?: StringFilter<"AiConnection"> | string
+    isDefault?: BoolFilter<"AiConnection"> | boolean
+    lastUsedAt?: DateTimeNullableFilter<"AiConnection"> | Date | string | null
+    createdAt?: DateTimeFilter<"AiConnection"> | Date | string
+    updatedAt?: DateTimeFilter<"AiConnection"> | Date | string
+  }
+
   export type UserCreateWithoutWorkspacesInput = {
     id?: string
     name?: string | null
@@ -23707,6 +25381,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkspacesInput = {
@@ -23725,6 +25400,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkspacesInput = {
@@ -23861,6 +25537,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspacesInput = {
@@ -23879,6 +25556,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceMemberUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -23957,6 +25635,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkspaceMembershipsInput = {
@@ -23975,6 +25654,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkspaceMembershipsInput = {
@@ -24038,6 +25718,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspaceMembershipsInput = {
@@ -24056,6 +25737,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceUpsertWithoutMembersInput = {
@@ -24202,6 +25884,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPagesInput = {
@@ -24220,6 +25903,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPagesInput = {
@@ -24438,6 +26122,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPagesInput = {
@@ -24456,6 +26141,7 @@ export namespace Prisma {
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PageUpsertWithoutChildrenInput = {
@@ -24798,6 +26484,7 @@ export namespace Prisma {
     pages?: PageCreateNestedManyWithoutCreatedByInput
     oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutApiTokensInput = {
@@ -24816,6 +26503,7 @@ export namespace Prisma {
     pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutApiTokensInput = {
@@ -24850,6 +26538,7 @@ export namespace Prisma {
     pages?: PageUpdateManyWithoutCreatedByNestedInput
     oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApiTokensInput = {
@@ -24868,6 +26557,7 @@ export namespace Prisma {
     pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OAuthAuthorizationCodeCreateWithoutClientInput = {
@@ -25029,6 +26719,7 @@ export namespace Prisma {
     pages?: PageCreateNestedManyWithoutCreatedByInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOauthGrantsInput = {
@@ -25047,6 +26738,7 @@ export namespace Prisma {
     pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOauthGrantsInput = {
@@ -25122,6 +26814,7 @@ export namespace Prisma {
     pages?: PageUpdateManyWithoutCreatedByNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOauthGrantsInput = {
@@ -25140,6 +26833,7 @@ export namespace Prisma {
     pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OAuthClientCreateWithoutTokensInput = {
@@ -25193,6 +26887,7 @@ export namespace Prisma {
     pages?: PageCreateNestedManyWithoutCreatedByInput
     apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOauthTokensInput = {
@@ -25211,6 +26906,7 @@ export namespace Prisma {
     pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
     apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
+    aiConnections?: AiConnectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOauthTokensInput = {
@@ -25286,6 +26982,7 @@ export namespace Prisma {
     pages?: PageUpdateManyWithoutCreatedByNestedInput
     apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOauthTokensInput = {
@@ -25304,6 +27001,99 @@ export namespace Prisma {
     pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
     apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
     oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
+    aiConnections?: AiConnectionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutAiConnectionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    workspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    workspaceMemberships?: WorkspaceMemberCreateNestedManyWithoutUserInput
+    pages?: PageCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenCreateNestedManyWithoutUserInput
+    oauthGrants?: OAuthAuthorizationCodeCreateNestedManyWithoutUserInput
+    oauthTokens?: OAuthTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAiConnectionsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    password?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    workspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    workspaceMemberships?: WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput
+    pages?: PageUncheckedCreateNestedManyWithoutCreatedByInput
+    apiTokens?: ApiTokenUncheckedCreateNestedManyWithoutUserInput
+    oauthGrants?: OAuthAuthorizationCodeUncheckedCreateNestedManyWithoutUserInput
+    oauthTokens?: OAuthTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAiConnectionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiConnectionsInput, UserUncheckedCreateWithoutAiConnectionsInput>
+  }
+
+  export type UserUpsertWithoutAiConnectionsInput = {
+    update: XOR<UserUpdateWithoutAiConnectionsInput, UserUncheckedUpdateWithoutAiConnectionsInput>
+    create: XOR<UserCreateWithoutAiConnectionsInput, UserUncheckedCreateWithoutAiConnectionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiConnectionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiConnectionsInput, UserUncheckedUpdateWithoutAiConnectionsInput>
+  }
+
+  export type UserUpdateWithoutAiConnectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    workspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    workspaceMemberships?: WorkspaceMemberUpdateManyWithoutUserNestedInput
+    pages?: PageUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUpdateManyWithoutUserNestedInput
+    oauthGrants?: OAuthAuthorizationCodeUpdateManyWithoutUserNestedInput
+    oauthTokens?: OAuthTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiConnectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    workspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    workspaceMemberships?: WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput
+    pages?: PageUncheckedUpdateManyWithoutCreatedByNestedInput
+    apiTokens?: ApiTokenUncheckedUpdateManyWithoutUserNestedInput
+    oauthGrants?: OAuthAuthorizationCodeUncheckedUpdateManyWithoutUserNestedInput
+    oauthTokens?: OAuthTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -25397,6 +27187,18 @@ export namespace Prisma {
     revokedAt?: Date | string | null
     lastUsedAt?: Date | string | null
     createdAt?: Date | string
+  }
+
+  export type AiConnectionCreateManyUserInput = {
+    id?: string
+    provider: string
+    model: string
+    encryptedKey: string
+    keyHint: string
+    isDefault?: boolean
+    lastUsedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -25688,6 +27490,42 @@ export namespace Prisma {
     revokedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiConnectionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    encryptedKey?: StringFieldUpdateOperationsInput | string
+    keyHint?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiConnectionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    encryptedKey?: StringFieldUpdateOperationsInput | string
+    keyHint?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiConnectionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    provider?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    encryptedKey?: StringFieldUpdateOperationsInput | string
+    keyHint?: StringFieldUpdateOperationsInput | string
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    lastUsedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WorkspaceMemberCreateManyWorkspaceInput = {

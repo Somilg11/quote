@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { isValidEmail } from "@/lib/security";
 import { absoluteUrl } from "@/lib/brand";
+import { rateLimit } from "@/lib/rate-limit";
 
 const INVITE_EXPIRY_HOURS = 7 * 24; // 7 days
 
@@ -13,6 +14,14 @@ export async function POST(request: Request) {
 
   if (!session || !session.user) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  const limited = rateLimit(`invite:${session.user.id}`, 20, 60 * 60_000);
+  if (!limited.ok) {
+    return NextResponse.json(
+      { message: "Too many invites. Try again later." },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfter) } }
+    );
   }
 
   try {

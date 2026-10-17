@@ -4,12 +4,15 @@
  * subset of HTML this editor produces.
  */
 
+import { sanitizeHtml } from "@/lib/sanitize-html";
+
 const decodeEntities = (value: string) =>
   value
     .replace(/&nbsp;/g, " ")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
     .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
     .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
     .replace(/&amp;/g, "&");
 
@@ -17,7 +20,12 @@ const escapeHtml = (value: string) =>
   value
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+/** Only http(s) and mailto links survive; anything else becomes inert text. */
+const safeUrl = (url: string) => (/^(https?:\/\/|mailto:)/i.test(url.trim()) ? url.trim() : null);
 
 export function htmlToMarkdown(html: string): string {
   if (!html) return "";
@@ -182,7 +190,7 @@ export function markdownToHtml(markdown: string): string {
   flushParagraph();
   closeList();
 
-  return html.join("");
+  return sanitizeHtml(html.join(""));
 }
 
 function inlineMd(value: string) {
@@ -192,8 +200,12 @@ function inlineMd(value: string) {
     .replace(/(^|[^*])\*([^*]+)\*/g, "$1<em>$2</em>")
     .replace(/_([^_]+)_/g, "<em>$1</em>")
     .replace(/~~([^~]+)~~/g, "<s>$1</s>")
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (m, alt: string, url: string) =>
+      safeUrl(url) ? `<img src="${url.trim()}" alt="${alt}">` : alt
+    )
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, text: string, url: string) =>
+      safeUrl(url) ? `<a href="${url.trim()}">${text}</a>` : text
+    );
 }
 
 /** Plain text, for search snippets. */

@@ -41,24 +41,13 @@ export function hashesEqual(a: string, b: string) {
 const secret = (prefix = "") => `${prefix}${randomBytes(32).toString("base64url")}`;
 
 /**
- * The origin a client actually reached us on.
- *
- * OAuth metadata is only valid when the issuer it names matches the origin the
- * client fetched it from, and this app runs on preview URLs as well as the
- * production domain -- so read it off the request rather than a constant.
+ * The fixed public origin of this deployment (never derived from Host or
+ * X-Forwarded-* headers, which a client can spoof to poison cached discovery
+ * metadata). The `request` argument is kept so call sites stay unchanged.
  */
-export function originFrom(request: Request) {
-  const forwardedHost = request.headers.get("x-forwarded-host") ?? request.headers.get("host");
-  const forwardedProto = request.headers.get("x-forwarded-proto");
-  if (forwardedHost) {
-    const protocol = forwardedProto ?? (forwardedHost.startsWith("localhost") ? "http" : "https");
-    return `${protocol}://${forwardedHost}`;
-  }
-  try {
-    return new URL(request.url).origin;
-  } catch {
-    return siteConfig.url;
-  }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function originFrom(_request?: Request) {
+  return siteConfig.url;
 }
 
 /** The MCP endpoint tokens are good for (RFC 8707 audience). */
@@ -146,7 +135,9 @@ export async function issueTokens(input: {
   scopes: string[];
   resource?: string | null;
   replaceTokenId?: string;
-}): Promise<IssuedTokens> {
+  /** The refresh hash being rotated out; the swap only applies if it is still current. */
+  replaceRefreshHash?: string;
+}): Promise<IssuedTokens | null> {
   const accessToken = secret(ACCESS_TOKEN_PREFIX);
   const refreshToken = secret(REFRESH_TOKEN_PREFIX);
   const now = Date.now();
@@ -166,7 +157,16 @@ export async function issueTokens(input: {
   if (input.replaceTokenId) {
     // Refresh rotation: the previous access and refresh tokens stop working the
     // moment the new pair exists, so a stolen refresh token is good only once.
-    await prisma.oAuthToken.update({ where: { id: input.replaceTokenId }, data });
+    const rotated = await prisma.oAuthToken.updateMany({
+      where: {
+        id: input.replaceTokenId,
+        revokedAt: null,
+        ...(input.replaceRefreshHash ? { refreshTokenHash: input.replaceRefreshHash } : {}),
+      },
+      data,
+    });
+    // Another request already rotated (or revoked) this grant.
+    if (rotated.count !== 1) return null;
   } else {
     await prisma.oAuthToken.create({ data });
   }

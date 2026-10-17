@@ -12,7 +12,8 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { FileText, LayoutGrid, Plug, Plus } from "lucide-react";
+import { FileText, LayoutGrid, Plus } from "lucide-react";
+import { SiModelcontextprotocol as Plug } from "react-icons/si";
 
 interface CommandPaletteProps {
   workspaceId: string;

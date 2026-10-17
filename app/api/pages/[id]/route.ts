@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { sanitizeHtml } from "@/lib/sanitize-html";
 import { generateShareToken } from "@/lib/security";
 import { editablePageSelect } from "@/lib/types";
@@ -17,6 +18,24 @@ function serializePage(page: Record<string, unknown>) {
   return rest;
 }
 
+const patchSchema = z.object({
+  title: z.string().max(200).optional(),
+  content: z.string().max(2_000_000).optional(),
+  shareType: z.enum(["private", "workspace", "global"]).optional(),
+  icon: z.string().max(16).nullable().optional(),
+  coverImage: z
+    .string()
+    .max(2048)
+    .refine(
+      (value) =>
+        value === "" || /^gradient:[a-z0-9_-]{1,40}$/i.test(value) || /^https:\/\/[^\s]+$/i.test(value),
+      "Cover must be an https URL or a built-in gradient"
+    )
+    .nullable()
+    .optional(),
+  source: z.string().max(40).optional(),
+});
+
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -29,7 +48,11 @@ export async function PATCH(
 
   try {
     const { id: pageId } = await params;
-    const { title, content, shareType, icon, coverImage, source } = await request.json();
+    const parsed = patchSchema.safeParse(await request.json().catch(() => null));
+    if (!parsed.success) {
+      return NextResponse.json({ message: "Invalid payload" }, { status: 400 });
+    }
+    const { title, content, shareType, icon, coverImage, source } = parsed.data;
 
     const page = await prisma.page.findUnique({
       where: { id: pageId },
@@ -37,6 +60,8 @@ export async function PATCH(
         id: true,
         content: true,
         shareToken: true,
+        shareType: true,
+        createdById: true,
         workspace: {
           select: {
             members: {
@@ -55,6 +80,18 @@ export async function PATCH(
     const member = page.workspace.members[0];
 
     if (!member) {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
+    const isOwnerOrCreator = member.role === "owner" || page.createdById === session.user.id;
+
+    // Private pages are editable only by their creator or a workspace owner.
+    if (page.shareType === "private" && !isOwnerOrCreator) {
+      return NextResponse.json({ message: "Forbidden" }, { status: 403 });
+    }
+
+    // Only the creator or a workspace owner may publish a page to the web.
+    if (shareType === "global" && !isOwnerOrCreator) {
       return NextResponse.json({ message: "Forbidden" }, { status: 403 });
     }
 
@@ -190,6 +227,7 @@ export async function DELETE(
       select: {
         id: true,
         createdById: true,
+        shareType: true,
         workspace: {
           select: {
             members: { where: { userId: session.user.id }, select: { role: true } },

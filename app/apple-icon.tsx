@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { qRects } from "@/components/brand/logo";
 import { brand } from "@/lib/brand";
 
 export const size = { width: 180, height: 180 };
@@ -17,10 +18,9 @@ export default function AppleIcon() {
           background: brand.mark,
         }}
       >
-        <div style={{ display: "flex", gap: 16, transform: "skewX(-10deg)" }}>
-          <div style={{ width: 26, height: 84, borderRadius: 13, background: brand.markGlyph }} />
-          <div style={{ width: 26, height: 84, borderRadius: 13, background: brand.markGlyph }} />
-        </div>
+        <svg width={180} height={180} viewBox="0 0 32 32" fill="none">
+          {qRects(brand.markGlyph)}
+        </svg>
       </div>
     ),
     size

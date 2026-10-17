@@ -1,148 +1,172 @@
+import { ChevronRight, ChevronsUpDown, LayoutPanelTop, Plus, Search, Settings, Users } from "lucide-react";
+import { SiModelcontextprotocol } from "react-icons/si";
 import { LogoMark } from "@/components/brand/logo";
+import { ActivityRow } from "@/components/landing/figures";
+
+type Icon = React.ComponentType<{ className?: string; strokeWidth?: number }>;
+
+const workspaceNav: { icon: Icon; name: string; active?: boolean }[] = [
+  { icon: LayoutPanelTop, name: "Overview", active: true },
+  { icon: Users, name: "Members" },
+  { icon: Plus, name: "New page" },
+];
 
 const pageTree = [
-  { icon: "🚀", label: "Product roadmap", active: true, depth: 0 },
-  { icon: "📐", label: "Specs", depth: 1 },
-  { icon: "🗓", label: "Q3 planning", depth: 1 },
-  { icon: "📓", label: "Engineering notes", depth: 0 },
-  { icon: "📎", label: "Meeting notes", depth: 0 },
+  { emoji: "🚀", name: "Product roadmap", depth: 0, open: true, parent: true },
+  { emoji: "📐", name: "Specs", depth: 1 },
+  { emoji: "🗓", name: "Q4 planning", depth: 1 },
+  { emoji: "📓", name: "Engineering notes", depth: 0, parent: true },
+  { emoji: "📎", name: "Meeting notes", depth: 0 },
 ];
 
-const collaborators = [
-  { initial: "M", tone: "bg-[#4d4d4a]" },
-  { initial: "K", tone: "bg-[#3f4448]" },
-  { initial: "A", tone: "bg-[#4a4340]" },
+const stats = [
+  { value: "24", label: "Pages" },
+  { value: "3", label: "Collaborators" },
+  { value: "12", label: "Agent edits" },
 ];
 
-const checklist = [
-  { label: "Nested pages and backlinks", done: true },
-  { label: "MCP write access for agents", done: true },
-  { label: "Offline-first editing", done: false },
-];
+const steps = ["Create an access token", "Add Quote to your assistant", "Write your first page"];
+
+function Mark({ className }: { className: string }) {
+  return (
+    <span aria-hidden className={`absolute -translate-x-1/2 -translate-y-1/2 select-none text-sm font-light leading-none text-zinc-600 ${className}`}>
+      +
+    </span>
+  );
+}
 
 /**
- * Static product shot for the hero. Real markup rather than a screenshot, so it
- * stays sharp at any density and reflows cleanly on small screens.
+ * Product shot for the hero: the workspace overview, drawn as markup so it stays
+ * sharp at any density and reflows on small screens.
  */
 export function AppMock() {
   return (
-    <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#191919] shadow-[0_30px_90px_-40px_rgba(0,0,0,0.9)] sm:rounded-2xl">
-      {/* Window chrome */}
-      <div className="flex items-center gap-2 border-b border-white/[0.07] bg-[#151515] px-3 py-2.5 sm:px-4">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#333]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#333]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#333]" />
-        <div className="ml-2 flex min-w-0 items-center gap-1.5 rounded-md bg-[#1f1f1f] px-2 py-1 text-[10px] text-zinc-500 sm:ml-3 sm:text-[11px]">
-          <LogoMark className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-          <span className="truncate">quote.app/acme/product-roadmap</span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-[180px_1fr] lg:grid-cols-[210px_1fr]">
-        {/* Sidebar */}
-        <div className="hidden flex-col border-r border-white/[0.07] bg-[#1c1c1c] p-2.5 sm:flex">
-          <div className="mb-2 flex items-center gap-2 rounded-md px-2 py-1.5 text-xs font-medium text-zinc-300">
-            <span className="grid h-5 w-5 place-items-center rounded bg-[#3a3a38] text-[10px] font-bold text-zinc-100">
-              A
-            </span>
-            <span className="truncate">Acme</span>
+    <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#1f1f1f] shadow-[0_60px_120px_-60px_rgba(0,0,0,1)] sm:rounded-2xl">
+      <div className="grid sm:grid-cols-[230px_1fr] lg:grid-cols-[260px_1fr]">
+        <aside className="hidden border-r border-white/[0.07] bg-[#1b1b1b] p-2.5 sm:block">
+          <div className="mb-3 flex items-center gap-2.5 px-1.5 py-1">
+            <LogoMark className="h-6 w-6 rounded-md" />
+            <span className="text-sm font-medium text-zinc-100">Acme workspace</span>
+            <ChevronsUpDown className="ml-auto h-3.5 w-3.5 text-zinc-600" />
+          </div>
+          <div className="mb-2 flex items-center gap-2 rounded-lg border border-white/[0.07] bg-[#202020] px-2.5 py-2 text-xs text-zinc-500">
+            <Search className="h-3.5 w-3.5" />
+            Search pages
+            <kbd className="ml-auto rounded border border-white/10 px-1 text-[9px] text-zinc-600">⌘K</kbd>
           </div>
 
-          <div className="mb-2 flex items-center gap-2 rounded-md bg-[#242424] px-2 py-1.5 text-[11px] text-zinc-500">
-            <svg viewBox="0 0 24 24" fill="none" className="h-3 w-3 shrink-0 stroke-current" strokeWidth="2">
-              <circle cx="11" cy="11" r="7" />
-              <path d="m20 20-3.5-3.5" strokeLinecap="round" />
-            </svg>
-            Search
-            <kbd className="ml-auto rounded border border-white/10 px-1 text-[9px]">⌘K</kbd>
-          </div>
-
-          <div className="mb-1 px-2 text-[10px] font-medium uppercase tracking-wider text-zinc-600">
-            Pages
-          </div>
-
-          {pageTree.map((page) => (
+          <p className="px-2.5 pb-1.5 pt-3 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-600">Workspace</p>
+          {workspaceNav.map((item) => (
             <div
-              key={page.label}
-              style={{ paddingLeft: `${page.depth * 12 + 8}px` }}
-              className={`flex items-center gap-2 rounded-md py-1.5 pr-2 text-xs ${
-                page.active ? "bg-[#2c2c2c] text-zinc-100" : "text-zinc-500"
+              key={item.name}
+              className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] ${
+                item.active ? "bg-white/[0.07] text-zinc-100 shadow-[0_0_0_1px_rgba(255,255,255,0.05)]" : "text-zinc-400"
               }`}
             >
-              <span className="text-[11px]">{page.icon}</span>
-              <span className="truncate">{page.label}</span>
+              <item.icon className="h-3.5 w-3.5 shrink-0" strokeWidth={1.6} />
+              {item.name}
             </div>
           ))}
-        </div>
 
-        {/* Page */}
-        <div className="min-w-0 p-4 sm:p-6 lg:p-8">
-          <div className="mb-4 flex items-start justify-between gap-3 sm:mb-5">
-            <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-              <span className="text-xl sm:text-2xl">🚀</span>
-              <div className="min-w-0">
-                <div className="truncate text-base font-semibold text-zinc-100 sm:text-lg">
-                  Product roadmap
-                </div>
-                <div className="mt-0.5 flex items-center gap-1.5 text-[10px] text-zinc-500 sm:text-[11px]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-zinc-500" />
-                  3 editing · saved
-                </div>
-              </div>
+          <p className="flex items-center justify-between px-2.5 pb-1.5 pt-4 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-600">
+            Pages
+            <Plus className="h-3 w-3" />
+          </p>
+          {pageTree.map((page) => (
+            <div
+              key={page.name}
+              style={{ paddingLeft: page.depth * 14 + 4 }}
+              className="flex items-center gap-1.5 rounded-lg py-1.5 pr-2 text-[13px] text-zinc-400"
+            >
+              <ChevronRight className={`h-3 w-3 shrink-0 text-zinc-600 ${page.open ? "rotate-90" : ""} ${page.parent ? "" : "opacity-0"}`} />
+              <span className="text-sm">{page.emoji}</span>
+              <span className="truncate">{page.name}</span>
             </div>
-            <div className="flex shrink-0 -space-x-1.5">
-              {collaborators.map((user) => (
-                <span
-                  key={user.initial}
-                  className={`grid h-6 w-6 place-items-center rounded-md border-2 border-[#191919] text-[10px] font-semibold text-zinc-100 sm:h-7 sm:w-7 sm:text-[11px] ${user.tone}`}
-                >
-                  {user.initial}
-                </span>
-              ))}
+          ))}
+
+          <p className="px-2.5 pb-1.5 pt-5 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-600">Connect</p>
+          <div className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] text-zinc-400">
+            <SiModelcontextprotocol className="h-3.5 w-3.5 shrink-0" />
+            MCP connection
+          </div>
+          <p className="px-2.5 pb-1.5 pt-3 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-600">Account</p>
+          <div className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] text-zinc-400">
+            <Settings className="h-3.5 w-3.5 shrink-0" strokeWidth={1.6} />
+            Settings
+          </div>
+        </aside>
+
+        <div className="relative min-w-0 sm:px-8">
+          <span aria-hidden className="absolute inset-y-0 left-5 hidden border-l border-dotted border-white/[0.12] sm:block" />
+          <span aria-hidden className="absolute inset-y-0 right-5 hidden border-r border-dotted border-white/[0.12] sm:block" />
+
+          <div className="relative flex flex-col gap-5 p-5 sm:flex-row sm:items-end sm:justify-between sm:px-10 sm:py-12">
+            <div>
+              <h3 className="text-2xl font-normal leading-[1.05] tracking-[-0.04em] text-zinc-100 sm:text-4xl">
+                Good morning, Maya.
+                <br />
+                <span className="text-zinc-500">Your notes, carried forward.</span>
+              </h3>
+              <p className="mt-4 max-w-md text-[13px] leading-relaxed text-zinc-500">
+                Every page, edit and agent action in this workspace, in one place.
+              </p>
+            </div>
+            <span className="inline-flex h-9 w-fit shrink-0 items-center rounded-lg bg-zinc-100 px-4 text-[13px] text-zinc-900 shadow-[inset_0_1px_0_#fff]">
+              New page +
+            </span>
+          </div>
+
+          <div className="relative border-t border-white/[0.07]">
+            <Mark className="-left-5 top-0 hidden sm:block" />
+            <Mark className="-right-5 top-0 hidden sm:block" />
+            <div className="grid gap-6 p-5 sm:grid-cols-[180px_1fr] sm:px-10 sm:py-9">
+              <div>
+                <p className="text-sm text-zinc-100">Agent activity</p>
+                <p className="mt-1.5 text-xs leading-relaxed text-zinc-500">
+                  What your assistants just did, as it happens.
+                </p>
+              </div>
+              <div className="space-y-2.5">
+                <ActivityRow kind="claude" action="updated a page" target="Product roadmap" time="now" className="!shadow-none" />
+                <ActivityRow kind="chatgpt" action="searched pages" target="“Q4 planning”" time="12s" className="hidden !shadow-none sm:flex" />
+              </div>
             </div>
           </div>
 
-          <div className="space-y-3 text-[13px] leading-relaxed text-zinc-400 sm:space-y-4 sm:text-sm">
-            <p className="text-zinc-300">
-              Q3 is about depth, not surface area. Three bets, one owner each.
-            </p>
-
-            <div className="space-y-2">
-              {checklist.map((item, index) => (
-                <div key={item.label} className="flex items-start gap-2.5">
-                  <span
-                    className={`mt-0.5 grid h-3.5 w-3.5 shrink-0 place-items-center rounded-[3px] border ${
-                      item.done ? "border-zinc-400 bg-zinc-300" : "border-zinc-600"
-                    }`}
-                  >
-                    {item.done && (
-                      <svg viewBox="0 0 10 10" className="h-2 w-2 fill-none stroke-[#191919]" strokeWidth="2">
-                        <path d="m1.5 5 2.2 2.2L8.5 2.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    )}
-                  </span>
-                  <span className={item.done ? "text-zinc-500 line-through decoration-zinc-700" : "text-zinc-300"}>
-                    {item.label}
-                  </span>
-                  {index === 2 && (
-                    <span className="relative ml-0.5 hidden h-4 w-px shrink-0 bg-zinc-300 sm:inline-block">
-                      <span className="absolute -top-5 left-0 whitespace-nowrap rounded bg-zinc-300 px-1.5 py-0.5 text-[10px] font-medium text-[#191919]">
-                        Maya
-                      </span>
-                    </span>
-                  )}
-                </div>
-              ))}
+          <div className="relative border-t border-white/[0.07]">
+            <Mark className="-left-5 top-0 hidden sm:block" />
+            <Mark className="-right-5 top-0 hidden sm:block" />
+            <div className="grid gap-5 p-5 sm:grid-cols-[180px_1fr] sm:px-10 sm:py-9">
+              <div>
+                <p className="text-sm text-zinc-100">Overview</p>
+                <p className="mt-1.5 text-xs text-zinc-500">Live counts for this workspace.</p>
+              </div>
+              <div className="grid grid-cols-3 gap-4">
+                {stats.map((stat, i) => (
+                  <div key={stat.label} className={i > 0 ? "border-l border-white/[0.07] pl-4" : ""}>
+                    <p className="text-2xl font-light tracking-[-0.03em] text-zinc-100 sm:text-3xl">{stat.value}</p>
+                    <p className="mt-1 text-xs text-zinc-500">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+          </div>
 
-            <div className="rounded-md border-l-2 border-zinc-600 bg-white/[0.02] py-2 pl-3 pr-3 text-zinc-400">
-              Ship the MCP server before the offline work — it unblocks the agent demo.
-            </div>
-
-            <div className="flex items-center gap-2 overflow-x-auto rounded-md border border-white/[0.07] bg-[#1c1c1c] px-3 py-2 font-mono text-[10px] text-zinc-500 sm:text-[11px]">
-              <span className="shrink-0 rounded bg-[#2a2a2a] px-1.5 py-0.5 text-zinc-300">claude</span>
-              <span className="whitespace-nowrap">update_page(&quot;Product roadmap&quot;)</span>
-              <span className="ml-auto shrink-0 text-zinc-400">✓</span>
+          <div className="relative hidden border-t border-white/[0.07] sm:block">
+            <div className="grid grid-cols-[180px_1fr] gap-6 px-10 py-9">
+              <div>
+                <p className="text-sm text-zinc-100">Get set up</p>
+                <p className="mt-1.5 text-xs text-zinc-500">Three steps to your first handoff.</p>
+              </div>
+              <div className="divide-y divide-white/[0.06]">
+                {steps.map((step, i) => (
+                  <div key={step} className="flex items-center gap-4 py-2.5 text-[13px] text-zinc-300">
+                    <span className="font-mono text-[11px] text-zinc-600">0{i + 1}</span>
+                    {step}
+                    <span className="ml-auto text-zinc-600">+</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

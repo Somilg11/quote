@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import type { PageSummary } from "@/lib/types";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, FileText, Home, Loader2, MoreHorizontal, Plus, Search, Trash2 } from "lucide-react";
+import { ChevronRight, FileText, LayoutPanelTop, Loader2, MoreHorizontal, Plus, Search, Settings, Trash2, Users } from "lucide-react";
+import { SiModelcontextprotocol } from "react-icons/si";
 import { createPage, pageHref } from "@/lib/pages";
 import { NewWorkspaceDialog } from "@/components/workspace/new-workspace-dialog";
 import { WorkspaceSwitcher } from "@/components/workspace/workspace-switcher";
@@ -46,6 +47,7 @@ export function Sidebar({
 }: SidebarProps) {
   const params = useParams<{ pageId?: string }>();
   const router = useRouter();
+  const pathname = usePathname();
   const currentPageId = params?.pageId;
 
   const [query, setQuery] = useState("");
@@ -161,8 +163,8 @@ export function Sidebar({
     return (
       <div key={page.id}>
         <div
-          className={`group flex items-center rounded-md pr-1 transition-colors duration-150 ${
-            isActive ? "bg-[#333333] text-[#f7f7f5]" : "text-[#b8b8b8] hover:bg-[#2a2a2a]"
+          className={`group flex items-center rounded-lg pr-1 transition-colors duration-150 ${
+            isActive ? "bg-white/[0.07] text-zinc-100 shadow-[0_0_0_1px_rgba(255,255,255,0.05)]" : "text-zinc-400 hover:bg-white/[0.04]"
           }`}
           style={{ paddingLeft: `${depth * 14 + 4}px` }}
         >
@@ -235,7 +237,7 @@ export function Sidebar({
   };
 
   return (
-    <aside className="flex max-h-80 w-full shrink-0 flex-col border-b border-[#2f2f2f] bg-[#202020] text-[#f1f1ef] md:h-screen md:max-h-none md:w-64 md:border-b-0 md:border-r">
+    <aside className="flex max-h-80 w-full shrink-0 flex-col border-b border-white/[0.07] bg-[#1b1b1b] text-[#f1f1ef] md:h-full md:max-h-none md:w-64 md:border-b-0 md:border-r">
       <CommandPalette
         workspaceId={workspaceId}
         pages={pages}
@@ -251,7 +253,7 @@ export function Sidebar({
       </div>
 
       <div className="space-y-1 px-2 pb-2 text-sm text-[#b8b8b8]">
-        <label className="flex w-full items-center gap-2 rounded-md bg-[#2a2a2a] px-2 py-1.5 transition-colors duration-150 focus-within:bg-[#333333]">
+        <label className="flex w-full items-center gap-2 rounded-lg border border-white/[0.07] bg-[#202020] px-2.5 py-2 transition-colors duration-150 focus-within:border-white/20">
           <Search className="h-4 w-4 shrink-0" />
           <input
             value={query}
@@ -264,28 +266,40 @@ export function Sidebar({
           </kbd>
         </label>
 
+      </div>
+
+      <div className="px-2">
+        <p className="px-2.5 pb-1.5 pt-3 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-600">Workspace</p>
         <Link
           href={`/workspaces/${workspaceId}`}
-          className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left transition-colors duration-150 hover:bg-[#2a2a2a] hover:text-[#f7f7f5]"
+          className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] transition-colors duration-150 ${
+            !currentPageId && !pathname?.endsWith("/members") ? "bg-white/[0.07] text-zinc-100 shadow-[0_0_0_1px_rgba(255,255,255,0.05)]" : "text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100"
+          }`}
         >
-          <Home className="h-4 w-4" />
-          Home
+          <LayoutPanelTop className="h-3.5 w-3.5" strokeWidth={1.6} />
+          Overview
         </Link>
-      </div>
-
-      <div className="px-2 py-1">
-        <Button
+        <Link
+          href={`/workspaces/${workspaceId}/members`}
+          className={`flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] transition-colors duration-150 ${
+            pathname?.endsWith("/members") ? "bg-white/[0.07] text-zinc-100 shadow-[0_0_0_1px_rgba(255,255,255,0.05)]" : "text-zinc-400 hover:bg-white/[0.05] hover:text-zinc-100"
+          }`}
+        >
+          <Users className="h-3.5 w-3.5" strokeWidth={1.6} />
+          Members
+        </Link>
+        <button
+          type="button"
           onClick={() => void addPage()}
           disabled={creating}
-          className="h-8 w-full justify-start gap-2 rounded-md bg-transparent px-2 text-sm font-medium text-[#b8b8b8] shadow-none transition-colors duration-150 hover:bg-[#2a2a2a] hover:text-[#f7f7f5]"
-          size="sm"
+          className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-[13px] text-zinc-400 transition-colors duration-150 hover:bg-white/[0.05] hover:text-zinc-100 disabled:opacity-60"
         >
-          {creating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
+          {creating ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Plus className="h-3.5 w-3.5" strokeWidth={1.6} />}
           New page
-        </Button>
+        </button>
       </div>
 
-      <div className="flex items-center justify-between px-4 pb-1 pt-3 text-[11px] font-medium uppercase tracking-wide text-[#858585]">
+      <div className="flex items-center justify-between px-4 pb-1.5 pt-4 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-600">
         {query ? "Results" : "Pages"}
         <button
           type="button"
@@ -315,8 +329,8 @@ export function Sidebar({
                     href={`/workspaces/${workspaceId}/pages/${page.id}`}
                     className={`flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors duration-150 ${
                       currentPageId === page.id
-                        ? "bg-[#333333] text-[#f7f7f5]"
-                        : "text-[#b8b8b8] hover:bg-[#2a2a2a] hover:text-[#f7f7f5]"
+                        ? "bg-white/[0.07] text-zinc-100"
+                        : "text-zinc-400 hover:bg-white/[0.04] hover:text-zinc-100"
                     }`}
                   >
                     <span className="grid h-5 w-5 place-items-center text-base">
@@ -329,6 +343,25 @@ export function Sidebar({
           </div>
         )}
       </nav>
+
+      <div className="hidden border-t border-white/[0.07] px-2 pb-3 md:block">
+        <p className="px-2.5 pb-1.5 pt-3 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-600">Connect</p>
+        <Link
+          href="/settings/connections"
+          className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] text-zinc-400 transition-colors hover:bg-white/[0.05] hover:text-zinc-100"
+        >
+          <SiModelcontextprotocol className="h-3.5 w-3.5" />
+          MCP connection
+        </Link>
+        <p className="px-2.5 pb-1.5 pt-3 text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-600">Account</p>
+        <Link
+          href="/settings/appearance"
+          className="flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] text-zinc-400 transition-colors hover:bg-white/[0.05] hover:text-zinc-100"
+        >
+          <Settings className="h-3.5 w-3.5" strokeWidth={1.6} />
+          Settings
+        </Link>
+      </div>
 
       <AlertDialog open={!!pageToDelete} onOpenChange={(open) => !open && setPageToDelete(null)}>
         <AlertDialogContent className="border-[#3f3f3f] bg-[#252525] text-[#f1f1ef]">

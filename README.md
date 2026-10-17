@@ -45,6 +45,15 @@ infrastructure cost.
 - Three visibility states: private, workspace, and public (read-only link)
 - Public pages are server-rendered, indexable, and carry Article JSON-LD
 
+### Built-in AI assistant (bring your own key)
+
+A chat button sits at the bottom right of every workspace (⌘J). Users paste their own
+Anthropic, OpenAI or Google Gemini API key and the assistant can search, read, create and
+edit pages in the current workspace. The server has no AI key of its own and bills no one.
+Keys are verified, encrypted at rest with AES-256-GCM (bound to the owning user), and never
+sent back to the browser. The assistant cannot delete or share pages, or manage members.
+Set `AI_KEY_ENCRYPTION_SECRET` (falls back to `NEXTAUTH_SECRET`) and run `pnpm db:migrate`.
+
 ### MCP server
 `POST /api/mcp` — JSON-RPC 2.0 over streamable HTTP, authenticated with a bearer token.
 
@@ -81,6 +90,7 @@ pnpm dev
 | `DATABASE_URL` | yes | Postgres connection string |
 | `NEXTAUTH_SECRET` | yes | Session signing — `openssl rand -base64 32` |
 | `NEXTAUTH_URL` | yes | Origin NextAuth redirects to |
+| `AI_KEY_ENCRYPTION_SECRET` | recommended | Encrypts users' AI provider keys (defaults to `NEXTAUTH_SECRET`) |
 | `NEXT_PUBLIC_SITE_URL` | recommended | Canonical URLs, OG tags, sitemap, share links, MCP endpoint |
 | `GMAIL_EMAIL` / `GMAIL_APP_PASSWORD` | optional | Outbound workspace invites |
 
