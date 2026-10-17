@@ -46,12 +46,12 @@ export function McpSetup({ clients }: McpSetupProps) {
   };
 
   return (
-    <div className="min-w-0 overflow-hidden rounded-xl border border-white/10 bg-[#141414]">
-      <div className="flex items-center gap-1 overflow-x-auto border-b border-white/10 bg-[#191919] p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <div className="min-w-0 overflow-hidden rounded-xl border border-white/[0.07] bg-[#202020] shadow-[0_30px_60px_-40px_rgba(0,0,0,0.8)]">
+      <div className="flex items-center gap-1 overflow-x-auto border-b border-white/[0.07] bg-[#1c1c1c] p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {groups.map((group, index) => (
           <div key={group} className="flex shrink-0 items-center gap-1">
-            {index > 0 && <span aria-hidden className="mx-1 h-4 w-px bg-white/10" />}
-            <span className="shrink-0 whitespace-nowrap pl-1 pr-0.5 text-[10px] uppercase tracking-wide text-zinc-600">
+            {index > 0 && <span aria-hidden className="mx-1 h-4 w-px bg-white/15" />}
+            <span className="shrink-0 whitespace-nowrap pl-1 pr-0.5 text-[10px] uppercase tracking-wide text-zinc-500">
               {GROUP_LABELS[group]}
             </span>
             {clients
@@ -67,8 +67,8 @@ export function McpSetup({ clients }: McpSetupProps) {
                   className={cn(
                     "shrink-0 whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
                     client.id === current.id
-                      ? "bg-[#2c2c2c] text-white"
-                      : "text-zinc-500 hover:text-zinc-200"
+                      ? "bg-[#2c2c2c] text-zinc-100 shadow-[0_0_0_1px_rgba(255,255,255,0.09)]"
+                      : "text-zinc-400 hover:text-zinc-100"
                   )}
                 >
                   {client.label}
@@ -78,7 +78,7 @@ export function McpSetup({ clients }: McpSetupProps) {
         ))}
       </div>
 
-      <div className="flex items-center justify-between gap-3 border-b border-white/10 px-3 py-2.5 sm:px-4">
+      <div className="flex items-center justify-between gap-3 border-b border-white/[0.07] px-3 py-2.5 sm:px-4">
         <span className="flex min-w-0 items-center gap-2 text-[11px] text-zinc-500">
           <Terminal className="h-3.5 w-3.5 shrink-0" />
           <span className="truncate">{current.hint}</span>
@@ -86,9 +86,9 @@ export function McpSetup({ clients }: McpSetupProps) {
         <button
           type="button"
           onClick={copy}
-          className="flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 text-[11px] text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
+          className="flex shrink-0 items-center gap-1.5 rounded-md px-2 py-1 text-[11px] text-zinc-400 transition-colors hover:bg-white/5 hover:text-zinc-100"
         >
-          {copied ? <Check className="h-3.5 w-3.5 text-[#2F9E6E]" /> : <Copy className="h-3.5 w-3.5" />}
+          {copied ? <Check className="h-3.5 w-3.5 text-emerald-500" /> : <Copy className="h-3.5 w-3.5" />}
           {copied ? "Copied" : "Copy"}
         </button>
       </div>

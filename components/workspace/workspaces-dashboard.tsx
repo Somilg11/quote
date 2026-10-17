@@ -27,11 +27,11 @@ import {
   LayoutGrid,
   Loader2,
   PenLine,
-  Plug,
   Plus,
   Search,
   Users,
 } from "lucide-react";
+import { SiModelcontextprotocol as Plug } from "react-icons/si";
 
 export interface DashboardStats {
   workspaces: number;
@@ -126,7 +126,7 @@ export function WorkspacesDashboard({
   ];
 
   return (
-    <div className="min-h-screen bg-[#191919] text-[#f1f1ef]">
+    <div className="min-h-screen bg-[#191919] font-[family-name:var(--font-poppins)] text-[#f1f1ef]">
       <header className="sticky top-0 z-10 border-b border-[#2f2f2f] bg-[#191919]/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
           <Link href="/" className="shrink-0 rounded-md transition-opacity hover:opacity-80">
@@ -161,10 +161,12 @@ export function WorkspacesDashboard({
         {/* Greeting + primary actions */}
         <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              {greeting}, {firstName}
+            <h1 className="text-3xl font-normal leading-[1.05] tracking-[-0.045em] sm:text-5xl">
+              {greeting}, {firstName}.
+              <br />
+              <span className="text-zinc-500">Your notes, carried forward.</span>
             </h1>
-            <p className="mt-1.5 text-sm text-[#9b9b9b]">
+            <p className="mt-4 text-sm text-[#9b9b9b]">
               {stats.editedThisWeek > 0
                 ? `${stats.editedThisWeek} page${stats.editedThisWeek === 1 ? "" : "s"} changed in the last seven days.`
                 : "Nothing has changed this week. A good week to write something."}
@@ -175,7 +177,7 @@ export function WorkspacesDashboard({
             <Button
               onClick={() => void quickCreate()}
               disabled={creating || workspaces.length === 0}
-              className="rounded-md bg-[#f1f1ef] text-[#202020] transition-colors hover:bg-white"
+              className="h-10 rounded-lg bg-gradient-to-b from-zinc-50 to-zinc-300 px-5 text-zinc-900 shadow-[0_0_0_3px_rgba(255,255,255,0.06),inset_0_1px_0_#fff] transition-transform active:scale-[0.98]"
             >
               {creating ? (
                 <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
@@ -197,14 +199,17 @@ export function WorkspacesDashboard({
         </div>
 
         {/* Stats */}
-        <div className="mt-7 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-[#2f2f2f] bg-[#2f2f2f] lg:grid-cols-4">
-          {tiles.map((tile) => (
-            <div key={tile.label} className="bg-[#1c1c1c] px-4 py-3.5">
-              <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-[#8f8f8f]">
-                <tile.icon className="h-3.5 w-3.5" />
+        <div className="mt-10 grid grid-cols-2 overflow-hidden rounded-xl border border-white/[0.08] bg-[#1c1c1c] lg:grid-cols-4">
+          {tiles.map((tile, i) => (
+            <div
+              key={tile.label}
+              className={`px-5 py-5 ${i % 2 === 1 ? "border-l border-dotted border-white/[0.12]" : ""} ${i > 1 ? "border-t border-dotted border-white/[0.12] lg:border-t-0" : ""} ${i > 0 ? "lg:border-l lg:border-dotted lg:border-white/[0.12]" : ""}`}
+            >
+              <div className="flex items-center gap-1.5 text-xs text-zinc-500">
+                <tile.icon className="h-3.5 w-3.5" strokeWidth={1.6} />
                 {tile.label}
               </div>
-              <div className="mt-1.5 text-2xl font-semibold tabular-nums">{tile.value}</div>
+              <div className="mt-3 text-4xl font-light tabular-nums tracking-[-0.04em]">{tile.value}</div>
             </div>
           ))}
         </div>
@@ -212,7 +217,7 @@ export function WorkspacesDashboard({
         {/* Connect AI: the feature that is easy to miss otherwise. */}
         <Link
           href="/settings/connections"
-          className="group mt-3 flex items-center gap-3 rounded-lg border border-[#2f2f2f] bg-[#1c1c1c] px-4 py-3 transition-colors hover:border-[#3f3f3f] hover:bg-[#212121]"
+          className="group mt-3 flex items-center gap-3 rounded-xl border border-white/[0.08] bg-[#1c1c1c] px-5 py-4 transition-colors hover:border-[#3f3f3f] hover:bg-[#212121]"
         >
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-[#2a2a2a] text-[#d4d4d4]">
             <Plug className="h-4 w-4" />
@@ -235,7 +240,7 @@ export function WorkspacesDashboard({
         {/* Recently edited */}
         {filteredRecents.length > 0 && (
           <section className="mt-10">
-            <h2 className="mb-3 text-xs font-medium uppercase tracking-wide text-[#8f8f8f]">
+            <h2 className="mb-4 text-sm font-normal text-zinc-400">
               Jump back in
             </h2>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
@@ -243,7 +248,7 @@ export function WorkspacesDashboard({
                 <Link
                   key={page.id}
                   href={pageHref(page.workspaceId, page.id)}
-                  className="group flex min-w-0 items-start gap-3 rounded-lg border border-[#2f2f2f] bg-[#1c1c1c] px-3.5 py-3 transition-colors hover:border-[#3f3f3f] hover:bg-[#212121]"
+                  className="group flex min-w-0 items-start gap-3 rounded-xl border border-white/[0.08] bg-[#1c1c1c] px-3.5 py-3 transition-colors hover:border-[#3f3f3f] hover:bg-[#212121]"
                 >
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md bg-[#252525] text-lg">
                     {page.icon || <FileText className="h-4 w-4 text-[#8f8f8f]" />}
@@ -272,7 +277,7 @@ export function WorkspacesDashboard({
         {/* Workspaces */}
         <section className="mt-10">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-xs font-medium uppercase tracking-wide text-[#8f8f8f]">
+            <h2 className="text-sm font-normal text-zinc-400">
               Workspaces
             </h2>
             <NewWorkspaceDialog>
@@ -296,13 +301,13 @@ export function WorkspacesDashboard({
               {filteredWorkspaces.map((workspace) => (
                 <div
                   key={workspace.id}
-                  className="group relative flex flex-col rounded-lg border border-[#2f2f2f] bg-[#1c1c1c] p-4 transition-colors hover:border-[#3f3f3f] hover:bg-[#212121]"
+                  className="group relative flex flex-col rounded-xl border border-white/[0.08] bg-[#1c1c1c] p-5 transition-colors hover:border-[#3f3f3f] hover:bg-[#212121]"
                 >
                   {/* The link covers the card so the row menu stays clickable. */}
                   <Link
                     href={`/workspaces/${workspace.id}`}
                     aria-label={`Open ${workspace.name}`}
-                    className="absolute inset-0 rounded-lg"
+                    className="absolute inset-0 rounded-xl"
                   />
 
                   <div className="pointer-events-none flex items-start gap-3">

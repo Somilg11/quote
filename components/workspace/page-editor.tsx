@@ -201,6 +201,8 @@ export function PageEditor({
     page.shareToken ? `${window.location.origin}/share/${page.shareToken}` : '';
 
   const isOwner = workspace.ownerId === currentUser.id;
+  // Mirrors the server rule: private pages are writable by their author and the owner only.
+  const canWrite = shareType !== 'private' || isOwner || page.createdById === currentUser.id;
 
   const TOTAL_SEGMENTS = 14;
   const activeSegment = Math.min(
@@ -410,7 +412,7 @@ export function PageEditor({
           </div>
         )}
 
-        <div className={`mx-auto max-w-3xl px-4 pb-24 ${isPeek ? 'sm:px-6' : 'sm:px-8'}`}>
+        <div className={`page-body mx-auto max-w-3xl px-4 pb-24 ${isPeek ? 'sm:px-6' : 'sm:px-8'}`}>
           <div className="group/header">
           {/* Icon: overlaps the cover the way Notion's does. */}
           <div className={`relative z-10 ${cover ? '-mt-12 sm:-mt-14' : 'pt-8 sm:pt-10'}`}>
@@ -456,6 +458,7 @@ export function PageEditor({
           <textarea
             ref={titleRef}
             value={title}
+            readOnly={!canWrite}
             onChange={(event) => setTitle(event.target.value.replace(/\n/g, ''))}
             onKeyDown={(event) => {
               // Enter moves into the body rather than adding a line to the title.
@@ -492,6 +495,7 @@ export function PageEditor({
             initialContent={page.content || ''}
             initialVersion={page.version}
             onContentChange={handleContentChange}
+            editable={canWrite}
           />
         </div>
       </div>

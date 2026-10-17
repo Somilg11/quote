@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { qRects } from "@/components/brand/logo";
 import { brand, siteConfig } from "@/lib/brand";
 
 export const alt = `${siteConfig.name} - ${siteConfig.tagline}`;
@@ -38,20 +39,19 @@ export default function OpengraphImage() {
             style={{
               width: 64,
               height: 64,
-              borderRadius: 16,
+              borderRadius: 12,
               background: brand.mark,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
             }}
           >
-            <div style={{ display: "flex", gap: 6, transform: "skewX(-10deg)" }}>
-              <div style={{ width: 9, height: 30, borderRadius: 5, background: brand.markGlyph }} />
-              <div style={{ width: 9, height: 30, borderRadius: 5, background: brand.markGlyph }} />
-            </div>
+            <svg width={64} height={64} viewBox="0 0 32 32" fill="none">
+              {qRects(brand.markGlyph)}
+        </svg>
           </div>
           <div style={{ fontSize: 38, fontWeight: 600, letterSpacing: -1 }}>
-            {siteConfig.name}
+            {siteConfig.name.toLowerCase()}
           </div>
         </div>
 

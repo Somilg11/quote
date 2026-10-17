@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { clearDoc } from "@/lib/collab/store";
 import { htmlToMarkdown, htmlToText, markdownToHtml } from "@/lib/mcp/markdown";
+import { sanitizeHtml } from "@/lib/sanitize-html";
 import { absoluteUrl } from "@/lib/brand";
 import { generateShareToken, isValidEmail } from "@/lib/security";
 import { sendInviteEmail } from "@/lib/email";
@@ -62,6 +63,7 @@ async function resolvePage(identity: McpIdentity, pageId: string) {
           id: true,
           name: true,
           slug: true,
+          ownerId: true,
           members: { where: { userId: identity.userId }, select: { role: true } },
         },
       },
@@ -73,6 +75,23 @@ async function resolvePage(identity: McpIdentity, pageId: string) {
     throw new McpError("This token cannot access that page.");
   }
   return page;
+}
+
+/**
+ * Private pages are editable only by their author and the workspace owner, the
+ * same rule the REST API and live editor enforce.
+ */
+function assertCanWrite(
+  identity: McpIdentity,
+  page: { shareType: string; createdById: string | null; workspace: { ownerId: string } }
+) {
+  if (
+    page.shareType === "private" &&
+    page.createdById !== identity.userId &&
+    page.workspace.ownerId !== identity.userId
+  ) {
+    throw new McpError("This page is private: only its author or the workspace owner can edit it.");
+  }
 }
 
 /** Slug uniqueness inside a transaction, used when a whole subtree changes workspace. */
@@ -767,6 +786,7 @@ export const tools: McpTool[] = [
     },
     handler: async (args, identity) => {
       const page = await resolvePage(identity, String(args?.pageId ?? ""));
+      assertCanWrite(identity, page);
       const mode = args?.mode ?? "replace";
 
       let content: string | undefined;
@@ -774,7 +794,9 @@ export const tools: McpTool[] = [
         const incoming = markdownToHtml(args.markdown);
         const existing = page.content ?? "";
         content =
-          mode === "append" ? existing + incoming : mode === "prepend" ? incoming + existing : incoming;
+          sanitizeHtml(
+            mode === "append" ? existing + incoming : mode === "prepend" ? incoming + existing : incoming
+          );
       }
 
       const updated = await prisma.page.update({
@@ -1007,7 +1029,7 @@ export const tools: McpTool[] = [
           data: {
             title,
             slug: await uniqueSlug(workspaceId, title),
-            content: original.content,
+            content: sanitizeHtml(original.content ?? ""),
             icon: original.icon,
             coverImage: original.coverImage,
             workspaceId,
@@ -1155,6 +1177,7 @@ export const tools: McpTool[] = [
     },
     handler: async (args, identity) => {
       const page = await resolvePage(identity, String(args?.pageId ?? ""));
+      assertCanWrite(identity, page);
       const raw = args?.cover;
 
       let coverImage: string | null = null;

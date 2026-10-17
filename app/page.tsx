@@ -6,24 +6,16 @@ import { productionUrl, siteConfig } from "@/lib/brand";
 import { jsonLdPayload } from "@/lib/security";
 import { mcpClientConfigs } from "@/lib/mcp/clients";
 import { Logo } from "@/components/brand/logo";
-import { Button } from "@/components/ui/button";
+import { MemoryHub } from "@/components/landing/figures";
+import { CollabChip, CollabMock, FeaturePanel, McpChip, McpMock, PagesChip, PagesMock } from "@/components/landing/feature-mocks";
+import { SiClaude, SiCursor, SiGooglegemini, SiModelcontextprotocol, SiWindsurf, SiCline } from "react-icons/si";
+import { RiOpenaiFill } from "react-icons/ri";
 import { LandingNav } from "@/components/landing/nav";
 import { AppMock } from "@/components/landing/app-mock";
 import { McpSetup } from "@/components/landing/mcp-setup";
+import { AssistantShowcase } from "@/components/landing/assistant-showcase";
 import { Reveal } from "@/components/landing/reveal";
-import {
-  ArrowRight,
-  Blocks,
-  Bot,
-  FileStack,
-  Globe,
-  Keyboard,
-  Plug,
-  Search,
-  Share2,
-  Users,
-  Zap,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} — ${siteConfig.tagline}`,
@@ -31,37 +23,45 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const features = [
+const clientLogos = [
+  { name: "Claude", Icon: SiClaude },
+  { name: "ChatGPT", Icon: RiOpenaiFill },
+  { name: "Gemini", Icon: SiGooglegemini },
+  { name: "Cursor", Icon: SiCursor },
+  { name: "Windsurf", Icon: SiWindsurf },
+  { name: "Cline", Icon: SiCline },
+  { name: "MCP", Icon: SiModelcontextprotocol },
+];
+
+const chapters = [
   {
-    icon: FileStack,
     title: "Pages inside pages",
-    body: "Nest documents as deep as your thinking goes. Every page carries its own emoji, children, and share settings.",
+    body: "Nest documents as deep as your thinking goes. Breadcrumbs, sub-pages and share settings come with every page.",
+    chip: PagesChip,
+    mock: PagesMock,
+    tone: "sage" as const,
   },
   {
-    icon: Users,
-    title: "Live co-editing",
-    body: "Edits merge conflict-free with CRDTs. Two people on the same paragraph stay in sync without stepping on each other.",
+    title: "Edit together, with your agents",
+    body: "Edits merge conflict-free. Teammates and assistants can work in the same paragraph without stepping on each other.",
+    chip: CollabChip,
+    mock: CollabMock,
+    tone: "clay" as const,
   },
   {
-    icon: Keyboard,
-    title: "Slash commands",
-    body: "Press / for headings, lists, quotes, code, tables, images, and dividers. Arrow keys and Enter, nothing else to learn.",
+    title: "Connect Quote through MCP",
+    body: "Paste one config block and Claude, Cursor, ChatGPT or Gemini can search, read and write your pages.",
+    chip: McpChip,
+    mock: McpMock,
+    tone: "dusk" as const,
   },
-  {
-    icon: Search,
-    title: "Instant search",
-    body: "⌘K jumps to any page in any workspace. Filter as you type; open with Enter.",
-  },
-  {
-    icon: Share2,
-    title: "Sharing you can reason about",
-    body: "Private, workspace-wide, or a public read-only link. Three states, no permission matrix to decode.",
-  },
-  {
-    icon: Zap,
-    title: "Offline-tolerant",
-    body: "Your document lives in the browser first and reconciles when the network comes back. Close the laptop mid-sentence.",
-  },
+];
+
+const details = [
+  { title: "Slash commands", body: "Press / for headings, lists, quotes, code, tables, and images." },
+  { title: "Instant search", body: "⌘K jumps to any page in any workspace as you type." },
+  { title: "Sharing you can reason about", body: "Private, workspace-wide, or a public read-only link. Nothing else." },
+  { title: "Offline-tolerant", body: "Your draft lives in the browser first and reconciles when you reconnect." },
 ];
 
 const mcpTools = [
@@ -121,230 +121,184 @@ export default async function HomePage() {
     ],
   };
 
+  const h2 =
+    "text-balance text-3xl font-normal leading-[1.05] tracking-[-0.04em] text-zinc-100 sm:text-5xl";
+  const rule = "border-t border-dotted border-white/[0.12]";
+
   return (
-    <div className="min-h-screen overflow-x-clip scroll-smooth bg-[#0F0F10] text-zinc-100 antialiased">
+    <div className="min-h-screen overflow-x-clip scroll-smooth bg-[#191919] font-[family-name:var(--font-poppins)] text-zinc-100 antialiased selection:bg-white selection:text-zinc-900">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdPayload(jsonLd) }}
       />
 
-      <LandingNav />
+      <div id="top" className="mx-auto max-w-[1180px] border-x border-dotted border-white/[0.12]">
+        <LandingNav />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -top-40 h-[520px] bg-[radial-gradient(60%_60%_at_50%_0%,rgba(255,255,255,0.07),transparent_70%)]"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(70%_50%_at_50%_0%,#000,transparent)]"
-        />
-
-        <div className="relative mx-auto max-w-6xl px-4 pb-12 pt-12 sm:px-8 sm:pb-16 sm:pt-24">
-          <Reveal className="mx-auto max-w-3xl text-center">
-            <a
-              href="#mcp"
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-zinc-300 transition-colors hover:border-white/20 hover:text-white"
-            >
-              <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-zinc-200">
-                <Plug className="h-2.5 w-2.5 text-[#191919]" />
-              </span>
-              <span className="truncate">Connect Claude, ChatGPT &amp; Gemini over MCP</span>
-              <ArrowRight className="h-3 w-3 shrink-0" />
-            </a>
-
-            <h1 className="text-balance text-[2rem] font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:text-5xl lg:text-6xl">
-              A calm place to write together —{" "}
-              <span className="bg-gradient-to-r from-zinc-400 to-zinc-600 bg-clip-text text-transparent">
-                and let your AI in
-              </span>
+        {/* Hero */}
+        <section className="px-6 pb-16 pt-10 sm:px-12 sm:pb-24 sm:pt-16">
+          <Reveal className="max-w-3xl">
+            <h1 className="text-balance text-[2.75rem] font-normal leading-[0.98] tracking-[-0.05em] text-zinc-100 sm:text-7xl lg:text-[5.25rem]">
+              Notes that your agents{" "}
+              <span className="text-zinc-500">can work in.</span>
             </h1>
-
-            <p className="mx-auto mt-5 max-w-2xl text-pretty text-[15px] leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
-              Quote is a minimal, Notion-style workspace: nested pages, a block editor, and
-              live collaboration. It also ships an MCP server, so the assistants you already
-              use can read and write your notes directly.
+            <p className="mt-7 max-w-xl text-pretty text-base leading-[1.75] text-zinc-400 sm:text-lg">
+              Quote is a quiet workspace for nested pages and live collaboration. It ships an MCP
+              server, so Claude, ChatGPT and Gemini can read and write your pages, and the next
+              session starts where the last one stopped.
             </p>
-
-            <div className="mt-8 flex w-full flex-col items-stretch gap-2.5 sm:mt-9 sm:flex-row sm:items-center sm:justify-center sm:gap-3">
-              <Link href="/auth/signup" className="sm:w-auto">
-                <Button
-                  size="lg"
-                  className="group h-11 w-full bg-white px-6 text-zinc-900 shadow-[0_8px_30px_-8px_rgba(255,255,255,0.25)] transition-all hover:bg-zinc-100 active:scale-[0.98] sm:w-auto"
-                >
-                  Start writing — free
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Button>
+            <div className="mt-9 flex flex-wrap items-center gap-6">
+              <Link
+                href="/auth/signup"
+                className="group inline-flex h-12 items-center gap-2.5 rounded-lg bg-gradient-to-b from-zinc-50 to-zinc-300 px-6 text-[15px] text-zinc-900 shadow-[0_0_0_3px_rgba(255,255,255,0.08),0_14px_30px_-12px_rgba(255,255,255,0.25),inset_0_1px_0_#fff] transition-transform active:scale-[0.98]"
+              >
+                Get started
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
-              <a href="#mcp" className="sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="h-11 w-full border-white/15 bg-white/[0.03] px-6 text-zinc-200 backdrop-blur transition-colors hover:bg-white/[0.07] hover:text-white sm:w-auto"
-                >
-                  See the MCP setup
-                </Button>
+              <a href="#mcp" className="inline-flex items-center gap-2 text-[15px] text-zinc-400 transition-colors hover:text-zinc-100">
+                Explore MCP
+                <ArrowRight className="h-4 w-4" />
               </a>
             </div>
-
-            <p className="mt-5 text-[11px] text-zinc-600 sm:text-xs">
-              No credit card · Self-hostable · Your Postgres, your data
-            </p>
           </Reveal>
 
-          <Reveal delay={120} className="mt-10 sm:mt-16 lg:mt-20">
+          <Reveal delay={120} className="mt-14 sm:mt-20">
             <AppMock />
           </Reveal>
-        </div>
-      </section>
+        </section>
 
-      {/* Client strip */}
-      <section className="border-y border-white/5 bg-white/[0.015]">
-        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-8">
-          <Reveal className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2.5 text-sm text-zinc-600 sm:gap-x-8 sm:gap-y-3">
-            <span className="w-full text-center text-[10px] uppercase tracking-[0.18em] text-zinc-700 sm:w-auto sm:text-xs">
-              Speaks MCP with
-            </span>
-            {["Claude.ai", "ChatGPT", "Gemini", "Claude Code", "Claude Desktop", "Cursor"].map(
-              (name) => (
-                <span key={name} className="text-xs font-medium text-zinc-500 sm:text-sm">
-                  {name}
-                </span>
-              )
-            )}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section id="features" className="scroll-mt-20 py-16 sm:py-24 lg:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-8">
-          <Reveal className="max-w-2xl">
-            <p className="mb-3 text-xs uppercase tracking-[0.18em] text-zinc-500">Features</p>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-white sm:text-3xl lg:text-4xl">
-              Everything a shared notepad owes you. Nothing it doesn&apos;t.
-            </h2>
-          </Reveal>
-
-          <div className="mt-10 grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, index) => (
-              <Reveal
-                key={feature.title}
-                delay={index * 60}
-                className="group bg-[#0F0F10] p-6 transition-colors hover:bg-[#151517]"
-              >
-                <span className="mb-4 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-400 transition-colors group-hover:border-white/25 group-hover:text-white">
-                  <feature.icon className="h-4 w-4" />
-                </span>
-                <h3 className="mb-2 font-medium text-white">{feature.title}</h3>
-                <p className="text-sm leading-relaxed text-zinc-500">{feature.body}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Collaboration */}
-      <section id="collaboration" className="scroll-mt-20 border-y border-white/5 bg-white/[0.015] py-16 sm:py-24 lg:py-28">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-8 lg:grid-cols-2 lg:gap-12">
+        {/* Clients */}
+        <section className={`${rule} px-6 py-14 sm:px-12 sm:py-20`}>
           <Reveal>
-            <p className="mb-3 text-xs uppercase tracking-[0.18em] text-zinc-500">
-              Collaboration
+            <p className="mx-auto max-w-xl text-center text-base leading-relaxed text-zinc-400 sm:text-lg">
+              One shared workspace, available through MCP wherever your agents work.
             </p>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-white sm:text-3xl lg:text-4xl">
-              Conflict-free by construction
-            </h2>
-            <p className="mt-5 text-base leading-relaxed text-zinc-400">
-              Every page is a CRDT. Edits from different people merge deterministically, so
-              there is no last-write-wins, no locked documents, and no &quot;someone else is
-              editing&quot; dialog. Changes sync over plain HTTP on a short adaptive interval —
-              fast when the room is busy, quiet when it isn&apos;t.
-            </p>
-            <ul className="mt-7 space-y-3 text-sm text-zinc-400">
-              {[
-                "Edits survive a dropped connection and replay on reconnect",
-                "Local-first: your draft is on your machine before it is anywhere else",
-                "Presence shows who else has the page open right now",
-                "Polling backs off when the tab is hidden, so idle tabs cost nothing",
-              ].map((item) => (
-                <li key={item} className="flex gap-3">
-                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-zinc-500" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-
-          <Reveal delay={120} className="rounded-xl border border-white/10 bg-[#141414] p-6">
-            <div className="mb-5 flex items-center justify-between">
-              <span className="text-xs uppercase tracking-[0.18em] text-zinc-600">Live now</span>
-              <span className="flex items-center gap-1.5 text-xs text-zinc-400">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-zinc-400 opacity-50" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-zinc-400" />
-                </span>
-                Synced
-              </span>
-            </div>
-            <div className="space-y-3">
-              {[
-                { who: "Maya", what: "added a heading", tone: "bg-[#4d4d4a]" },
-                { who: "Kabir", what: "edited paragraph 3", tone: "bg-[#3f4448]" },
-                { who: "Claude", what: "appended notes via MCP", tone: "bg-[#4a4340]" },
-              ].map((row) => (
-                <div
-                  key={row.who}
-                  className="flex items-center gap-3 rounded-lg border border-white/5 bg-[#191919] px-3 py-2.5"
-                >
-                  <span
-                    className={`grid h-7 w-7 shrink-0 place-items-center rounded-md text-[11px] font-semibold text-zinc-100 ${row.tone}`}
-                  >
-                    {row.who[0]}
-                  </span>
-                  <span className="shrink-0 text-sm text-zinc-300">{row.who}</span>
-                  <span className="truncate text-sm text-zinc-600">{row.what}</span>
+            <div className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
+              {clientLogos.map(({ name, Icon }) => (
+                <div key={name} className="flex items-center justify-center gap-3 text-xl text-zinc-500 sm:text-2xl">
+                  <Icon className="h-6 w-6 shrink-0 sm:h-7 sm:w-7" />
+                  {name}
                 </div>
               ))}
             </div>
           </Reveal>
-        </div>
-      </section>
+        </section>
 
-      {/* MCP */}
-      <section id="mcp" className="scroll-mt-20 py-16 sm:py-24 lg:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-8">
+        {/* Assistant */}
+        <section id="assistant" className={`${rule} scroll-mt-10 px-6 py-16 sm:px-12 sm:py-24`}>
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
+            <Reveal>
+              <h2 className={h2}>
+                An assistant that lives{" "}
+                <span className="text-zinc-500">in your workspace.</span>
+              </h2>
+              <p className="mt-6 max-w-md text-[15px] leading-[1.75] text-zinc-400">
+                Press ⌘J and a console slides up. Ask for a plan, a summary or a cleanup, and watch
+                it search, read and write your pages step by step. Qubit keeps you company in the
+                corner while it works.
+              </p>
+              <ul className="mt-7 space-y-3 text-[15px] text-zinc-400">
+                {[
+                  "Runs on your own Anthropic, OpenAI or Gemini key",
+                  "Keys are encrypted and never sent back to the browser",
+                  "Creates and edits pages, never deletes or shares them",
+                ].map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-[11px] h-1 w-1 shrink-0 rounded-full bg-zinc-500" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+            <Reveal delay={100}>
+              <AssistantShowcase />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Shared memory */}
+        <section id="memory" className={`${rule} scroll-mt-10 px-6 py-16 sm:px-12 sm:py-24`}>
+          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
+            <Reveal>
+              <h2 className={h2}>
+                One workspace for every agent{" "}
+                <span className="text-zinc-500">that touches the work.</span>
+              </h2>
+              <p className="mt-6 max-w-md text-[15px] leading-[1.75] text-zinc-400">
+                Decisions, drafts and next steps live in your pages. Any assistant you connect
+                picks up exactly where the last one stopped.
+              </p>
+              <a
+                href="/auth/signup"
+                className="mt-8 inline-flex items-center gap-2 text-[15px] text-zinc-100 transition-opacity hover:opacity-70"
+              >
+                Connect an agent
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </Reveal>
+            <Reveal delay={100}>
+              <MemoryHub />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section id="features" className={`${rule} scroll-mt-10 px-6 py-16 sm:px-12 sm:py-24`}>
           <Reveal className="max-w-2xl">
-            <p className="mb-3 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-zinc-500">
-              <Bot className="h-3.5 w-3.5" />
-              Model Context Protocol
-            </p>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-white sm:text-3xl lg:text-4xl">
-              Your notes, as a tool your assistant can call
+            <h2 className={h2}>
+              Keep the work connected <span className="text-zinc-500">across every handoff.</span>
             </h2>
-            <p className="mt-4 text-[15px] leading-relaxed text-zinc-400 sm:mt-5 sm:text-base">
-              Quote exposes a first-class MCP server over streamable HTTP. Generate a personal
-              token, paste one config block, and Claude Code, ChatGPT, or Gemini can search,
-              read, and write your pages — inside the same workspaces your teammates use.
+          </Reveal>
+
+          <div className="mt-14 space-y-20 sm:mt-20 sm:space-y-28">
+            {chapters.map((chapter) => (
+              <Reveal key={chapter.title}>
+                <div className="mx-auto mb-8 max-w-xl text-center sm:mb-10">
+                  <h3 className="text-2xl font-normal tracking-[-0.04em] text-zinc-100 sm:text-4xl">{chapter.title}</h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-zinc-500">{chapter.body}</p>
+                </div>
+                <FeaturePanel chip={<chapter.chip />} tone={chapter.tone}>
+                  <chapter.mock />
+                </FeaturePanel>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="mt-20 grid gap-x-10 gap-y-8 border-t border-dotted border-white/[0.12] pt-10 sm:mt-28 sm:grid-cols-2 lg:grid-cols-4">
+            {details.map((item, index) => (
+              <Reveal key={item.title} delay={index * 60}>
+                <h3 className="text-sm font-medium text-zinc-100">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-zinc-500">{item.body}</p>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* MCP */}
+        <section id="mcp" className={`${rule} scroll-mt-10 px-6 py-16 sm:px-12 sm:py-24`}>
+          <Reveal className="max-w-2xl">
+            <h2 className={h2}>
+              Your notes, as a tool <span className="text-zinc-500">your assistant can call.</span>
+            </h2>
+            <p className="mt-6 max-w-lg text-[15px] leading-[1.75] text-zinc-400">
+              Generate a personal token, paste one config block, and your assistant can search,
+              read and write pages inside the same workspaces your teammates use.
             </p>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 sm:mt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-8">
+          <div className="mt-12 grid gap-8 sm:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
             <Reveal className="min-w-0">
-              <div className="grid gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10">
+              <div className="divide-y divide-dotted divide-white/[0.12] border-y border-dotted border-white/[0.12]">
                 {mcpTools.map((tool) => (
-                  <div key={tool.name} className="min-w-0 bg-[#0F0F10] px-4 py-3.5 sm:px-5 sm:py-4">
-                    <code className="break-all font-mono text-[13px] font-medium text-zinc-200 sm:text-sm">
-                      {tool.name}
-                    </code>
-                    <p className="mt-1 text-[13px] leading-relaxed text-zinc-500 sm:text-sm">{tool.body}</p>
+                  <div key={tool.name} className="min-w-0 py-4">
+                    <code className="break-all font-mono text-[13px] text-zinc-100">{tool.name}</code>
+                    <p className="mt-1 text-sm leading-relaxed text-zinc-500">{tool.body}</p>
                   </div>
                 ))}
               </div>
-              <p className="mt-4 flex items-start gap-2 text-[11px] leading-relaxed text-zinc-600 sm:text-xs">
-                <Blocks className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-                Tokens are hashed at rest, shown once, scoped to your account, and revocable
-                from Settings ▸ Connections.
+              <p className="mt-5 text-xs leading-relaxed text-zinc-500">
+                Tokens are hashed at rest, shown once, scoped to your account, and revocable from
+                Settings ▸ Connections.
               </p>
             </Reveal>
 
@@ -352,107 +306,86 @@ export default async function HomePage() {
               <McpSetup clients={clients} />
             </Reveal>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ */}
-      <section id="faq" className="scroll-mt-20 border-t border-white/5 py-16 sm:py-24 lg:py-28">
-        <div className="mx-auto max-w-3xl px-4 sm:px-8">
-          <Reveal>
-            <h2 className="text-2xl font-semibold tracking-[-0.02em] text-white sm:text-3xl lg:text-4xl">
-              Questions, answered
-            </h2>
-          </Reveal>
-          <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
-            {faqs.map((faq, index) => (
-              <Reveal key={faq.q} delay={index * 50}>
-                <details className="group py-5 [&_summary::-webkit-details-marker]:hidden">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-medium text-zinc-100">
-                    {faq.q}
-                    <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-white/10 text-zinc-500 transition-transform duration-300 group-open:rotate-45">
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-3 text-sm leading-relaxed text-zinc-500">{faq.a}</p>
-                </details>
-              </Reveal>
-            ))}
+        {/* FAQ */}
+        <section id="faq" className={`${rule} scroll-mt-10 px-6 py-16 sm:px-12 sm:py-24`}>
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+            <Reveal>
+              <h2 className={h2}>
+                Questions, <span className="text-zinc-500">answered.</span>
+              </h2>
+            </Reveal>
+            <div className="divide-y divide-dotted divide-white/[0.12] border-y border-dotted border-white/[0.12]">
+              {faqs.map((faq, index) => (
+                <Reveal key={faq.q} delay={index * 50}>
+                  <details className="group py-5 [&_summary::-webkit-details-marker]:hidden">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left text-[15px] text-zinc-100">
+                      {faq.q}
+                      <span className="grid h-6 w-6 shrink-0 place-items-center text-zinc-500 transition-transform duration-300 group-open:rotate-45">
+                        +
+                      </span>
+                    </summary>
+                    <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-500">{faq.a}</p>
+                  </details>
+                </Reveal>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="px-4 pb-16 sm:px-8 sm:pb-24">
-        <Reveal className="relative mx-auto max-w-6xl overflow-hidden rounded-2xl border border-white/10 bg-[#141414] px-5 py-12 text-center sm:px-12 sm:py-16">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 -top-24 h-64 bg-[radial-gradient(50%_60%_at_50%_0%,rgba(255,255,255,0.06),transparent_70%)]"
-          />
-          <h2 className="relative text-2xl font-semibold tracking-[-0.02em] text-white sm:text-3xl lg:text-4xl">
-            Start a workspace in about ten seconds
-          </h2>
-          <p className="relative mx-auto mt-4 max-w-xl text-zinc-400">
-            Create an account, make a page, invite whoever needs it. Wire up your AI whenever
-            you feel like it.
-          </p>
-          <div className="relative mt-8 flex flex-col justify-center gap-2.5 sm:flex-row sm:gap-3">
-            <Link href="/auth/signup">
-              <Button
-                size="lg"
-                className="group h-11 w-full bg-white px-6 text-zinc-900 transition-all hover:bg-zinc-100 active:scale-[0.98] sm:w-auto"
+        {/* Closing */}
+        <section className={`${rule} px-6 py-16 sm:px-12 sm:py-24`}>
+          <Reveal className="max-w-2xl">
+            <h2 className={h2}>
+              Start a workspace <span className="text-zinc-500">in about ten seconds.</span>
+            </h2>
+            <div className="mt-9 flex flex-wrap items-center gap-6">
+              <Link
+                href="/auth/signup"
+                className="group inline-flex h-12 items-center gap-2.5 rounded-lg bg-gradient-to-b from-zinc-50 to-zinc-300 px-6 text-[15px] text-zinc-900 shadow-[0_0_0_3px_rgba(255,255,255,0.08),0_14px_30px_-12px_rgba(255,255,255,0.25),inset_0_1px_0_#fff] transition-transform active:scale-[0.98]"
               >
                 Create your workspace
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
-            </Link>
-            <Link href="/auth/signin">
-              <Button
-                size="lg"
-                variant="outline"
-                className="h-11 w-full border-white/15 bg-transparent px-6 text-zinc-200 hover:bg-white/5 hover:text-white sm:w-auto"
-              >
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <Link href="/auth/signin" className="inline-flex items-center gap-2 text-[15px] text-zinc-400 transition-colors hover:text-zinc-100">
                 I already have an account
-              </Button>
-            </Link>
-          </div>
-        </Reveal>
-      </section>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </Reveal>
+        </section>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5">
-        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <div>
-            <Logo wordClassName="text-white" />
-            <p className="mt-3 max-w-xs text-xs leading-relaxed text-zinc-600">
-              {siteConfig.shortDescription}
-            </p>
+        {/* Footer */}
+        <footer className={`${rule} relative overflow-hidden px-6 pt-12 sm:px-12 sm:pt-14`}>
+          <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+            <div>
+              <Logo wordClassName="text-zinc-100 font-medium text-lg" />
+              <p className="mt-4 max-w-[16rem] text-[15px] leading-relaxed text-zinc-500">
+                {siteConfig.shortDescription}
+              </p>
+            </div>
+            <nav className="flex flex-wrap items-center gap-x-8 gap-y-3 text-[15px] text-zinc-400">
+              <a href="#assistant" className="transition-colors hover:text-zinc-100">Assistant</a>
+              <a href="#memory" className="transition-colors hover:text-zinc-100">Memory</a>
+              <a href="#features" className="transition-colors hover:text-zinc-100">How it works</a>
+              <a href="#mcp" className="transition-colors hover:text-zinc-100">MCP</a>
+              <a href="#faq" className="transition-colors hover:text-zinc-100">FAQ</a>
+              <Link href="/auth/signin" className="transition-colors hover:text-zinc-100">Sign in</Link>
+            </nav>
           </div>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-zinc-600">
-            <a href="#features" className="transition-colors hover:text-zinc-300">
-              Features
-            </a>
-            <a href="#mcp" className="transition-colors hover:text-zinc-300">
-              MCP
-            </a>
-            <a href="#faq" className="transition-colors hover:text-zinc-300">
-              FAQ
-            </a>
-            <Link href="/auth/signin" className="transition-colors hover:text-zinc-300">
-              Sign in
-            </Link>
-            <span className="flex items-center gap-1.5">
-              <Globe className="h-3 w-3" />
-              Self-hosted
-            </span>
+          <div className="mt-14 flex items-center justify-between text-sm text-zinc-600">
+            <span>© {new Date().getFullYear()} {siteConfig.name}</span>
+            <a href="#top" className="transition-colors hover:text-zinc-300">Back to top ↑</a>
           </div>
-        </div>
-        <div className="border-t border-white/5 px-4 py-5 sm:px-8">
-          <p className="mx-auto max-w-6xl text-[11px] text-zinc-700">
-            © {new Date().getFullYear()} {siteConfig.name}. Built with Next.js, Yjs, TipTap and
-            Postgres.
+          <p
+            aria-hidden
+            className="pointer-events-none -mb-[0.22em] mt-4 select-none text-center text-[34vw] font-medium leading-[0.8] tracking-[-0.06em] text-white/[0.04] sm:text-[19rem]"
+          >
+            quote
           </p>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }

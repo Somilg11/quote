@@ -2,6 +2,9 @@
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'react-icons', 'date-fns'],
+  },
   images: {
     // Page images are arbitrary user-supplied URLs, so they are served as-is.
     unoptimized: true,
@@ -28,6 +31,13 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains' },
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+          { key: 'X-DNS-Prefetch-Control', value: 'off' },
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self'; base-uri 'self'; object-src 'none'",
+          },
         ],
       },
       {

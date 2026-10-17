@@ -2,6 +2,9 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { Sidebar } from "@/components/workspace/sidebar";
+import { AiAssistantLazy } from "@/components/workspace/ai-assistant-lazy";
+import { StatusBar } from "@/components/workspace/status-bar";
+import { Mascot } from "@/components/workspace/mascot";
 import { pageSummarySelect } from "@/lib/types";
 import { ReactNode } from "react";
 
@@ -48,12 +51,23 @@ export default async function WorkspaceLayout({
     orderBy: { updatedAt: "desc" },
   });
 
+  // The AI table may not be migrated yet; the bar simply shows "Add AI key" then.
+  const assistant = await prisma.aiConnection
+    .findFirst({ where: { userId, isDefault: true }, select: { model: true } })
+    .catch(() => null);
+  const workspaceName = workspaces.find((w) => w.id === workspaceId)?.name ?? "Workspace";
+
   return (
-    <div className="flex min-h-screen flex-col bg-[#191919] text-[#f1f1ef] md:h-screen md:flex-row">
-      <Sidebar workspaceId={workspaceId} workspaces={workspaces} pages={pages} />
-      <main className="min-w-0 flex-1 overflow-y-auto bg-[#191919]">
-        {children}
-      </main>
+    <div className="flex h-dvh flex-col bg-[#191919] font-[family-name:var(--font-poppins)] text-[#f1f1ef]">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto md:flex-row md:overflow-hidden">
+        <Sidebar workspaceId={workspaceId} workspaces={workspaces} pages={pages} />
+        <main className="min-w-0 flex-1 bg-[#191919] md:overflow-y-auto">
+          {children}
+        </main>
+      </div>
+      <StatusBar workspaceName={workspaceName} pageCount={pages.length} model={assistant?.model ?? null} />
+      <AiAssistantLazy workspaceId={workspaceId} />
+      <Mascot />
     </div>
   );
 }

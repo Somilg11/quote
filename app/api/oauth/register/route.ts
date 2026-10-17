@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { randomBytes } from "crypto";
 import { prisma } from "@/lib/prisma";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { isAllowedRedirectUri, normalizeScopes, pruneExpired } from "@/lib/oauth/server";
 
 /**
@@ -29,6 +30,14 @@ const invalid = (description: string) =>
   );
 
 export async function POST(request: Request) {
+  const limited = rateLimit(`oauth-register:${clientIp(request)}`, 10, 60 * 60_000);
+  if (!limited.ok) {
+    return NextResponse.json(
+      { error: "temporarily_unavailable", error_description: "Too many registrations. Try again later." },
+      { status: 429, headers: { ...CORS, "Retry-After": String(limited.retryAfter) } }
+    );
+  }
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();

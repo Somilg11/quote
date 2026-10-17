@@ -99,10 +99,18 @@ export async function POST(request: Request) {
       return fail("invalid_grant", "PKCE verification failed.");
     }
 
-    await prisma.oAuthAuthorizationCode.update({
-      where: { id: record.id },
+    // Atomic: of two concurrent redemptions, only one flips consumedAt.
+    const claimed = await prisma.oAuthAuthorizationCode.updateMany({
+      where: { id: record.id, consumedAt: null },
       data: { consumedAt: new Date() },
     });
+    if (claimed.count !== 1) {
+      await prisma.oAuthToken.updateMany({
+        where: { clientId, userId: record.userId, revokedAt: null },
+        data: { revokedAt: new Date() },
+      });
+      return fail("invalid_grant", "That code was already used.");
+    }
 
     const tokens = await issueTokens({
       clientId,
@@ -110,6 +118,7 @@ export async function POST(request: Request) {
       scopes: record.scopes,
       resource: record.resource ?? resourceUrl(origin),
     });
+    if (!tokens) return fail("invalid_grant", "That code could not be redeemed.");
 
     return NextResponse.json(tokens, { headers: NO_STORE });
   }
@@ -138,7 +147,9 @@ export async function POST(request: Request) {
         : grant.scopes,
       resource: grant.resource,
       replaceTokenId: grant.id,
+      replaceRefreshHash: grant.refreshTokenHash ?? undefined,
     });
+    if (!tokens) return fail("invalid_grant", "That refresh token was already used.");
 
     return NextResponse.json(tokens, { headers: NO_STORE });
   }

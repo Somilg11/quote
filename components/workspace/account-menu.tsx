@@ -12,7 +12,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { LogOut, Plug } from "lucide-react";
+import { LogOut, Settings } from "lucide-react";
+import { SiModelcontextprotocol as Plug } from "react-icons/si";
 
 interface AccountMenuProps {
   user: {
@@ -56,9 +57,15 @@ export function AccountMenu({ user }: AccountMenuProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-[#3a3a3a]" />
         <DropdownMenuItem asChild className="gap-2 rounded-md focus:bg-[#333333] focus:text-white">
+          <Link href="/settings/appearance">
+            <Settings className="h-4 w-4" />
+            Settings
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="gap-2 rounded-md focus:bg-[#333333] focus:text-white">
           <Link href="/settings/connections">
             <Plug className="h-4 w-4" />
-            Connections &amp; API tokens
+            MCP connections
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem

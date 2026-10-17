@@ -70,6 +70,7 @@ model User {
   apiTokens          ApiToken[]
   oauthGrants        OAuthAuthorizationCode[]
   oauthTokens        OAuthToken[]
+  aiConnections      AiConnection[]
 
   @@index([email])
 }
@@ -278,4 +279,26 @@ model OAuthToken {
   @@index([clientId])
   @@index([userId])
   @@index([expiresAt])
+}
+
+// Bring-your-own-key AI assistant. Each user stores their own provider key; the
+// server never has a key of its own. The key is AES-256-GCM encrypted (bound to
+// the owning user id) and is never returned to the browser after it is saved.
+model AiConnection {
+  id           String    @id @default(cuid())
+  userId       String
+  provider     String    // "anthropic" | "openai" | "google"
+  model        String
+  encryptedKey String
+  /// Last four characters, so a key can be recognised in the UI without decrypting.
+  keyHint      String
+  isDefault    Boolean   @default(false)
+  lastUsedAt   DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, provider])
+  @@index([userId])
 }

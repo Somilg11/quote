@@ -6,8 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Spinner } from '@/components/ui/spinner';
-import { ArrowRight } from 'lucide-react';
-import { Logo } from '@/components/brand/logo';
+import { AuthShell, authButtonClass, authInputClass, authLabelClass } from '@/components/auth/auth-shell';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -56,28 +55,27 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#191919] px-4 py-6 text-[#f1f1ef] sm:px-6">
-      <Link href="/" className="inline-flex rounded-md px-2 py-1 transition-opacity hover:opacity-80">
-        <Logo />
-      </Link>
-      <div className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-sm items-center">
-        <div className="w-full rounded-md border border-[#2f2f2f] bg-[#202020] p-5 shadow-2xl sm:p-6">
-          <div className="mb-8">
-            <h1 className="mb-2 text-3xl font-semibold tracking-tight">Create account</h1>
-            <p className="text-sm leading-6 text-[#b8b8b8]">
-              Join Quote to write together in real time.
-            </p>
-        </div>
-
-        <form onSubmit={onSubmit} className="space-y-4">
+    <AuthShell
+      title="Start writing together."
+      subtitle="Create your Quote account."
+      footer={
+        <>
+          Already have an account?{' '}
+          <Link href="/auth/signin" className="text-zinc-100 underline-offset-4 hover:underline">
+            Sign in
+          </Link>
+        </>
+      }
+    >
+      <form onSubmit={onSubmit} className="space-y-4">
           {error && (
-            <div className="rounded-md border border-[#6f302d] bg-[#3a2928] p-3 text-sm text-[#ffb4ae]">
+            <div className="rounded-xl border border-[#6f302d] bg-[#3a2928] p-3 text-[13px] text-[#ffb4ae]">
               {error}
             </div>
           )}
 
           <div>
-            <label className="block text-sm font-medium text-[#d4d4d4] mb-1">
+            <label className={authLabelClass}>
               Name
             </label>
             <Input
@@ -86,12 +84,12 @@ export default function SignUpPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="border-[#3f3f3f] bg-[#191919] text-[#f1f1ef] placeholder:text-[#858585]"
+              className={authInputClass}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#d4d4d4] mb-1">
+            <label className={authLabelClass}>
               Email
             </label>
             <Input
@@ -100,12 +98,12 @@ export default function SignUpPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="border-[#3f3f3f] bg-[#191919] text-[#f1f1ef] placeholder:text-[#858585]"
+              className={authInputClass}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#d4d4d4] mb-1">
+            <label className={authLabelClass}>
               Password
             </label>
             <Input
@@ -114,12 +112,12 @@ export default function SignUpPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="border-[#3f3f3f] bg-[#191919] text-[#f1f1ef] placeholder:text-[#858585]"
+              className={authInputClass}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#d4d4d4] mb-1">
+            <label className={authLabelClass}>
               Confirm Password
             </label>
             <Input
@@ -128,27 +126,18 @@ export default function SignUpPage() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              className="border-[#3f3f3f] bg-[#191919] text-[#f1f1ef] placeholder:text-[#858585]"
+              className={authInputClass}
             />
           </div>
 
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-[#f1f1ef] text-[#202020] hover:bg-white"
+            className={authButtonClass}
           >
-            {isLoading ? <Spinner className="h-4 w-4" /> : <>Sign up <ArrowRight className="h-4 w-4" /></>}
+            {isLoading ? <Spinner className="h-4 w-4" /> : "Sign up"}
           </Button>
         </form>
-
-        <div className="mt-6 text-center text-sm text-[#b8b8b8]">
-          Already have an account?{' '}
-          <Link href="/auth/signin" className="font-semibold text-[#f1f1ef] hover:underline">
-            Sign in
-          </Link>
-        </div>
-        </div>
-      </div>
-    </div>
+    </AuthShell>
   );
 }

@@ -1,13 +1,19 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Poppins } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { AuthSessionProvider } from '@/components/providers/session-provider'
 import { Toaster } from '@/components/ui/sonner'
 import { brand, siteConfig } from '@/lib/brand'
+import { PREFS_BOOT_SCRIPT } from '@/lib/preferences'
 import './globals.css'
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-poppins',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -69,9 +75,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`dark bg-background ${geist.variable} ${geistMono.variable}`}
+      className={`dark bg-background ${geist.variable} ${geistMono.variable} ${poppins.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: PREFS_BOOT_SCRIPT }} />
+      </head>
       <body className="font-sans antialiased bg-background text-foreground">
         <AuthSessionProvider>{children}</AuthSessionProvider>
         <Toaster />

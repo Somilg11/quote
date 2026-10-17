@@ -1,8 +1,5 @@
-<svg width="132" height="32" viewBox="0 0 132 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="32" height="32" rx="8" fill="#F7F7F5"/>
-  <g fill="#191919" transform="translate(3.2 0) skewX(-10)">
-    <rect x="7.6" y="8.5" width="4.6" height="15" rx="2.3"/>
-    <rect x="15.4" y="8.5" width="4.6" height="15" rx="2.3"/>
-  </g>
-  <text x="42" y="22.5" font-family="Geist, Inter, system-ui, sans-serif" font-size="19" font-weight="600" letter-spacing="-0.6" fill="currentColor">Quote</text>
+<svg width="104" height="32" viewBox="0 0 104 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="6" fill="#F7F7F5"/>
+  <g fill="#111111"><rect x="9.6" y="7" width="12.8" height="3.2" rx="0.8"/><rect x="7" y="9" width="3.8" height="13.6" rx="0.8"/><rect x="21.2" y="9" width="3.8" height="6.8" rx="0.8"/><rect x="9.6" y="21.4" width="6.3" height="3.6" rx="0.8"/><rect x="18.3" y="18.3" width="6.7" height="6.7" rx="0.8"/></g>
+  <text x="42" y="22.5" font-family="Poppins, Geist, Inter, system-ui, sans-serif" font-size="19" font-weight="500" letter-spacing="-0.7" fill="currentColor">quote</text>
 </svg>

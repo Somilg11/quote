@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { generateToken } from "@/lib/mcp/auth";
+import { rateLimit } from "@/lib/rate-limit";
 
 /** Personal API tokens used by MCP clients. */
 
@@ -24,8 +25,19 @@ export async function POST(request: Request) {
   const userId = (session?.user as { id?: string } | undefined)?.id;
   if (!userId) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
+  const limited = rateLimit(`token-create:${userId}`, 10, 60 * 60_000);
+  if (!limited.ok) {
+    return NextResponse.json(
+      { message: "Too many tokens created. Try again later." },
+      { status: 429, headers: { "Retry-After": String(limited.retryAfter) } }
+    );
+  }
+
   const body = await request.json().catch(() => ({}));
   const name = String(body?.name ?? "").trim() || "MCP client";
+  if (name.length > 80) {
+    return NextResponse.json({ message: "Name must be 80 characters or fewer" }, { status: 400 });
+  }
 
   const active = await prisma.apiToken.count({ where: { userId, revokedAt: null } });
   if (active >= 20) {
@@ -35,9 +47,13 @@ export async function POST(request: Request) {
     );
   }
 
-  const days = Number(body?.expiresInDays);
-  const expiresAt =
-    Number.isFinite(days) && days > 0 ? new Date(Date.now() + days * 86_400_000) : null;
+  const rawDays = body?.expiresInDays;
+  const hasExpiry = rawDays !== undefined && rawDays !== null && rawDays !== "";
+  const days = Number(rawDays);
+  if (hasExpiry && (!Number.isInteger(days) || days < 1 || days > 365)) {
+    return NextResponse.json({ message: "expiresInDays must be an integer from 1 to 365" }, { status: 400 });
+  }
+  const expiresAt = hasExpiry ? new Date(Date.now() + days * 86_400_000) : null;
 
   const { token, tokenHash, prefix } = generateToken();
 
